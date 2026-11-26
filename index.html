@@ -284,17 +284,17 @@ p{margin:0}
 .dopt[aria-pressed="true"] .do-check{background:var(--pink);border-color:var(--pink);color:#fff}
 .dates-grid.full .dopt[aria-pressed="false"]{opacity:.55}
 .dates-note{font-family:var(--display);font-size:26px;color:var(--sun);min-height:30px;margin-top:12px}
-.coupon-sheet{margin-top:18px;background:var(--paper);color:var(--ink);border-radius:22px;padding:18px;box-shadow:0 0 0 5px var(--paper),3px 6px 0 6px rgba(43,10,28,.35);animation:fadeIn .5s ease}
+.coupon-sheet{margin-top:18px;background:var(--paper);color:var(--ink);border-radius:22px;padding:14px;box-shadow:0 0 0 5px var(--paper),3px 6px 0 6px rgba(43,10,28,.35);animation:fadeIn .5s ease}
 .cs-head{display:flex;gap:12px;align-items:center;margin-bottom:14px}
-.cs-head span{width:96px;flex:none}
-.cs-head b{font-family:var(--display);font-size:32px;line-height:1;display:block}
+.cs-head span{width:78px;flex:none}
+.cs-head b{font-family:var(--display);font-size:28px;line-height:1;display:block}
 .cs-head p{color:var(--ink-soft);font-size:14px}
-.cs-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
-.cs-coupon{display:flex;gap:8px;align-items:center;padding:8px 10px;border:2px dashed var(--space);border-radius:12px;background:#fdf3d6;min-width:0}
-.cs-art{width:38px;flex:none;display:flex;justify-content:center}
-.cs-art svg{max-height:36px;width:auto;max-width:38px}
-.cs-coupon small{display:block;font-size:10px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:var(--space)}
-.cs-coupon b{font-family:var(--display);font-size:19px;line-height:1.05;display:block}
+.cs-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px}
+.cs-coupon{display:flex;flex-direction:column;gap:3px;align-items:center;text-align:center;padding:7px 6px 8px;border:2px dashed var(--space);border-radius:12px;background:#fdf3d6;min-width:0}
+.cs-art{width:34px;flex:none;display:flex;justify-content:center}
+.cs-art svg{max-height:30px;width:auto;max-width:34px}
+.cs-coupon small{display:block;font-size:9px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:var(--space)}
+.cs-coupon b{font-family:var(--display);font-size:17px;line-height:1;display:block}
 .cs-foot{text-align:center;color:var(--ink-soft);font-size:13px;margin-top:12px}
 
 /* ---------- fortune ---------- */
@@ -675,9 +675,9 @@ footer{text-align:center;color:var(--chalk-dim);font-size:14px;padding-block:0 4
   <!-- 10 побачень -->
   <section class="wrap" id="datesSec">
     <p class="eyebrow">Наш наступний рік</p>
-    <h2>Збери 10 побачень</h2>
-    <p class="sub">Обери з цього списку рівно 10 побачень, які хочеш у наступному році. Отримаєш купони: зроби скріншот і пред'являй кітику, коли захочеш.</p>
-    <div class="dates-bar"><span id="datesCount">Обрано 0 з 10</span><button class="btn pink" id="datesDone" disabled>Отримати купони</button></div>
+    <h2>Збери 15 побачень</h2>
+    <p class="sub">Обери з цього списку рівно 15 побачень, які хочеш у наступному році. Є й такі, яких у нас ще не було. Отримаєш купони: зроби скріншот і пред'являй кітику, коли захочеш.</p>
+    <div class="dates-bar"><span id="datesCount">Обрано 0 з 15</span><button class="btn pink" id="datesDone" disabled>Отримати купони</button></div>
     <div class="dates-grid" id="datesGrid"></div>
     <p class="dates-note" id="datesNote" aria-live="polite"></p>
     <div class="coupon-sheet" id="couponSheet" hidden>
@@ -745,8 +745,8 @@ footer{text-align:center;color:var(--chalk-dim);font-size:14px;padding-block:0 4
   <section class="wrap future">
     <span class="future-cats float" data-art="catsTogether"></span>
     <p class="eyebrow">Далі буде</p>
-    <h2>Нас обов'язково чекає щасливе майбутнє</h2>
-    <p class="future-text">Наша планетка зробила перше коло навколо сонця. Попереду нові міста й світанки, побачення з купонів, ще більше прогулянок Києвом і подорожей. Я не знаю всього, що на нас чекає, але точно знаю головне: ми будемо разом.</p>
+    <h2>Сезон 1 завершено. Сезон 2 уже знімається</h2>
+    <p class="future-text">Наша планетка зробила перше коло навколо сонця. У наступному сезоні: нові міста й світанки, побачення з купонів, прогулянки Києвом і подорожі. Спойлерів не буде, скажу тільки головне: головні ролі ті самі, кітик і кицюня. І цей сезон буде ще кращим.</p>
     <p class="future-sign">Твій кітик</p>
   </section>
 
@@ -812,7 +812,7 @@ const CONFIG = {
     { art: "chestnut", name: "Хрещатик", note: "головна вулиця міста" },
     { art: "bench", name: "Парк Шевченка", note: "лавочки й розмови" },
     { art: "bench", name: "Маріїнський парк", note: "тихі алеї біля Ради" },
-    { art: "metro", name: "Арсенальна", note: "найглибше метро і найдовший ескалатор" },
+    { art: "fountain", name: "Арсенальна", note: "фуд-маркет, фонтани й літні вечори" },
     { art: "kpi", name: "КПІ", note: "тут був наш поцілунок" },
     { art: "hydropark", name: "Гідропарк", note: "вода і дерева" },
     { art: "sunrise", name: "Ботсад", note: "тут ми зустріли світанок" },
@@ -823,12 +823,12 @@ const CONFIG = {
   // вікторина: перша відповідь у кожному питанні правильна (на екрані перемішуються)
   quiz: [
     { q: "Хто гуляє зі мною по нашій планетці?", a: ["Кицюня", "Сусідський кіт", "Голуб з Хрещатика", "Містер Капібара (він ревнує)"] },
-    { q: "Хто світить мені навіть у найпохмуріший день?", a: ["Сонечко", "Ліхтарик на телефоні", "Лампочка в холодильнику", "Екран ноутбука"] },
-    { q: "Хто найніжніший і найпухнастіший у світі?", a: ["Зайка", "Goose", "Плед", "Кактус Тревіса"] },
-    { q: "Що я відчуваю, коли ти поруч?", a: ["Моє щастя", "Легкий голод", "Бажання поспати", "Нічого особливого"] },
-    { q: "А якщо зовсім серйозно: хто ти для мене?", a: ["Сенс мого буття", "Знайома з концерту", "Підписниця в інстаграмі", "Сусідка по парті"] }
+    { q: "Хто світить мені навіть у найпохмуріший день?", a: ["Моє сонечко", "Ліхтарик на телефоні", "Лампочка в холодильнику", "Екран ноутбука"] },
+    { q: "Хто найніжніший і найпухнастіший у світі?", a: ["Моя зайка", "Goose", "Плед", "Кактус Тревіса"] },
+    { q: "Хто ти для мене?", a: ["Моє щастя", "Подруга з концерту", "Партнерка по настолках", "Просто сусідка по планетці"] },
+    { q: "А якщо зовсім-зовсім серйозно?", a: ["Сенс мого буття", "Підписниця в інстаграмі", "Сусідка по парті", "Головна фанатка Goose"] }
   ],
-  quizFinal: "5 з 5! Ти моя кицюня, сонечко, зайка, моє щастя і сенс мого буття.",
+  quizFinal: "5 з 5! Ти моя кицюня, моє сонечко, моя зайка, моє щастя і сенс мого буття.",
 
   // що кажуть іграшки на полиці
   plush: {
@@ -864,7 +864,17 @@ const CONFIG = {
     { art: "carBlack", name: "Покатушки на машинках" },
     { art: "kinder", name: "Побачення-сюрприз, яке планую я" },
     { art: "heart", name: "День без телефонів, тільки ми" },
-    { art: "ball", name: "Вечір мрій: плануємо наше майбутнє" }
+    { art: "ball", name: "Вечір мрій: плануємо наше майбутнє" },
+    { art: "discoball", name: "Клуб і танці до ранку" },
+    { art: "key", name: "Квест-кімната: вибратися разом" },
+    { art: "mic", name: "Караоке, де ми співаємо найгучніше" },
+    { art: "bowling", name: "Боулінг на бажання" },
+    { art: "carGrey", name: "Картинг: хто швидший" },
+    { art: "climb", name: "Скалодром" },
+    { art: "vase", name: "Майстер-клас з кераміки" },
+    { art: "masks", name: "Стендап-вечір" },
+    { art: "balloon", name: "Політ на повітряній кулі" },
+    { art: "horseshoe", name: "Кінна прогулянка" }
   ],
 
   // передбачення кулі
@@ -874,7 +884,7 @@ const CONFIG = {
     "Ще більше світанків, прогулянок і концертів.",
     "Нові міста на нашій планетці.",
     "Ще багато поїздок у бесі під охороною Містера Капібари.",
-    "Ти й далі будеш найкрасивішою, а я найщасливішим."
+    "Ще сотні ранків, які починаються з тебе."
   ],
   finalProphecy: "А головне: ми будемо разом. Кітик перевірив."
 };
@@ -1290,6 +1300,44 @@ Object.assign(ART, {
     <ellipse cx="50" cy="40" rx="4" ry="2.4" fill="#ff6fa3" opacity=".55"/><ellipse cx="76" cy="40" rx="4" ry="2.4" fill="#ff6fa3" opacity=".55"/>
     <path d="M52 20 L55 10 L60 17 L63 7 L66 17 L71 10 L74 20Z" fill="#f7d24a" stroke="${INK}" stroke-width="1.8" stroke-linejoin="round"/>` },
 });
+Object.assign(ART, {
+  fountain: { vb: [100, 84], svg: `
+    <path d="M50 34 Q40 10 26 22 M50 34 Q60 10 74 22 M50 30 V8" fill="none" stroke="#8cc2ec" stroke-width="4" stroke-linecap="round"/>
+    <circle cx="50" cy="6" r="3" fill="#8cc2ec"/><circle cx="24" cy="26" r="2.5" fill="#8cc2ec"/><circle cx="76" cy="26" r="2.5" fill="#8cc2ec"/>
+    <path d="M38 40 H62 L58 50 H42Z" fill="#d8cfe0" stroke="${INK}" stroke-width="2" stroke-linejoin="round"/>
+    <rect x="46" y="50" width="8" height="14" fill="#d8cfe0" stroke="${INK}" stroke-width="2"/>
+    <path d="M8 64 H92 L86 80 H14Z" fill="#d8cfe0" stroke="${INK}" stroke-width="2.4" stroke-linejoin="round"/>
+    <path d="M14 64 q9 -5 18 0 t18 0 t18 0 t18 0" fill="#8cc2ec" stroke="${INK}" stroke-width="1.6"/>` },
+  discoball: { vb: [80, 90], svg: `
+    <path d="M40 2 V18" stroke="${INK}" stroke-width="2"/>
+    <circle cx="40" cy="52" r="32" fill="#c7c0cc" stroke="${INK}" stroke-width="2.4"/>
+    <path d="M8 52 H72 M12 36 H68 M12 68 H68 M40 20 V84 M24 24 Q18 52 24 80 M56 24 Q62 52 56 80" fill="none" stroke="#8e8796" stroke-width="1.5"/>
+    <rect x="44" y="30" width="10" height="8" fill="#fbf7f2"/><rect x="26" y="56" width="10" height="8" fill="#ff6fa3"/><rect x="48" y="58" width="9" height="8" fill="#8cc2ec"/><rect x="30" y="38" width="8" height="7" fill="#f7d24a"/>
+    <path d="M72 14 l2 5 l5 2 l-5 2 l-2 5 l-2 -5 l-5 -2 l5 -2z" fill="#f7d24a"/>` },
+  key: { vb: [90, 60], svg: `
+    <circle cx="22" cy="30" r="16" fill="#f2c84b" stroke="${INK}" stroke-width="2.4"/><circle cx="22" cy="30" r="6" fill="#7e1b4c" stroke="${INK}" stroke-width="1.8"/>
+    <path d="M38 26 H84 V34 H76 V44 H68 V34 H60 V42 H52 V34 H38Z" fill="#f2c84b" stroke="${INK}" stroke-width="2.2" stroke-linejoin="round"/>` },
+  bowling: { vb: [90, 90], svg: `
+    <path d="M30 6 Q40 6 40 18 Q40 26 36 30 Q46 46 44 64 Q42 84 30 84 Q18 84 16 64 Q14 46 24 30 Q20 26 20 18 Q20 6 30 6Z" fill="#fbf7f2" stroke="${INK}" stroke-width="2.2"/>
+    <path d="M22 32 H38 M23 37 H37" stroke="#e8352e" stroke-width="3"/>
+    <circle cx="62" cy="62" r="22" fill="#2448b8" stroke="${INK}" stroke-width="2.4"/>
+    <circle cx="56" cy="54" r="3" fill="${INK}"/><circle cx="66" cy="52" r="3" fill="${INK}"/><circle cx="62" cy="62" r="3" fill="${INK}"/>` },
+  balloon: { vb: [80, 100], svg: `
+    <path d="M40 4 C64 4 76 22 72 42 C68 58 54 66 50 72 H30 C26 66 12 58 8 42 C4 22 16 4 40 4Z" fill="#ff8a5c" stroke="${INK}" stroke-width="2.4"/>
+    <path d="M40 4 C30 20 30 50 36 72 M40 4 C50 20 50 50 44 72" fill="none" stroke="#f7d24a" stroke-width="5"/>
+    <path d="M30 72 L32 82 M50 72 L48 82" stroke="${INK}" stroke-width="1.8"/>
+    <rect x="28" y="82" width="24" height="14" rx="2" fill="#b9895a" stroke="${INK}" stroke-width="2"/>` },
+  vase: { vb: [70, 90], svg: `
+    <path d="M22 6 H48 V14 Q48 20 54 28 Q66 44 60 66 Q54 86 35 86 Q16 86 10 66 Q4 44 16 28 Q22 20 22 14Z" fill="#d9883e" stroke="${INK}" stroke-width="2.4"/>
+    <path d="M12 46 Q35 54 58 46 M10 60 Q35 68 60 60" fill="none" stroke="#fbf7f2" stroke-width="3"/>
+    <path d="M30 0 q-4 6 2 10" fill="none" stroke="#6aa83f" stroke-width="3"/>` },
+  climb: { vb: [80, 90], svg: `
+    <rect x="6" y="4" width="68" height="82" rx="8" fill="#9b8a72" stroke="${INK}" stroke-width="2.4"/>
+    <g stroke="${INK}" stroke-width="1.8"><circle cx="22" cy="20" r="6" fill="#ff6fa3"/><circle cx="52" cy="28" r="7" fill="#f7d24a"/><circle cx="30" cy="46" r="6" fill="#5ab0d8"/><circle cx="58" cy="58" r="6" fill="#7fb03a"/><circle cx="22" cy="72" r="7" fill="#f39a4b"/></g>` },
+  horseshoe: { vb: [80, 80], svg: `
+    <path d="M14 10 V40 Q14 72 40 72 Q66 72 66 40 V10 H52 V40 Q52 58 40 58 Q28 58 28 40 V10Z" fill="#c7c0cc" stroke="${INK}" stroke-width="2.4" stroke-linejoin="round"/>
+    <g fill="${INK}"><circle cx="21" cy="22" r="2"/><circle cx="21" cy="38" r="2"/><circle cx="59" cy="22" r="2"/><circle cx="59" cy="38" r="2"/><circle cx="30" cy="62" r="2"/><circle cx="50" cy="62" r="2"/></g>` },
+});
 function mouseSVG(bow) {
   return `
     <circle cx="22" cy="26" r="18" fill="#1d1b20" stroke="${INK}" stroke-width="2"/><circle cx="78" cy="26" r="18" fill="#1d1b20" stroke="${INK}" stroke-width="2"/>
@@ -1632,9 +1680,9 @@ document.querySelectorAll('[data-art]').forEach(el => el.innerHTML = sticker(el.
     floatHearts(...centerOf(b), 3);
   }));
 
-  /* ===== 10 побачень ===== */
+  /* ===== 15 побачень ===== */
   (() => {
-    const MAX = 10, chosen = [];
+    const MAX = 15, chosen = [];
     const grid = $('#datesGrid');
     const update = () => {
       $('#datesCount').textContent = `Обрано ${chosen.length} з ${MAX}`;
@@ -1650,7 +1698,7 @@ document.querySelectorAll('[data-art]').forEach(el => el.innerHTML = sticker(el.
       b.addEventListener('click', () => {
         const at = chosen.indexOf(i);
         if (at >= 0) { chosen.splice(at, 1); b.setAttribute('aria-pressed', 'false'); $('#datesNote').textContent = ''; }
-        else if (chosen.length >= MAX) { $('#datesNote').textContent = 'Уже 10! Зніми якесь, щоб обрати інше.'; return; }
+        else if (chosen.length >= MAX) { $('#datesNote').textContent = 'Уже 15! Зніми якесь, щоб обрати інше.'; return; }
         else { chosen.push(i); b.setAttribute('aria-pressed', 'true'); $('#datesNote').textContent = chosen.length === MAX ? 'Ідеально! Тепер натискай «Отримати купони».' : ''; }
         update();
       });
