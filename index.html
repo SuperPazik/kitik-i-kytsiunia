@@ -312,6 +312,7 @@ p{margin:0}
 /* ---------- game ---------- */
 .game-box{position:relative;margin-top:22px;border-radius:24px;overflow:hidden;background:radial-gradient(ellipse at 50% 120%,var(--space-soft),var(--space-deep) 70%);box-shadow:0 0 0 5px var(--paper),3px 6px 0 6px rgba(43,10,28,.35)}
 #cv{display:block;width:100%;height:420px;touch-action:none;cursor:none}
+#cv2{display:block;width:100%;height:320px;touch-action:manipulation;cursor:pointer;-webkit-user-select:none;user-select:none}
 .hud{position:absolute;top:12px;left:14px;right:14px;display:flex;justify-content:space-between;align-items:center;gap:10px;pointer-events:none}
 .score{background:var(--paper);color:var(--ink);border-radius:999px;padding:6px 14px;font-weight:800;font-variant-numeric:tabular-nums}
 .toast{font-family:var(--display);font-size:28px;color:var(--sun);opacity:0;transition:opacity .2s}
@@ -710,6 +711,22 @@ footer{text-align:center;color:var(--chalk-dim);font-size:14px;padding-block:0 4
     <button class="link" id="skip">Пропустити гру й одразу відкрити лист</button>
   </section>
 
+  <!-- гра з капібарою -->
+  <section class="wrap" id="game2Sec">
+    <p class="eyebrow">Ще одна міні-гра</p>
+    <h2>Містер Капібара за кермом</h2>
+    <p class="sub">Містер Капібара везе кицюню на побачення в сірій бесі. Натискай на екран, пробіл або стрілку вгору, щоб підстрибнути. Збери 10 сердечок і перестрибуй конуси, ями та Goose, який знову переходить дорогу не там, де треба.</p>
+    <div class="game-box" id="gameBox2">
+      <canvas id="cv2" aria-label="Гра: Містер Капібара їде на бесі й стрибає через перешкоди"></canvas>
+      <div class="hud"><span class="score">♥ <span id="score2">0</span>/10</span><span class="toast" id="toast2"></span><span class="score" id="lives2">♥♥♥</span></div>
+      <div class="overlay" id="ov2">
+        <p id="ov2Text">Містер Капібара заводить беху</p>
+        <small id="ov2Small">Три спроби, десять сердечок</small>
+        <button class="btn" id="start2">Поїхали!</button>
+      </div>
+    </div>
+  </section>
+
   <!-- лист -->
   <section class="wrap" id="letterSec" hidden>
     <div class="letter">
@@ -816,7 +833,6 @@ const CONFIG = {
     { art: "gates", name: "Золоті ворота", note: "вечірній центр і довгі розмови" },
     { art: "chestnut", name: "Хрещатик", note: "головна вулиця міста" },
     { art: "bench", name: "Парк Шевченка", note: "лавочки й розмови" },
-    { art: "bench", name: "Маріїнський парк", note: "тихі алеї біля Ради" },
     { art: "fountain", name: "Арсенальна", note: "фуд-маркет, фонтани й літні вечори" },
     { art: "kpi", name: "КПІ", note: "тут був наш поцілунок" },
     { art: "hydropark", name: "Гідропарк", note: "вода і дерева" },
@@ -874,8 +890,7 @@ const CONFIG = {
     { art: "discoball", name: "Клуб" },
     { art: "bowling", name: "Боулінг" },
     { art: "carGrey", name: "Картинг: хто швидший" },
-    { art: "capybara", name: "Контактний зоопарк з капібарами" },
-    { art: "slide", name: "Аквапарк і найкрутіші гірки" },
+    { art: "ferris", name: "Парк атракціонів" },
     { art: "vr", name: "VR-клуб: рятуємо світ у шоломах" },
     { art: "trampoline", name: "Батутний центр, стрибаємо як діти" },
     { art: "pan", name: "Готуємо разом щось нове за рецептом" }
@@ -1394,6 +1409,19 @@ Object.assign(ART, {
     <path d="M52 30 q6 -4 10 2" fill="none" stroke="#7fb03a" stroke-width="3" stroke-linecap="round"/>
     <path d="M30 14 q-4 -6 0 -12 M44 14 q-4 -6 0 -12" fill="none" stroke="#c7c0cc" stroke-width="2.4" stroke-linecap="round"/>` },
 });
+Object.assign(ART, {
+  ferris: { vb: [100, 100], svg: `
+    <path d="M50 50 L30 96 M50 50 L70 96 M24 96 H76" stroke="${INK}" stroke-width="3" stroke-linecap="round"/>
+    <circle cx="50" cy="50" r="38" fill="none" stroke="#c7c0cc" stroke-width="4"/>
+    <circle cx="50" cy="50" r="38" fill="none" stroke="${INK}" stroke-width="1.4"/>
+    <g stroke="#c7c0cc" stroke-width="2">${[0,45,90,135].map(a=>`<path d="M50 12 V88" transform="rotate(${a} 50 50)"/>`).join('')}</g>
+    ${[[50,12,'#ff6fa3'],[77,23,'#f7d24a'],[88,50,'#5ab0d8'],[77,77,'#7fb03a'],[50,88,'#f39a4b'],[23,77,'#ff6fa3'],[12,50,'#f7d24a'],[23,23,'#5ab0d8']].map(([x,y,c])=>`<rect x="${x-6}" y="${y-4}" width="12" height="9" rx="2" fill="${c}" stroke="${INK}" stroke-width="1.4"/>`).join('')}
+    <circle cx="50" cy="50" r="6" fill="#f7d24a" stroke="${INK}" stroke-width="1.6"/>` },
+  cone: { vb: [50, 60], svg: `
+    <path d="M25 3 L39 50 H11Z" fill="#f39a4b" stroke="${INK}" stroke-width="2.2" stroke-linejoin="round"/>
+    <path d="M19 22 H31 L33 30 H17Z M15 36 H35 L37 44 H13Z" fill="#fbf7f2"/>
+    <rect x="5" y="50" width="40" height="7" rx="2" fill="#3a3742" stroke="${INK}" stroke-width="2"/>` },
+});
 function mouseSVG(bow) {
   return `
     <circle cx="22" cy="26" r="18" fill="#1d1b20" stroke="${INK}" stroke-width="2"/><circle cx="78" cy="26" r="18" fill="#1d1b20" stroke="${INK}" stroke-width="2"/>
@@ -1524,6 +1552,7 @@ document.querySelectorAll('[data-art]').forEach(el => el.innerHTML = sticker(el.
         $('#main').classList.add('fade-in');
         scrollTo(0, 0);
         sizeGame();
+        sizeGame2();
       }, reduced ? 300 : 1300);
     } else {
       msg.className = 'pw-msg';
@@ -1853,7 +1882,7 @@ document.querySelectorAll('[data-art]').forEach(el => el.innerHTML = sticker(el.
   const GOAL = 12;
   const IMG = {};
   const FILTER = document.getElementById('sticker').outerHTML;
-  ['catGinger', 'fries', 'burger', 'pizza', 'kinder', 'sushi', 'capybara', 'soup', 'heart', 'lemonade', 'flower', 'kiss', 'star'].forEach(k => {
+  ['catGinger', 'fries', 'burger', 'pizza', 'kinder', 'sushi', 'capybara', 'soup', 'heart', 'lemonade', 'flower', 'kiss', 'star', 'carGrey', 'goose', 'cone'].forEach(k => {
     const [w, h] = ART[k].vb, p = Math.max(w, h) * .08;
     const svg = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="${-p} ${-p} ${w + 2 * p} ${h + 2 * p}" width="${(w + 2 * p) * 2}" height="${(h + 2 * p) * 2}"><defs>${FILTER}</defs><g filter="url(#sticker)">${ART[k].svg}</g></svg>`;
     const img = new Image();
@@ -1956,6 +1985,117 @@ document.querySelectorAll('[data-art]').forEach(el => el.innerHTML = sticker(el.
   $('#startBtn').onclick = startGame;
   $('#skip').addEventListener('click', openLetter);
   addEventListener('resize', sizeGame);
+
+  /* ===== гра «Містер Капібара за кермом» ===== */
+  const cv2 = $('#cv2'), c2 = cv2.getContext('2d'), box2 = $('#gameBox2');
+  const G2_GOAL = 10, CAR_X = 34, CAR_W = 124;
+  let W2 = 0, H2 = 0, g2run = false, g2last = 0, g2items = [], g2score = 0, g2lives = 3, g2y = 0, g2vy = 0, g2inv = 0, g2next = 0, g2dash = 0, g2toastT;
+  const g2stars = Array.from({ length: 30 }, () => ({ x: Math.random(), y: Math.random() * .6, r: Math.random() * 1.5 + .4 }));
+  function sizeGame2() {
+    const r = cv2.getBoundingClientRect();
+    if (!r.width) return;
+    const dpr = Math.min(2, devicePixelRatio || 1);
+    W2 = r.width; H2 = r.height;
+    cv2.width = W2 * dpr; cv2.height = H2 * dpr;
+    c2.setTransform(dpr, 0, 0, dpr, 0, 0);
+    if (!g2run) draw2(0);
+  }
+  const ground2 = () => H2 - 50;
+  function img2(k, x, bottom, w) {
+    const o = IMG[k]; if (!o || !o.img.naturalWidth) return;
+    const h = w * o.ratio;
+    c2.drawImage(o.img, x, bottom - h, w, h);
+  }
+  function draw2(t) {
+    const gy = ground2();
+    c2.clearRect(0, 0, W2, H2);
+    c2.fillStyle = 'rgba(251,238,245,.7)';
+    g2stars.forEach(st => { c2.beginPath(); c2.arc(((st.x * W2 - g2dash * .1) % W2 + W2) % W2, st.y * H2, st.r, 0, 7); c2.fill(); });
+    c2.fillStyle = '#3a3742'; c2.fillRect(0, gy, W2, H2 - gy);
+    c2.fillStyle = '#f7d24a';
+    for (let x = -(g2dash % 64); x < W2; x += 64) c2.fillRect(x, gy + 24, 32, 4);
+    g2items.forEach(it => {
+      if (it.type === 'pothole') { c2.fillStyle = '#1d1b20'; c2.beginPath(); c2.ellipse(it.x + 24, gy + 5, 26, 6, 0, 0, 7); c2.fill(); }
+      else if (it.type === 'cone') img2('cone', it.x, gy + 4, 36);
+      else if (it.type === 'goose') img2('goose', it.x, gy + 8, 60);
+      else if (it.type === 'heart') img2('heart', it.x, it.y, 32);
+    });
+    const blink = t < g2inv && Math.floor(t / 110) % 2;
+    if (!blink) img2('carGrey', CAR_X, gy + 12 - g2y, CAR_W);
+  }
+  function toast2(text) {
+    const tt = $('#toast2'); tt.textContent = text; tt.classList.add('show');
+    clearTimeout(g2toastT); g2toastT = setTimeout(() => tt.classList.remove('show'), 900);
+  }
+  const lives2 = () => $('#lives2').textContent = '♥'.repeat(g2lives) + '♡'.repeat(3 - g2lives);
+  function jump2(e) {
+    if (e) e.preventDefault();
+    if (g2run && g2y === 0) g2vy = 17;
+  }
+  function loop2(t) {
+    if (!g2run) return;
+    const dt = Math.min(48, t - g2last || 16) / 16.67; g2last = t;
+    const speed = 5 + g2score * .35;
+    g2dash += speed * dt;
+    if (g2y > 0 || g2vy > 0) { g2vy -= .8 * dt; g2y += g2vy * dt; if (g2y <= 0) { g2y = 0; g2vy = 0; } }
+    const gy = ground2();
+    if (t > g2next) {
+      const type = ['cone', 'pothole', 'goose', 'cone'][Math.floor(Math.random() * 4)];
+      g2items.push({ type, x: W2 + 20 });
+      if (Math.random() < .65) g2items.push({ type: 'heart', x: W2 + 26, y: gy - 120 });
+      else g2items.push({ type: 'heart', x: W2 + 230, y: gy - 14 });
+      g2next = t + Math.max(800, 1500 + Math.random() * 900 - g2score * 60);
+    }
+    const carL = CAR_X + 18, carR = CAR_X + CAR_W - 18, carB = gy - g2y, carT = carB - 58;
+    g2items = g2items.filter(it => {
+      it.x -= speed * dt;
+      let hit = false;
+      if (it.type === 'heart') {
+        if (it.x + 28 > carL && it.x + 4 < carR && it.y > carT && it.y - 30 < carB) {
+          g2score++; $('#score2').textContent = g2score;
+          toast2(['мур!', 'ще!', 'пі-пі!', 'так!', 'вау!'][g2score % 5]);
+          return false;
+        }
+      } else if (t > g2inv) {
+        if (it.type === 'pothole') hit = g2y < 6 && it.x + 40 > carL + 10 && it.x + 8 < carR - 10;
+        else if (it.type === 'cone') hit = it.x + 30 > carL && it.x + 6 < carR && carB > gy - 40;
+        else if (it.type === 'goose') hit = it.x + 48 > carL && it.x + 14 < carR && carB > gy - 48;
+        if (hit) {
+          g2lives--; lives2(); g2inv = t + 1300;
+          toast2(it.type === 'goose' ? 'Goose, ну ти що!' : it.type === 'pothole' ? 'Ямка!' : 'Ой, конус!');
+          box2.classList.remove('shake'); void box2.offsetWidth; box2.classList.add('shake');
+        }
+      }
+      return it.x > -90;
+    });
+    draw2(t);
+    if (g2score >= G2_GOAL) return end2(true);
+    if (g2lives <= 0) return end2(false);
+    requestAnimationFrame(loop2);
+  }
+  function start2() {
+    sizeGame2();
+    g2items = []; g2score = 0; g2lives = 3; g2y = 0; g2vy = 0; g2inv = 0;
+    $('#score2').textContent = 0; lives2();
+    $('#ov2').hidden = true; g2run = true;
+    g2last = performance.now(); g2next = g2last + 700;
+    requestAnimationFrame(loop2);
+  }
+  function end2(won) {
+    g2run = false;
+    $('#ov2Text').textContent = won ? 'Містер Капібара довіз кицюню на побачення!' : 'Ой! Містер Капібара трохи не вписався';
+    $('#ov2Small').textContent = won ? 'Беха ціла, сердечка зібрані' : 'Він вірить у тебе. Спробуєш ще раз?';
+    $('#start2').textContent = 'Ще раз';
+    $('#ov2').hidden = false;
+    if (won) floatHearts(...centerOf(box2), 10);
+  }
+  cv2.addEventListener('pointerdown', jump2);
+  addEventListener('keydown', e => {
+    if (!g2run) return;
+    if (e.key === ' ' || e.key === 'ArrowUp') jump2(e);
+  });
+  $('#start2').addEventListener('click', start2);
+  addEventListener('resize', sizeGame2);
 
   /* ===== лист ===== */
   $('#letterTitle').textContent = CONFIG.letterTitle;
