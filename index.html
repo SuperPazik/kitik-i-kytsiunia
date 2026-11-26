@@ -1,0 +1,1607 @@
+<!doctype html>
+<html lang="uk">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Кітик і Кицюня</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Caveat:wght@500;700&family=Nunito:wght@400;600;800&display=swap" rel="stylesheet">
+<style>
+/* Layout: a hand-made card — berry "space" paper with chalk doodles; every picture is a cut-out crayon sticker with a white paper edge */
+:root{
+  --space:#7e1b4c;
+  --space-deep:#5c1137;
+  --space-soft:#953063;
+  --chalk:#fbeef5;
+  --chalk-dim:rgba(251,238,245,.72);
+  --silver:#d8cfe0;
+  --paper:#fff8f3;
+  --ink:#2b1b2a;
+  --ink-soft:#6b5466;
+  --pink:#ff6fa3;
+  --ginger:#f39a4b;
+  --sun:#f7d24a;
+  --ocean:#2448b8;
+  --land:#7fb03a;
+  --display:"Caveat","Segoe Print","Bradley Hand",cursive;
+  --body:"Nunito",system-ui,-apple-system,"Segoe UI",sans-serif;
+  color-scheme:dark;
+}
+html{scroll-behavior:smooth}
+body{margin:0}
+[hidden]{display:none!important}
+body{
+  background-color:var(--space);
+  color:var(--chalk);
+  font-family:var(--body);
+  font-size:17px;
+  line-height:1.55;
+  padding-left:max(16px,env(safe-area-inset-left,0px));
+  padding-right:max(16px,env(safe-area-inset-right,0px));
+  overflow-x:hidden;
+}
+.wrap{max-width:980px;margin:0 auto}
+section,header{padding-block:44px}
+h1,h2,h3{font-family:var(--display);font-weight:700;line-height:1;text-wrap:balance;margin:0}
+h1{font-size:clamp(48px,9vw,96px)}
+h2{font-size:clamp(40px,6.5vw,64px)}
+h3{font-size:34px}
+p{margin:0}
+.eyebrow{font-weight:800;font-size:13px;letter-spacing:.14em;text-transform:uppercase;color:var(--sun);margin-bottom:8px}
+.sub{color:var(--chalk-dim);max-width:60ch;margin-top:10px}
+.center{text-align:center}
+.center .sub{margin-inline:auto}
+
+/* hand-drawn chalk frame */
+.chalk-box{border:2px dashed var(--chalk-dim);border-radius:28px 18px 30px 16px / 18px 30px 16px 28px}
+/* paper sticker card */
+.paper{background:var(--paper);color:var(--ink);border-radius:22px;box-shadow:0 0 0 5px var(--paper),3px 6px 0 6px rgba(43,10,28,.35)}
+
+.btn{
+  font:800 17px/1 var(--body);color:var(--ink);background:var(--sun);
+  border:2.5px solid var(--ink);border-radius:999px;padding:14px 26px;cursor:pointer;
+  box-shadow:0 0 0 4px var(--paper),4px 6px 0 4px rgba(43,10,28,.4);transition:transform .12s;
+}
+.btn:hover{transform:translateY(-2px) rotate(-1deg)}
+.btn:active{transform:translateY(2px)}
+.btn.pink{background:var(--pink);color:#fff}
+.btn.ghost{background:var(--paper)}
+.btn:focus-visible,.mcard:focus-visible,.link:focus-visible,.stage-hit:focus-visible,.pcard:focus-visible,input:focus-visible{outline:3px dashed var(--sun);outline-offset:5px}
+.link{background:none;border:0;color:var(--chalk-dim);font:600 15px var(--body);text-decoration:underline;text-underline-offset:3px;cursor:pointer;padding:6px 0;margin-top:16px}
+.sticker{display:block;overflow:visible}
+.float{animation:float 4s ease-in-out infinite}
+.float.d2{animation-delay:-2s}
+@keyframes float{50%{transform:translateY(-8px) rotate(3deg)}}
+
+/* ---------- screens: greeting + password ---------- */
+.screen{min-height:100vh;min-height:100dvh;display:grid;place-items:center;padding-block:32px}
+.gate-card{position:relative;max-width:560px;width:100%;text-align:center;padding:56px 28px 36px;display:flex;flex-direction:column;align-items:center;gap:16px}
+.gate-card .peek{position:absolute;top:-58px;width:120px}
+.gate-card .peek.l{left:12%}
+.gate-card .peek.r{right:12%}
+.gate-actions{display:flex;gap:16px;flex-wrap:wrap;justify-content:center;margin-top:8px}
+.gate-note{font-family:var(--display);font-size:26px;min-height:32px;color:var(--sun)}
+.lock-q{font-size:18px;max-width:42ch}
+#pwForm{display:flex;gap:12px;flex-wrap:wrap;justify-content:center;width:100%}
+#pw{flex:1 1 220px;max-width:320px;font:600 19px var(--body);padding:13px 18px;border-radius:999px;border:2.5px solid var(--ink);background:var(--paper);color:var(--ink)}
+.pw-msg{font-family:var(--display);font-size:26px;line-height:1.1;min-height:58px;max-width:30ch;color:var(--sun)}
+.pw-msg.ok{color:#bff28a}
+.shake{animation:shake .35s}
+@keyframes shake{20%{transform:translateX(-8px)}40%{transform:translateX(8px)}60%{transform:translateX(-5px)}80%{transform:translateX(5px)}}
+.lockpad{width:80px}
+.fade-out{animation:fadeOut .6s forwards}
+@keyframes fadeOut{to{opacity:0;transform:scale(.97)}}
+.fade-in{animation:fadeIn .8s ease}
+@keyframes fadeIn{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:none}}
+
+/* ---------- hero: planet ---------- */
+.hero{display:grid;grid-template-columns:1fr 1.1fr;gap:20px;align-items:center;padding-top:40px}
+.hero-text{min-width:0;display:flex;flex-direction:column;gap:14px;align-items:flex-start}
+.lead{font-size:19px;max-width:40ch;color:var(--chalk-dim)}
+.stage{position:relative;width:100%;max-width:560px;justify-self:center}
+.stage svg{width:100%;height:auto;display:block;overflow:visible}
+.stage-hit{cursor:pointer}
+.swirl{transform-box:view-box;transform-origin:300px 300px;animation:spin 60s linear infinite}
+.swirl.rev{animation-direction:reverse;animation-duration:90s}
+.planet-turn{transform-box:view-box;transform-origin:300px 300px;animation:spin 40s linear infinite}
+.planet-turn.fast{animation-duration:3s}
+@keyframes spin{to{transform:rotate(360deg)}}
+.meet-heart{transform-box:fill-box;transform-origin:50% 50%;transform:scale(0);transition:transform .5s cubic-bezier(.3,1.8,.5,1)}
+.meet-heart.on{transform:scale(1)}
+.bubble{
+  position:relative;background:var(--paper);color:var(--ink);border-radius:20px;padding:14px 18px;
+  font-family:var(--display);font-size:27px;line-height:1.1;max-width:30ch;min-height:66px;
+  box-shadow:0 0 0 4px var(--paper),3px 6px 0 4px rgba(43,10,28,.35);
+}
+.bubble.pop{animation:pop .35s ease}
+@keyframes pop{0%{transform:scale(.95)}60%{transform:scale(1.03)}100%{transform:scale(1)}}
+.count-line{font-size:14px;font-weight:700;color:var(--chalk-dim)}
+.dots{display:inline-flex;gap:5px;vertical-align:middle;margin-left:8px}
+.dots i{width:10px;height:10px;border-radius:50%;border:1.5px solid var(--chalk);transition:background .2s}
+.dots i.on{background:var(--pink);border-color:var(--pink)}
+
+.float-heart{position:fixed;pointer-events:none;z-index:80;width:28px;height:28px;margin:-14px 0 0 -14px;animation:rise 1.3s ease-out forwards}
+@keyframes rise{0%{opacity:1;transform:translate(0,0) scale(.6)}100%{opacity:0;transform:translate(var(--dx),-120px) scale(1.25)}}
+
+/* ---------- counter ---------- */
+.clock{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:16px;margin-top:22px}
+.unit{padding:18px 8px 14px;text-align:center}
+.unit b{display:block;font-family:var(--display);font-weight:700;font-size:clamp(46px,8vw,76px);line-height:.95;font-variant-numeric:tabular-nums}
+.unit span{font-size:14px;font-weight:700;color:var(--ink-soft)}
+.unit:first-child{background:var(--sun);box-shadow:0 0 0 5px var(--paper),3px 6px 0 6px rgba(43,10,28,.35)}
+.facts{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px;margin-top:22px}
+.fact{padding:16px 18px;display:flex;gap:12px;align-items:center;min-width:0}
+.fact svg{width:56px;flex:none}
+.fact b{font-family:var(--display);font-size:38px;line-height:1;display:block;color:var(--sun);font-variant-numeric:tabular-nums}
+.fact span{font-size:14px;color:var(--chalk-dim)}
+
+/* ---------- seasons ---------- */
+.season-tabs{display:flex;gap:10px;flex-wrap:wrap;margin-top:22px}
+.stab{display:flex;align-items:center;gap:8px;font:800 15px var(--body);color:var(--chalk);background:transparent;border:2px dashed var(--chalk-dim);border-radius:999px;padding:5px 16px 5px 6px;cursor:pointer;transition:transform .12s}
+.stab:hover{transform:translateY(-2px)}
+.stab span{width:34px;display:block}
+.stab[aria-selected="true"]{background:var(--paper);color:var(--ink);border:2px solid var(--paper);box-shadow:3px 4px 0 rgba(43,10,28,.4)}
+.stab:focus-visible{outline:3px dashed var(--sun);outline-offset:4px}
+.spanel{margin-top:26px;animation:fadeIn .45s ease}
+.spanel h3{margin-bottom:16px;font-size:40px}
+.events{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:22px}
+.event{display:flex;gap:14px;align-items:center;padding:14px 16px;min-width:0}
+.event .ic{width:66px;flex:none}
+.event .when{font-weight:800;font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--space)}
+.event p{color:var(--ink)}
+.postcards{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:22px;margin-top:26px;max-width:760px}
+.pcard{perspective:900px;aspect-ratio:4/5;max-width:100%;border:0;background:none;padding:0;cursor:pointer;font:inherit;color:inherit}
+.pcard:nth-child(1){transform:rotate(-2deg)}
+.pcard:nth-child(3){transform:rotate(2deg)}
+.pc-inner{position:relative;width:100%;height:100%;transition:transform .6s cubic-bezier(.3,1.4,.5,1);transform-style:preserve-3d}
+.pcard.flipped .pc-inner{transform:rotateY(180deg)}
+.pc-face{position:absolute;inset:0;backface-visibility:hidden;-webkit-backface-visibility:hidden;border-radius:16px;background:var(--paper);color:var(--ink);box-shadow:0 0 0 5px var(--paper),3px 6px 0 6px rgba(43,10,28,.35);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px;padding:14px;text-align:center;overflow:hidden}
+.pc-face svg{width:80%;max-height:68%}
+.pc-face .place{font-family:var(--display);font-size:32px;line-height:1}
+.pc-back{transform:rotateY(180deg);background:#fdf3d6;font-family:var(--display);font-size:24px;line-height:1.15;background-image:repeating-linear-gradient(180deg,transparent 0 29px,rgba(126,27,76,.15) 29px 30px)}
+.pc-back small{font-family:var(--body);font-size:12px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:var(--space)}
+
+/* ---------- memory ---------- */
+.mem-head{display:flex;justify-content:space-between;align-items:end;gap:16px;flex-wrap:wrap}
+.mem-status{font-weight:800;font-variant-numeric:tabular-nums;color:var(--chalk-dim)}
+.mem-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:clamp(10px,2vw,18px);margin-top:22px;max-width:640px}
+.mcard{aspect-ratio:3/4;max-width:100%;perspective:800px;border:0;background:none;padding:0;cursor:pointer;font:inherit;color:inherit}
+.mc-inner{position:relative;width:100%;height:100%;transition:transform .45s cubic-bezier(.3,1.4,.5,1);transform-style:preserve-3d}
+.mcard.open .mc-inner,.mcard.done .mc-inner{transform:rotateY(180deg)}
+.mc-face{position:absolute;inset:0;backface-visibility:hidden;-webkit-backface-visibility:hidden;border-radius:14px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;padding:6px;overflow:hidden}
+.mc-back{background:var(--space-soft);border:2.5px dashed var(--chalk-dim)}
+.mc-back svg{width:46%}
+.mc-front{background:var(--paper);color:var(--ink);transform:rotateY(180deg);box-shadow:0 0 0 3px var(--paper)}
+.mc-front svg{width:82%;flex:1 1 auto;min-height:0}
+.mc-front span{font-family:var(--display);font-weight:700;font-size:clamp(17px,2.6vw,24px);line-height:1}
+.mcard.done .mc-front{background:#fdf3d6}
+.mem-toast{font-family:var(--display);font-size:30px;color:var(--sun);min-height:36px;margin-top:16px}
+
+/* ---------- treats ---------- */
+.treats{display:grid;grid-template-columns:1fr 1.25fr;gap:28px;margin-top:22px}
+.treat{padding:22px;display:flex;flex-direction:column;gap:10px;min-width:0;align-items:flex-start}
+.treat p{color:var(--ink-soft)}
+.treat svg{width:100%;height:auto;align-self:center;overflow:visible}
+.egg-top{transform-box:fill-box;transform-origin:20% 100%;transition:transform .6s cubic-bezier(.3,1.5,.5,1)}
+.kinder.open .egg-top{transform:translate(-12px,-22px) rotate(-24deg)}
+.kinder svg{max-width:250px;margin-top:20px}
+.toy{transform-box:fill-box;transform-origin:50% 100%;transform:scale(0);transition:transform .5s .2s cubic-bezier(.3,1.8,.5,1)}
+.kinder.open .toy{transform:scale(1)}
+.coupon{width:100%;background:#fdf3d6;border:2.5px dashed var(--space);border-radius:12px;padding:12px 16px;font-family:var(--display);font-size:26px;line-height:1.1;color:var(--space);min-height:62px}
+.kiss-text{font-family:var(--display);font-size:34px;color:var(--pink);opacity:0;transition:opacity .3s}
+.kiss-text.on{opacity:1}
+
+/* ---------- plush shelf ---------- */
+.plush-say{margin-top:20px;max-width:46ch}
+.shelf{margin-top:26px}
+.shelf-row{display:flex;justify-content:space-around;align-items:flex-end;gap:6px;padding:0 8px}
+.toy-btn{background:none;border:0;padding:0;cursor:pointer;width:clamp(58px,15vw,130px);-webkit-tap-highlight-color:transparent;transition:transform .15s}
+.toy-btn.big{width:clamp(70px,18vw,150px)}
+.toy-btn:hover{transform:translateY(-4px)}
+.toy-btn:focus-visible{outline:3px dashed var(--sun);outline-offset:4px}
+.toy-btn.jump{animation:jump .55s ease}
+@keyframes jump{35%{transform:translateY(-26px) rotate(-7deg)}70%{transform:translateY(0) rotate(3deg)}}
+.plank{height:20px;border-radius:6px;background:#b9895a;background-image:repeating-linear-gradient(90deg,transparent 0 60px,rgba(43,27,42,.18) 60px 62px);box-shadow:0 0 0 4px var(--paper),3px 8px 0 4px rgba(43,10,28,.35);margin-top:-4px}
+
+/* ---------- menu ---------- */
+.menu-wrap{display:grid;grid-template-columns:1.4fr 1fr;gap:28px;margin-top:24px;align-items:start}
+.menu-items{display:grid;grid-template-columns:repeat(auto-fill,minmax(140px,1fr));gap:18px}
+.mitem{display:flex;flex-direction:column;align-items:center;gap:4px;padding:14px 10px;border:0;cursor:pointer;font:inherit;color:var(--ink);transition:transform .12s}
+.mitem:hover{transform:translateY(-3px) rotate(-1deg)}
+.mitem:active{transform:scale(.96)}
+.mitem:focus-visible{outline:3px dashed var(--sun);outline-offset:6px}
+.mitem span{width:76px;height:76px;display:flex;align-items:center;justify-content:center}
+.mitem span svg{max-height:76px;width:auto;max-width:76px}
+.mitem b{font-family:var(--display);font-size:24px;line-height:1;text-align:center}
+.mitem small{color:var(--space);font-weight:800}
+.receipt{position:relative;background:#fffdf8;color:var(--ink);padding:22px 20px 30px;font-family:"Courier New",ui-monospace,monospace;font-size:15px;box-shadow:3px 6px 0 rgba(43,10,28,.35);
+  -webkit-mask:radial-gradient(circle 7px at 50% 100%,transparent 98%,#000) 0 0/18px 100% repeat-x;mask:radial-gradient(circle 7px at 50% 100%,transparent 98%,#000) 0 0/18px 100% repeat-x;}
+.r-head{text-align:center;font-weight:700;border-bottom:2px dashed var(--ink-soft);padding-bottom:10px;margin-bottom:10px}
+.r-head small{font-weight:400;color:var(--ink-soft)}
+.r-lines{display:flex;flex-direction:column;gap:4px;min-height:60px}
+.r-line{display:flex;justify-content:space-between;gap:10px}
+.r-empty{color:var(--ink-soft);text-align:center;padding-top:14px}
+.r-total{display:flex;justify-content:space-between;font-weight:700;border-top:2px dashed var(--ink-soft);margin-top:10px;padding-top:10px;font-variant-numeric:tabular-nums}
+.r-actions{display:flex;gap:14px;align-items:center;flex-wrap:wrap;margin-top:16px}
+.r-actions .link{color:var(--ink-soft);margin-top:0}
+.r-note{font-family:var(--display);font-size:24px;color:var(--space);min-height:28px;margin-top:8px;line-height:1.1}
+.paid-stamp{position:absolute;right:14px;top:58px;border:3px solid var(--pink);color:var(--pink);font:800 22px var(--body);padding:4px 12px;border-radius:10px;transform:rotate(-14deg) scale(0);transition:transform .35s cubic-bezier(.3,1.8,.5,1);background:rgba(255,253,248,.85)}
+.paid-stamp.on{transform:rotate(-14deg) scale(1)}
+
+/* ---------- fortune ---------- */
+.fortune{display:grid;grid-template-columns:auto 1fr;gap:32px;align-items:center;margin-top:22px}
+.ball-btn{background:none;border:0;padding:0;cursor:pointer;width:min(230px,56vw);-webkit-tap-highlight-color:transparent}
+.ball-btn:focus-visible{outline:3px dashed var(--sun);outline-offset:6px}
+.ball-btn.wobble{animation:wobble .6s}
+@keyframes wobble{25%{transform:rotate(-9deg) scale(1.03)}50%{transform:rotate(7deg)}75%{transform:rotate(-3deg)}}
+.prophecy{font-family:var(--display);font-size:clamp(32px,4.6vw,46px);line-height:1.05;max-width:22ch;min-height:2.2em}
+.prophecy.pop{animation:pop .4s ease}
+
+/* ---------- game ---------- */
+.game-box{position:relative;margin-top:22px;border-radius:24px;overflow:hidden;background:radial-gradient(ellipse at 50% 120%,var(--space-soft),var(--space-deep) 70%);box-shadow:0 0 0 5px var(--paper),3px 6px 0 6px rgba(43,10,28,.35)}
+#cv{display:block;width:100%;height:420px;touch-action:none;cursor:none}
+.hud{position:absolute;top:12px;left:14px;right:14px;display:flex;justify-content:space-between;align-items:center;gap:10px;pointer-events:none}
+.score{background:var(--paper);color:var(--ink);border-radius:999px;padding:6px 14px;font-weight:800;font-variant-numeric:tabular-nums}
+.toast{font-family:var(--display);font-size:28px;color:var(--sun);opacity:0;transition:opacity .2s}
+.toast.show{opacity:1}
+.overlay{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:14px;text-align:center;padding:20px;background:rgba(92,17,55,.72);backdrop-filter:blur(2px)}
+.overlay p{font-family:var(--display);font-size:clamp(34px,5vw,46px);line-height:1;max-width:18ch}
+.overlay small{font-size:15px;color:var(--chalk-dim);max-width:36ch}
+
+/* ---------- letter ---------- */
+.letter{position:relative;max-width:680px;margin:0 auto;padding:clamp(26px,5vw,48px);color:var(--ink);background:#fdf3d6;border-radius:10px;box-shadow:0 0 0 6px var(--paper),4px 8px 0 6px rgba(43,10,28,.35);background-image:repeating-linear-gradient(180deg,transparent 0 33px,rgba(126,27,76,.14) 33px 34px);animation:fadeIn .7s ease}
+.letter .eyebrow{color:var(--space)}
+.letter h2{margin-bottom:14px}
+.letter-text{display:flex;flex-direction:column;gap:14px;font-size:18px;line-height:34px;max-width:60ch}
+.sign{font-family:var(--display);font-size:32px;margin-top:18px;text-align:right}
+.letter .stamp{position:absolute;top:-40px;right:18px;width:96px;transform:rotate(9deg)}
+
+/* ---------- final ---------- */
+.final{text-align:center;padding-bottom:70px}
+.answers{position:relative;min-height:230px;display:flex;gap:20px;justify-content:center;align-items:center;flex-wrap:wrap;margin-top:18px}
+#yes{font-size:24px;padding:18px 44px;transition:transform .25s}
+#no{transition:left .25s,top .25s}
+#no.run{position:absolute}
+.yay{font-family:var(--display);font-size:clamp(36px,6vw,54px);color:var(--sun)}
+.final-cats{width:min(280px,70%);margin:0 auto 8px}
+#confetti{position:fixed;inset:0;width:100%;height:100%;pointer-events:none;z-index:90}
+footer{text-align:center;color:var(--chalk-dim);font-size:14px;padding-block:0 40px}
+
+@media (max-width:760px){
+  .hero{grid-template-columns:1fr;padding-top:24px}
+  .stage{order:-1}
+  .clock{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .facts{grid-template-columns:1fr}
+  .postcards{grid-template-columns:1fr;max-width:300px}
+  .treats{grid-template-columns:1fr}
+  .menu-wrap{grid-template-columns:1fr}
+  .menu-items{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .fortune{grid-template-columns:1fr;justify-items:center;text-align:center}
+  .mem-grid{grid-template-columns:repeat(4,minmax(0,1fr))}
+  .events{grid-template-columns:1fr}
+  #cv{height:460px}
+  .gate-card .peek{width:96px;top:-46px}
+}
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important}
+  html{scroll-behavior:auto}
+}
+</style>
+
+<!-- спільні SVG-фільтри: олівцева текстура + білий край наліпки -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs id="defs">
+    <filter id="sticker" x="-20%" y="-20%" width="140%" height="140%" color-interpolation-filters="sRGB">
+      <feTurbulence type="fractalNoise" baseFrequency="1.3" numOctaves="2" seed="4" result="noise"/>
+      <feColorMatrix in="noise" type="matrix" values="0 0 0 0 1  0 0 0 0 1  0 0 0 0 1  -3.2 0 0 0 1.6" result="speck"/>
+      <feComposite in="speck" in2="SourceGraphic" operator="in" result="speckIn"/>
+      <feMerge result="crayon"><feMergeNode in="SourceGraphic"/><feMergeNode in="speckIn"/></feMerge>
+      <feMorphology in="SourceAlpha" operator="dilate" radius="3.5" result="dil"/>
+      <feFlood flood-color="#fff8f3"/>
+      <feComposite in2="dil" operator="in" result="edge"/>
+      <feGaussianBlur in="dil" stdDeviation="1.6" result="blur"/>
+      <feOffset in="blur" dx="2" dy="3" result="off"/>
+      <feFlood flood-color="#2a0a1c" flood-opacity=".45"/>
+      <feComposite in2="off" operator="in" result="shadow"/>
+      <feMerge><feMergeNode in="shadow"/><feMergeNode in="edge"/><feMergeNode in="crayon"/></feMerge>
+    </filter>
+  </defs>
+</svg>
+
+<!-- ===== 1. Привітання ===== -->
+<div class="screen" id="gate">
+  <div class="gate-card chalk-box">
+    <span class="peek l float" data-art="catGrey"></span>
+    <span class="peek r float d2" data-art="catGinger"></span>
+    <p class="eyebrow">Секретна доставка для кицюні</p>
+    <h1>Привіт, кицюню!</h1>
+    <p class="lead">Кітик приготував для тебе дещо особливе. Ти готова?</p>
+    <div class="gate-actions">
+      <button class="btn" id="ready">Так, готова!</button>
+      <button class="btn ghost" id="notReady">Ще ні</button>
+    </div>
+    <p class="gate-note" id="gateNote" aria-live="polite"></p>
+  </div>
+</div>
+
+<!-- ===== 2. Пароль ===== -->
+<div class="screen" id="lock" hidden>
+  <div class="gate-card chalk-box" id="lockCard">
+    <span class="lockpad" data-art="lock"></span>
+    <p class="eyebrow">Крок 2 з 2</p>
+    <h2>Оскільки все має бути кібербезпечно…</h2>
+    <p class="lead">…введи пароль. Його знає тільки справжня кицюня.</p>
+    <p class="lock-q"><b>Секретне питання:</b> на концерт якого гурту ми сходили восени 2025-го, після чого я покликав тебе на зустріч?</p>
+    <form id="pwForm" autocomplete="off">
+      <input id="pw" type="text" placeholder="Назва гурту" aria-label="Пароль" autocapitalize="off" spellcheck="false">
+      <button class="btn" type="submit">Перевірити</button>
+    </form>
+    <p class="pw-msg" id="pwMsg" aria-live="polite"></p>
+  </div>
+</div>
+
+<!-- ===== 3. Сам сайт ===== -->
+<main id="main" hidden>
+
+  <header class="hero wrap">
+    <div class="hero-text">
+      <p class="eyebrow">Наша перша річниця</p>
+      <h1>Два котики гуляли по планетці…</h1>
+      <p class="lead">…кожен сам по собі: сірий кітик і руда кицюня. А потім вони знайшли одне одного.</p>
+      <div class="bubble" id="bubble" aria-live="polite">Допоможи їм зустрітися: натисни на планетку.</div>
+      <button class="btn pink" id="meetBtn">Допомогти котикам зустрітися</button>
+      <p class="count-line" id="countLine" hidden><span id="petCount">0</span> з 12 причин <span class="dots" id="dots"></span></p>
+    </div>
+    <div class="stage">
+      <svg viewBox="0 -50 600 650" role="img" aria-label="Планетка, по якій гуляють два котики">
+        <g class="swirl" fill="none" stroke="#d8cfe0" stroke-linecap="round" opacity=".75">
+          <circle cx="300" cy="300" r="250" stroke-width="5" stroke-dasharray="14 34"/>
+          <circle cx="300" cy="300" r="282" stroke-width="4" stroke-dasharray="8 40" opacity=".7"/>
+        </g>
+        <g class="swirl rev" fill="none" stroke="#d8cfe0" stroke-linecap="round" opacity=".6">
+          <circle cx="300" cy="300" r="222" stroke-width="5" stroke-dasharray="20 30"/>
+        </g>
+        <g class="stage-hit" id="planet" tabindex="0" role="button" aria-label="Покрутити планетку">
+          <g filter="url(#sticker)">
+            <clipPath id="planetClip"><circle cx="300" cy="300" r="150"/></clipPath>
+            <circle cx="300" cy="300" r="150" fill="#2448b8"/>
+            <g clip-path="url(#planetClip)">
+              <g class="planet-turn" id="planetTurn">
+                <g fill="#cfe0f5">
+                  <path d="M150 270 q20 -18 48 -6 q28 -12 44 10 q-10 22 -44 16 q-32 10 -48 -20z"/>
+                  <path d="M276 236 q28 -16 60 0 q22 16 0 28 q-34 12 -60 -28z"/>
+                  <path d="M240 432 q34 -18 66 0 q-12 18 -66 0z"/>
+                  <path d="M392 212 q22 -12 34 12 q-16 12 -34 -12z"/>
+                  <path d="M352 380 q30 -10 56 8 q-20 16 -56 -8z"/>
+                  <path d="M180 360 q16 -10 30 4 q-14 10 -30 -4z"/>
+                </g>
+                <g fill="#7fb03a">
+                  <path d="M188 214 q32 -32 64 -10 q20 16 4 36 q-26 22 -52 10 q-26 -10 -16 -36z"/>
+                  <path d="M318 172 q42 -10 62 22 q10 26 -22 32 q-32 0 -46 -22 q-10 -22 6 -32z"/>
+                  <path d="M362 296 q36 -6 52 26 q10 32 -26 46 q-32 10 -42 -22 q-4 -36 16 -50z"/>
+                  <path d="M216 326 q32 -10 52 16 q16 26 -10 46 q-32 22 -52 -6 q-16 -30 10 -56z"/>
+                  <path d="M298 402 q32 -6 46 16 q6 20 -26 26 q-36 0 -36 -20 q0 -16 16 -22z"/>
+                  <path d="M424 236 q14 -8 22 8 q4 16 -12 18 q-16 -6 -10 -26z"/>
+                </g>
+              </g>
+              <circle cx="300" cy="300" r="96" fill="none" stroke="#2b1b2a" stroke-width="2" opacity=".35"/>
+            </g>
+            <circle cx="300" cy="300" r="150" fill="none" stroke="#2b1b2a" stroke-width="3"/>
+          </g>
+        </g>
+        <g class="float"><use href="#a-star" x="70" y="380" width="86" height="86" filter="url(#sticker)"/></g>
+        <g class="float d2"><use href="#a-heart" x="470" y="110" width="56" height="54" filter="url(#sticker)"/></g>
+        <g class="float"><use href="#a-heart" x="96" y="96" width="40" height="38" filter="url(#sticker)"/></g>
+        <g id="walkGrey" class="stage-hit"><use href="#a-catGrey" x="250" y="44" width="100" height="94" filter="url(#sticker)"/></g>
+        <g id="walkGinger" class="stage-hit"><use href="#a-catGinger" x="250" y="44" width="100" height="94" filter="url(#sticker)"/></g>
+        <g class="meet-heart" id="meetHeart"><use href="#a-heart" x="276" y="-6" width="48" height="46" filter="url(#sticker)"/></g>
+      </svg>
+    </div>
+  </header>
+
+  <!-- лічильник -->
+  <section class="wrap">
+    <p class="eyebrow" id="sinceLabel">з нашого першого дня</p>
+    <h2>Ми разом уже</h2>
+    <div class="clock">
+      <div class="unit paper"><b id="cD">0</b><span id="lD">днів</span></div>
+      <div class="unit paper"><b id="cH">0</b><span id="lH">годин</span></div>
+      <div class="unit paper"><b id="cM">0</b><span id="lM">хвилин</span></div>
+      <div class="unit paper"><b id="cS">0</b><span id="lS">секунд</span></div>
+    </div>
+    <div class="facts">
+      <div class="fact chalk-box"><span data-art="mic"></span><div><b id="fMet">0</b><span>днів, відколи ми знайшли одне одного на концерті Хейтспіч</span></div></div>
+      <div class="fact chalk-box"><span data-art="catGinger"></span><div><b id="fPurr">0</b><span>муркотінь: котик муркоче ~25 разів на секунду</span></div></div>
+    </div>
+  </section>
+
+  <!-- орбіта -->
+  <section class="wrap">
+    <p class="eyebrow">Наша орбіта</p>
+    <h2>Рік по сезонах</h2>
+    <p class="sub">Планетка зробила одне коло навколо сонця. Обирай сезон.</p>
+    <div class="season-tabs" role="tablist">
+      <button class="stab" role="tab" aria-selected="true" data-panel="s-autumn25"><span data-art="leaf"></span>Осінь 2025</button>
+      <button class="stab" role="tab" aria-selected="false" data-panel="s-winter"><span data-art="snowflake"></span>Зима</button>
+      <button class="stab" role="tab" aria-selected="false" data-panel="s-spring"><span data-art="flower"></span>Весна</button>
+      <button class="stab" role="tab" aria-selected="false" data-panel="s-summer"><span data-art="sun"></span>Літо</button>
+      <button class="stab" role="tab" aria-selected="false" data-panel="s-autumn26"><span data-art="mountain"></span>Осінь 2026</button>
+    </div>
+
+    <div class="spanel" id="s-autumn25" role="tabpanel">
+      <h3>Як усе почалося</h3>
+      <div class="events">
+        <div class="event paper"><span class="ic" data-art="mic"></span><div><p class="when">8 листопада</p><p>Концерт Хейтспіч. Два котики гуляли кожен по своїй планетці й тут знайшли одне одного.</p></div></div>
+        <div class="event paper"><span class="ic" data-art="masks"></span><div><p class="when">Листопад</p><p>Перші побачення і театр.</p></div></div>
+        <div class="event paper"><span class="ic" data-art="heart"></span><div><p class="when">28 листопада</p><p>Я запропонував тобі зустрічатися. І ти сказала «так»!</p></div></div>
+        <div class="event paper"><span class="ic" data-art="kiss"></span><div><p class="when">КПІ</p><p>Наш поцілунок на КПІ. Найкращий кампус у світі.</p></div></div>
+        <div class="event paper"><span class="ic" data-art="gates"></span><div><p class="when">Прогулянки</p><p>Золоті ворота і вечірній центр.</p></div></div>
+        <div class="event paper"><span class="ic" data-art="bridge"></span><div><p class="when">Прогулянки</p><p>Пішохідний міст і Київ з висоти.</p></div></div>
+      </div>
+    </div>
+
+    <div class="spanel" id="s-winter" role="tabpanel" hidden>
+      <h3>Кіношки й вогники</h3>
+      <div class="events">
+        <div class="event paper"><span class="ic" data-art="popcorn"></span><div><p class="when">Грудень</p><p>Походи в кіно. Багато кіно. І ще трохи кіно.</p></div></div>
+        <div class="event paper"><span class="ic" data-art="tree"></span><div><p class="when">Зима</p><p>Зимова країна: вогники, гірлянди і казка.</p></div></div>
+      </div>
+    </div>
+
+    <div class="spanel" id="s-spring" role="tabpanel" hidden>
+      <h3>Світанки і сакури</h3>
+      <div class="events">
+        <div class="event paper"><span class="ic" data-art="cake"></span><div><p class="when">Березень</p><p>Твій день народження. Найважливіше свято року.</p></div></div>
+        <div class="event paper"><span class="ic" data-art="sunrise"></span><div><p class="when">Весна</p><p>Зустріли світанок у ботсаду.</p></div></div>
+        <div class="event paper"><span class="ic" data-art="hydropark"></span><div><p class="when">Весна</p><p>Гідропарк, сонце і вода.</p></div></div>
+        <div class="event paper"><span class="ic" data-art="flower"></span><div><p class="when">Квітень</p><p>Ужгород.</p></div></div>
+        <div class="event paper"><span class="ic" data-art="pysanka"></span><div><p class="when">Великдень</p><p>Паска Фест.</p></div></div>
+      </div>
+    </div>
+
+    <div class="spanel" id="s-summer" role="tabpanel" hidden>
+      <h3>Дороги і море</h3>
+      <div class="events">
+        <div class="event paper"><span class="ic" data-art="chernivtsi"></span><div><p class="when">Червень</p><p>Чернівці.</p></div></div>
+        <div class="event paper"><span class="ic" data-art="giraffe"></span><div><p class="when">Літо</p><p>Похід у зоопарк.</p></div></div>
+        <div class="event paper"><span class="ic" data-art="mic"></span><div><p class="when">Літо</p><p>Концерти. Бо одного концерту нам було мало.</p></div></div>
+        <div class="event paper"><span class="ic" data-art="lemon"></span><div><p class="when">Серпень</p><p>Італія: Рим, Амальфі та Позітано. Переверни листівки.</p></div></div>
+      </div>
+        <div class="postcards">
+          <button class="pcard" aria-label="Листівка з Риму">
+            <div class="pc-inner">
+              <div class="pc-face"><span data-art="colosseum"></span><span class="place">Рим</span></div>
+              <div class="pc-face pc-back"><small>Рим</small>Колізей, паста, джелато і тисячі кроків разом.</div>
+            </div>
+          </button>
+          <button class="pcard" aria-label="Листівка з Амальфі">
+            <div class="pc-inner">
+              <div class="pc-face"><span data-art="lemon"></span><span class="place">Амальфі</span></div>
+              <div class="pc-face pc-back"><small>Амальфі</small>Море, лимони завбільшки з кулак і все лимонне на світі.</div>
+            </div>
+          </button>
+          <button class="pcard" aria-label="Листівка з Позітано">
+            <div class="pc-inner">
+              <div class="pc-face"><span data-art="positano"></span><span class="place">Позітано</span></div>
+              <div class="pc-face pc-back"><small>Позітано</small>Кольорові будиночки на скелі й заходи сонця, з яких не хотілось їхати.</div>
+            </div>
+          </button>
+        </div>
+    </div>
+
+    <div class="spanel" id="s-autumn26" role="tabpanel" hidden>
+      <h3>Рік разом</h3>
+      <div class="events">
+        <div class="event paper"><span class="ic" data-art="cake"></span><div><p class="when">Жовтень</p><p>Мій день народження.</p></div></div>
+        <div class="event paper"><span class="ic" data-art="mountain"></span><div><p class="when">Зараз</p><p>Буковель і спа. Святкуємо наш перший рік у горах.</p></div></div>
+        <div class="event paper"><span class="ic" data-art="catsTogether"></span><div><p class="when">Далі</p><p>Ми класна пара, і на нас чекає щасливе майбутнє.</p></div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- мемо-гра -->
+  <section class="wrap">
+    <div class="mem-head">
+      <div>
+        <p class="eyebrow">Гра</p>
+        <h2>Знайди свою пару</h2>
+        <p class="sub">Ми з тобою не лише кітик і кицюня. Відкривай картки по дві й шукай, хто кому пасує.</p>
+      </div>
+      <p class="mem-status" id="memStatus">Ходів: 0 · Пар: 0/6</p>
+    </div>
+    <div class="mem-grid" id="memGrid"></div>
+    <p class="mem-toast" id="memToast" aria-live="polite"></p>
+  </section>
+
+  <!-- м'які іграшки -->
+  <section class="wrap">
+    <p class="eyebrow">Наша м'яка банда</p>
+    <h2>Полиця плюшевих</h2>
+    <p class="sub">Натисни на іграшку, і вона щось скаже.</p>
+    <div class="bubble plush-say" id="plushSay" aria-live="polite">Банда в зборі. Хто перший?</div>
+    <div class="shelf">
+      <div class="shelf-row">
+        <button class="toy-btn" data-toy="goose" aria-label="Гусь"><span data-art="goose"></span></button>
+        <button class="toy-btn" data-toy="lamb" aria-label="Ягнятко"><span data-art="lamb"></span></button>
+        <button class="toy-btn" data-toy="ratHe" aria-label="Криска в штанцях"><span data-art="ratHe"></span></button>
+        <button class="toy-btn" data-toy="ratShe" aria-label="Криска в спідничці"><span data-art="ratShe"></span></button>
+        <button class="toy-btn big" data-toy="capybara" aria-label="Містер Капібара"><span data-art="capybara"></span></button>
+      </div>
+      <div class="plank"></div>
+    </div>
+  </section>
+
+  <!-- радощі -->
+  <section class="wrap">
+    <p class="eyebrow">Маленькі радощі</p>
+    <h2>Кіндер і спагеті</h2>
+    <div class="treats">
+      <div class="treat paper kinder" id="kinder">
+        <h3>Кіндер-сюрприз</h3>
+        <p>Усередині не іграшка, а купон. Діє безстроково.</p>
+        <svg viewBox="0 0 200 190" aria-hidden="true">
+          <g class="toy"><use href="#a-catGrey" x="62" y="56" width="76" height="72" filter="url(#sticker)"/></g>
+          <g filter="url(#sticker)">
+            <path d="M40 112 Q40 176 100 176 Q160 176 160 112 Z" fill="#fbf6ef" stroke="#2b1b2a" stroke-width="3"/>
+            <path d="M40 112 L160 112" stroke="#2b1b2a" stroke-width="3"/>
+            <path d="M60 140 q40 18 80 0" fill="none" stroke="#e8352e" stroke-width="7" stroke-linecap="round"/>
+          </g>
+          <g class="egg-top" filter="url(#sticker)">
+            <path d="M40 112 Q40 30 100 30 Q160 30 160 112 Z" fill="#fbf6ef" stroke="#2b1b2a" stroke-width="3"/>
+            <path d="M58 62 Q100 40 142 62 L150 84 Q100 66 50 84 Z" fill="#f39a4b" stroke="#2b1b2a" stroke-width="2.5"/>
+            <text x="100" y="72" text-anchor="middle" font-family="Caveat, cursive" font-weight="700" font-size="20" fill="#fff">сюрприз</text>
+          </g>
+        </svg>
+        <div class="coupon" id="coupon" aria-live="polite">Натисни, щоб відкрити</div>
+        <button class="btn" id="kinderBtn">Відкрити кіндер</button>
+      </div>
+      <div class="treat paper">
+        <h3>Як у «Леді та Бродязі»</h3>
+        <p>Тільки замість собачок тут ми.</p>
+        <svg viewBox="0 0 400 230" aria-hidden="true">
+          <g id="spLeft"><use href="#a-catGrey" x="10" y="40" width="130" height="122" filter="url(#sticker)"/></g>
+          <g id="spRight"><use href="#a-catGinger" x="260" y="40" width="130" height="122" filter="url(#sticker)"/></g>
+          <path id="noodle" d="M75 112 Q200 170 325 112" fill="none" stroke="#f2c84b" stroke-width="5" stroke-linecap="round"/>
+          <path id="noodleInk" d="M75 112 Q200 170 325 112" fill="none" stroke="#2b1b2a" stroke-width="1.4" stroke-linecap="round" opacity=".5"/>
+          <g filter="url(#sticker)">
+            <ellipse cx="200" cy="196" rx="120" ry="26" fill="#fbf6ef" stroke="#2b1b2a" stroke-width="3"/>
+            <path d="M120 190 q10 -34 40 -30 q14 -20 40 -14 q26 -8 40 14 q30 -4 40 30 q-80 16 -160 0z" fill="#f2c84b" stroke="#2b1b2a" stroke-width="2.5"/>
+            <path d="M140 176 q10 -10 20 0 t20 0 t20 0 t20 0 t20 0 t20 0" fill="none" stroke="#d9a62b" stroke-width="3"/>
+            <circle cx="186" cy="160" r="13" fill="#8a4a2b" stroke="#2b1b2a" stroke-width="2.5"/>
+            <circle cx="218" cy="166" r="11" fill="#8a4a2b" stroke="#2b1b2a" stroke-width="2.5"/>
+          </g>
+          <g class="meet-heart" id="spHeart"><use href="#a-heart" x="180" y="28" width="40" height="38" filter="url(#sticker)"/></g>
+        </svg>
+        <p class="kiss-text" id="kissText">Цьом!</p>
+        <button class="btn pink" id="spBtn">Поділити спагеті</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- меню -->
+  <section class="wrap">
+    <p class="eyebrow">Ресторан «Кітик і Кицюня»</p>
+    <h2>Меню нашого року</h2>
+    <p class="sub">Обирай, що замовити. Ціни в цьомчиках, оплата обіймами.</p>
+    <div class="menu-wrap">
+      <div class="menu-items" id="menuItems"></div>
+      <div class="receipt" id="receipt">
+        <p class="r-head">Кітик і Кицюня<br><small>чек № 365</small></p>
+        <div class="r-lines" id="rLines"><p class="r-empty">Тут поки порожньо</p></div>
+        <p class="r-total"><span>Разом</span><span id="rTotal">0 цьомчиків</span></p>
+        <div class="r-actions">
+          <button class="btn pink" id="payBtn">Оплатити обіймами</button>
+          <button class="link" id="clearBtn">Очистити</button>
+        </div>
+        <p class="r-note" id="rNote" aria-live="polite"></p>
+        <span class="paid-stamp" id="paidStamp">Оплачено ♥</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- гра -->
+  <section class="wrap" id="gameSec">
+    <p class="eyebrow">Міні-гра</p>
+    <h2>Нагодуй кицюню</h2>
+    <p class="sub">Лови фрі, піцики, сушики, кіндери й лимонадик: 12 смаколиків, по одному за кожен наш місяць. Огірків котики бояться, кожен забирає один смаколик. Керуй пальцем, мишкою або стрілками.</p>
+    <div class="game-box" id="gameBox">
+      <canvas id="cv" aria-label="Гра: кицюня ловить смаколики"></canvas>
+      <div class="hud"><span class="score">смаколики: <span id="score">0</span>/12</span><span class="toast" id="toast"></span></div>
+      <div class="overlay" id="ov">
+        <p id="ovText">Кицюня зголодніла</p>
+        <small id="ovSmall">У кінці на тебе чекає лист</small>
+        <button class="btn" id="startBtn">Грати</button>
+      </div>
+    </div>
+    <button class="link" id="skip">Пропустити гру й одразу відкрити лист</button>
+  </section>
+
+  <!-- лист -->
+  <section class="wrap" id="letterSec" hidden>
+    <div class="letter">
+      <span class="stamp" data-art="stamp"></span>
+      <p class="eyebrow">Лист, який ти заслужила</p>
+      <h2 id="letterTitle">Моїй кицюні</h2>
+      <div class="letter-text" id="letterText"></div>
+      <p class="sign" id="sign">Твій кітик</p>
+    </div>
+  </section>
+
+  <!-- передбачення -->
+  <section class="wrap">
+    <p class="eyebrow">Що далі</p>
+    <h2>Кітик-передбачувач</h2>
+    <div class="fortune">
+      <button class="ball-btn" id="ball" aria-label="Запитати кулю про майбутнє"><span data-art="ball"></span></button>
+      <div>
+        <p class="prophecy" id="prophecy" aria-live="polite">Торкнися кулі, і кітик розповість, що на нас чекає.</p>
+        <p class="sub" id="prophCount"></p>
+      </div>
+    </div>
+  </section>
+
+  <!-- фінал -->
+  <section class="wrap final">
+    <span class="final-cats" data-art="catsTogether"></span>
+    <h2>Будеш моєю кицюнею ще один рік?</h2>
+    <p class="sub">І всі наступні теж.</p>
+    <div class="answers" id="answers">
+      <button class="btn pink" id="yes">Так!</button>
+      <button class="btn ghost" id="no">Ні</button>
+    </div>
+    <p class="yay" id="yay" hidden>Ура! Котики святкують разом з нами</p>
+  </section>
+
+  <footer>зроблено з любов'ю, муркотінням і трішки гусячого ґелґотіння</footer>
+</main>
+<canvas id="confetti" hidden></canvas>
+
+<script>
+/* =====================================================
+   НАЛАШТУВАННЯ: тексти міняються тут
+   ===================================================== */
+const CONFIG = {
+  startDate: "2025-11-28T00:00:00",   // з цього дня ми разом (РРРР-ММ-ДД)
+  metDate: "2025-11-08T00:00:00",     // концерт Хейтспіч, де ми знайшли одне одного
+  sign: "Твій кітик (він же Гусь)",
+
+  reasons: [
+    "Ти смієшся так, що я сміюся разом з тобою, навіть не знаючи чому.",
+    "З тобою навіть звичайна прогулянка Гідропарком — як подорож.",
+    "Ти розумієш мене з півслова, а іноді й без слів.",
+    "Ти красива, як нічний Париж.",
+    "Ти віриш у мене, навіть коли я сам у собі сумніваюсь.",
+    "Обійми з тобою лікують краще за будь-які пігулки.",
+    "Ти моя Люсія, а я завжди буду твоїм Джейсоном.",
+    "Одне твоє повідомлення піднімає мені настрій за секунду.",
+    "З тобою можна і дуріти, і говорити про найважливіше.",
+    "Поруч із тобою тепло, як котику на підвіконні під сонцем.",
+    "Ми класна пара, і на нас чекає щасливе майбутнє.",
+    "Бо це ти. І цього вже достатньо."
+  ],
+  afterReasons: "Причин набагато більше за дванадцять, просто кітик утомився рахувати. Мрр.",
+
+  coupons: [
+    "Купон: кіно, фільм обираєш ти",
+    "Купон: сніданок у кафешці, плачу я",
+    "Купон: прогулянка, куди скажеш",
+    "Купон: я сам плануватиму наше наступне побачення",
+    "Купон: піцики й мультики вдома",
+    "Купон: одна суперечка, яку ти виграєш автоматично",
+    "Купон: ще один світанок разом",
+    "Купон: я відвезу тебе, куди захочеш"
+  ],
+
+  letterTitle: "Моїй кицюні",
+  letter: [
+    "Восьмого листопада ми гуляли на концерті Хейтспіч і знайшли одне одного, як ті два котики на планетці. А двадцять восьмого я запропонував тобі зустрічатися. Досі вважаю це найкращим рішенням у своєму житті.",
+    "За цей рік у нас було стільки всього: театр і кіношки, наш поцілунок на КПІ, Ужгород, Паска Фест, Чернівці, Рим, Амальфі й Позітано, а тепер ще й Буковель. А ще прогулянки Золотими воротами, пішохідним мостом і Гідропарком, світанок у ботсаду, Зимова країна, зоопарк і концерти.",
+    "Ти красива, як нічний Париж, і рідна, як улюблена м'яка іграшка. Ти моя Сабріна, моя Люсія, моя Мінні, моє ягнятко і моя кицюня.",
+    "Ми з тобою класна пара, і я точно знаю: на нас чекає щасливе майбутнє. А Містер Капібара хай і далі охороняє тебе в бесі, поки мене немає поруч.",
+    "З нашою першою річницею!"
+  ],
+
+  // що кажуть іграшки на полиці
+  plush: {
+    goose: "Га-га-га! Я Goooooose, і я — це він. Так, це офіційно.",
+    lamb: "Бе-е-е! Я ягнятко, і я — це вона. Найніжніша в усій банді.",
+    ratHe: "Пі-пі! Ми дві криски в червоних шапочках. Я та, що в штанцях.",
+    ratShe: "Пі! А я та криска, що в спідничці. Ми завжди сидимо поруч.",
+    capybara: "Я Містер Капібара з рюкзачком-черепашкою. Їжджу з кицюнею в бесі й охороняю її, поки кітика немає поруч."
+  },
+
+  // меню: ціни в цьомчиках
+  menu: [
+    { art: "fries", name: "Картопля фрі", price: 2 },
+    { art: "burger", name: "Чізбургер", price: 3 },
+    { art: "sushi", name: "Сушики", price: 4 },
+    { art: "pizza", name: "Піцики", price: 4 },
+    { art: "kinder", name: "Кіндер", price: 1 },
+    { art: "lemonade", name: "Лимонадик", price: 2 }
+  ],
+
+  // передбачення кулі
+  prophecies: [
+    "Ще більше подорожей. Може, нарешті нічний Париж?",
+    "Тисяча спільних кіношок і мультиків.",
+    "Ще більше світанків, прогулянок і концертів.",
+    "Нові міста на нашій планетці.",
+    "Містер Капібара знайде собі друзів на полиці.",
+    "Ти й далі будеш найкрасивішою, а я найщасливішим."
+  ],
+  finalProphecy: "Ми класна пара, і на нас чекає щасливе майбутнє. Кітик перевірив."
+};
+</script>
+
+<script>
+/* ===== Малюнки-наліпки (усі намальовані кодом) ===== */
+const INK = '#2b1b2a';
+const ART = {
+  catGrey: { vb: [120, 112], svg: `
+    <path d="M20 44 L24 8 L46 28 Q60 24 74 28 L96 8 L100 44 Q110 66 103 88 Q96 106 60 106 Q24 106 17 88 Q10 66 20 44Z" fill="#dcd6d3" stroke="${INK}" stroke-width="2.5" stroke-linejoin="round"/>
+    <path d="M28 19 L30 33 L40 28Z M92 19 L90 33 L80 28Z" fill="#f4a3c4"/>
+    <path d="M54 30 l2 9 M60 28 v10 M66 30 l-2 9 M19 60 l10 3 M18 69 l10 1 M101 60 l-10 3 M102 69 l-10 1 M84 90 l8 -4 M86 97 l8 -3" stroke="#7d7377" stroke-width="3.2" stroke-linecap="round"/>
+    <ellipse cx="38" cy="63" rx="6" ry="3.5" fill="#f4a3c4" opacity=".6"/><ellipse cx="82" cy="63" rx="6" ry="3.5" fill="#f4a3c4" opacity=".6"/>
+    <circle cx="47" cy="54" r="3.4" fill="${INK}"/><circle cx="73" cy="54" r="3.4" fill="${INK}"/>
+    <path d="M57 60 h6 l-3 4z" fill="${INK}"/>
+    <path d="M60 64 q-3 4 -6 2 M60 64 q3 4 6 2" fill="none" stroke="${INK}" stroke-width="1.8" stroke-linecap="round"/>
+    <path d="M34 78 q-4 8 3 12 M86 78 q4 8 -3 12" fill="none" stroke="${INK}" stroke-width="2.2" stroke-linecap="round"/>
+    <circle cx="36" cy="100" r="2.2" fill="#f4a3c4"/><circle cx="41" cy="102" r="2.2" fill="#f4a3c4"/>` },
+  catGinger: { vb: [120, 112], svg: `
+    <path d="M20 44 L24 8 L46 28 Q60 24 74 28 L96 8 L100 44 Q110 66 103 88 Q96 106 60 106 Q24 106 17 88 Q10 66 20 44Z" fill="#f39a4b" stroke="${INK}" stroke-width="2.5" stroke-linejoin="round"/>
+    <path d="M28 19 L30 33 L40 28Z M92 19 L90 33 L80 28Z" fill="#f4a3c4"/>
+    <path d="M53 28 l4 10 l3 -10z M63 28 l3 10 l4 -10z M14 58 l12 3 l-12 4z M106 58 l-12 3 l12 4z M90 92 l8 -8 l2 9z" fill="#f7d24a"/>
+    <ellipse cx="38" cy="62" rx="6" ry="3.5" fill="#ff6fa3" opacity=".55"/><ellipse cx="82" cy="62" rx="6" ry="3.5" fill="#ff6fa3" opacity=".55"/>
+    <circle cx="47" cy="53" r="3.4" fill="${INK}"/><circle cx="73" cy="53" r="3.4" fill="${INK}"/>
+    <path d="M57 58 h6 l-3 4z" fill="${INK}"/>
+    <path d="M60 62 q-3 4 -6 2 M60 62 q3 4 6 2" fill="none" stroke="${INK}" stroke-width="1.8" stroke-linecap="round"/>
+    <path d="M22 70 Q60 84 98 70 L99 81 Q60 95 21 81Z" fill="#e9a8d8" stroke="${INK}" stroke-width="2.2" stroke-linejoin="round"/>
+    <path d="M30 74 v9 M40 77 v10 M50 79 v10 M60 79 v10 M70 79 v10 M80 77 v10 M90 74 v9" stroke="#c97fb8" stroke-width="2"/>
+    <path d="M76 84 l2 18 l11 -1 l-3 -18z" fill="#e9a8d8" stroke="${INK}" stroke-width="2" stroke-linejoin="round"/>
+    <path d="M79 102 v5 M83 102 v5 M87 101 v5" stroke="${INK}" stroke-width="1.6" stroke-linecap="round"/>
+    <circle cx="80" cy="100" r="2.2" fill="#f4a3c4"/>` },
+  heart: { vb: [40, 38], svg: `
+    <path d="M20 35 C4 24 2 12 9 6 C14 2 18 5 20 9 C22 5 26 2 31 6 C38 12 36 24 20 35Z" fill="#ff6fa3" stroke="${INK}" stroke-width="2"/>
+    <path d="M10 10 l3 -3 l1 6z" fill="#fff" opacity=".7"/>
+    <circle cx="16" cy="18" r="1.4" fill="${INK}"/><circle cx="24" cy="18" r="1.4" fill="${INK}"/>
+    <path d="M18 22 q2 2 4 0" fill="none" stroke="${INK}" stroke-width="1.3" stroke-linecap="round"/>` },
+  star: { vb: [100, 100], svg: `
+    <path d="M20 66 Q6 90 12 96 Q30 92 44 72 Z" fill="#f7d24a" stroke="${INK}" stroke-width="2"/>
+    <path d="M30 70 Q22 88 26 94 M38 72 Q34 86 38 90" fill="none" stroke="#f39a4b" stroke-width="3" stroke-linecap="round"/>
+    <path d="M58 6 L68 30 L94 32 L74 48 L82 74 L58 60 L34 74 L42 48 L22 32 L48 30Z" fill="#f6b64a" stroke="${INK}" stroke-width="2.5" stroke-linejoin="round"/>
+    <circle cx="52" cy="40" r="2" fill="${INK}"/><circle cx="64" cy="40" r="2" fill="${INK}"/>
+    <path d="M54 46 q4 4 8 0" fill="none" stroke="${INK}" stroke-width="1.8" stroke-linecap="round"/>` },
+  lock: { vb: [80, 90], svg: `
+    <path d="M22 40 V28 Q22 10 40 10 Q58 10 58 28 V40" fill="none" stroke="#c7c0cc" stroke-width="9" stroke-linecap="round"/>
+    <path d="M22 40 V28 Q22 10 40 10 Q58 10 58 28 V40" fill="none" stroke="${INK}" stroke-width="2"/>
+    <rect x="10" y="38" width="60" height="46" rx="10" fill="#f7d24a" stroke="${INK}" stroke-width="2.5"/>
+    <path d="M40 72 C30 65 30 57 35 55 C38 54 40 56 40 58 C40 56 42 54 45 55 C50 57 50 65 40 72Z" fill="#ff6fa3" stroke="${INK}" stroke-width="1.8"/>` },
+  burger: { vb: [100, 90], svg: `
+    <path d="M14 42 Q14 10 50 10 Q86 10 86 42 Z" fill="#e7a24e" stroke="${INK}" stroke-width="2.5"/>
+    <path d="M34 22 l3 2 M50 18 l3 1 M64 24 l3 2 M42 30 l3 1" stroke="#fff3d6" stroke-width="2.4" stroke-linecap="round"/>
+    <path d="M10 46 h80 l-6 8 l-8 -2 l-10 10 l-8 -8 h-40 l-8 4z" fill="#f7d24a" stroke="${INK}" stroke-width="2.2" stroke-linejoin="round"/>
+    <rect x="12" y="54" width="76" height="12" rx="6" fill="#7a3b22" stroke="${INK}" stroke-width="2.2"/>
+    <path d="M14 70 h72 Q86 84 50 84 Q14 84 14 70z" fill="#e7a24e" stroke="${INK}" stroke-width="2.5"/>` },
+  fries: { vb: [90, 100], svg: `
+    <g fill="#f7d24a" stroke="${INK}" stroke-width="2">
+      <rect x="22" y="12" width="9" height="44" rx="2" transform="rotate(-10 26 34)"/>
+      <rect x="34" y="6" width="9" height="50" rx="2"/>
+      <rect x="46" y="8" width="9" height="48" rx="2" transform="rotate(6 50 32)"/>
+      <rect x="58" y="14" width="9" height="42" rx="2" transform="rotate(14 62 34)"/>
+    </g>
+    <path d="M16 40 L74 40 L66 94 L24 94Z" fill="#e8352e" stroke="${INK}" stroke-width="2.5" stroke-linejoin="round"/>
+    <path d="M45 76 C34 68 34 59 40 57 C43 56 45 58 45 61 C45 58 47 56 50 57 C56 59 56 68 45 76Z" fill="#f7d24a"/>` },
+  kinder: { vb: [80, 100], svg: `
+    <ellipse cx="40" cy="52" rx="32" ry="42" fill="#fbf6ef" stroke="${INK}" stroke-width="2.5"/>
+    <path d="M12 38 Q40 22 68 38 L70 52 Q40 40 10 52Z" fill="#f39a4b" stroke="${INK}" stroke-width="2"/>
+    <path d="M14 70 q26 12 52 0" fill="none" stroke="#e8352e" stroke-width="5" stroke-linecap="round"/>` },
+  cucumber: { vb: [50, 100], svg: `
+    <path d="M25 6 C40 6 44 30 42 54 C40 80 34 94 25 94 C16 94 10 80 8 54 C6 30 10 6 25 6Z" fill="#5cae5a" stroke="${INK}" stroke-width="2.5"/>
+    <g fill="#3d7d3c"><circle cx="20" cy="26" r="2"/><circle cx="30" cy="40" r="2"/><circle cx="19" cy="56" r="2"/><circle cx="30" cy="70" r="2"/></g>
+    <circle cx="20" cy="44" r="1.7" fill="${INK}"/><circle cx="30" cy="44" r="1.7" fill="${INK}"/>
+    <path d="M20 54 q5 -4 10 0" fill="none" stroke="${INK}" stroke-width="1.6" stroke-linecap="round"/>` },
+  goose: { vb: [100, 100], svg: `
+    <path d="M30 54 Q22 18 40 14 Q52 12 50 30 Q48 44 56 50" fill="none" stroke="${INK}" stroke-width="15" stroke-linecap="round"/>
+    <path d="M30 54 Q22 18 40 14 Q52 12 50 30 Q48 44 56 50" fill="none" stroke="#a48d78" stroke-width="10" stroke-linecap="round"/>
+    <path d="M38 12 q8 -8 14 0 l-4 4z" fill="#c43d3d" stroke="${INK}" stroke-width="1.8"/>
+    <path d="M28 20 l-16 4 l15 4z" fill="#f2a43a" stroke="${INK}" stroke-width="1.8" stroke-linejoin="round"/>
+    <circle cx="36" cy="20" r="2" fill="${INK}"/>
+    <ellipse cx="58" cy="66" rx="32" ry="20" fill="#a48d78" stroke="${INK}" stroke-width="2.5"/>
+    <path d="M62 60 q14 2 20 12" fill="none" stroke="#7d6a58" stroke-width="3" stroke-linecap="round"/>
+    <path d="M44 84 l-6 12 h14z M64 84 l-2 12 h14z" fill="#f2a43a" stroke="${INK}" stroke-width="1.8" stroke-linejoin="round"/>` },
+  lamb: { vb: [100, 100], svg: `
+    <g fill="#fbf7f2" stroke="${INK}" stroke-width="2.2">
+      <rect x="34" y="70" width="9" height="22" rx="4"/><rect x="66" y="70" width="9" height="22" rx="4"/>
+      <circle cx="40" cy="60" r="16"/><circle cx="58" cy="56" r="17"/><circle cx="74" cy="62" r="14"/><circle cx="54" cy="72" r="15"/>
+      <ellipse cx="28" cy="40" rx="15" ry="17"/>
+      <ellipse cx="14" cy="32" rx="9" ry="5" transform="rotate(-25 14 32)"/><ellipse cx="40" cy="26" rx="9" ry="5" transform="rotate(30 40 26)"/>
+    </g>
+    <circle cx="23" cy="40" r="2" fill="${INK}"/><circle cx="33" cy="40" r="2" fill="${INK}"/>
+    <path d="M26 47 q2 2 4 0" fill="none" stroke="${INK}" stroke-width="1.5" stroke-linecap="round"/>
+    <path d="M16 54 Q30 62 44 52 L46 58 Q30 70 16 60Z" fill="#9b7b66" stroke="${INK}" stroke-width="1.8"/>
+    <path d="M24 58 l2 2 M32 59 l2 2 M40 56 l2 2" stroke="#fbf7f2" stroke-width="1.6"/>` },
+  ratHe: { vb: [100, 110], svg: `
+    <path d="M44 22 Q50 -2 72 2 Q60 8 58 26Z" fill="#8c1d2b" stroke="${INK}" stroke-width="2" stroke-linejoin="round"/>
+    <circle cx="30" cy="30" r="11" fill="#efe2cf" stroke="${INK}" stroke-width="2"/><circle cx="70" cy="30" r="11" fill="#efe2cf" stroke="${INK}" stroke-width="2"/>
+    <circle cx="30" cy="30" r="5" fill="#f4b8c4"/><circle cx="70" cy="30" r="5" fill="#f4b8c4"/>
+    <path d="M36 26 Q50 18 64 26 Q64 48 50 56 Q36 48 36 26Z" fill="#efe2cf" stroke="${INK}" stroke-width="2"/>
+    <circle cx="44" cy="36" r="2" fill="${INK}"/><circle cx="56" cy="36" r="2" fill="${INK}"/><circle cx="50" cy="52" r="2.6" fill="${INK}"/>
+    <rect x="32" y="56" width="36" height="28" rx="8" fill="#b5654a" stroke="${INK}" stroke-width="2"/>
+    <path d="M33 63 h34 M33 70 h34 M33 77 h34" stroke="#efe2cf" stroke-width="2.4"/>
+    <rect x="34" y="82" width="14" height="20" rx="3" fill="#4a3528" stroke="${INK}" stroke-width="2"/><rect x="52" y="82" width="14" height="20" rx="3" fill="#4a3528" stroke="${INK}" stroke-width="2"/>` },
+  ratShe: { vb: [100, 110], svg: `
+    <path d="M42 22 Q44 -4 70 0 Q58 8 58 26Z" fill="#8c1d2b" stroke="${INK}" stroke-width="2" stroke-linejoin="round"/>
+    <circle cx="30" cy="30" r="11" fill="#efe2cf" stroke="${INK}" stroke-width="2"/><circle cx="70" cy="30" r="11" fill="#efe2cf" stroke="${INK}" stroke-width="2"/>
+    <circle cx="30" cy="30" r="5" fill="#f4b8c4"/><circle cx="70" cy="30" r="5" fill="#f4b8c4"/>
+    <path d="M36 26 Q50 18 64 26 Q64 48 50 56 Q36 48 36 26Z" fill="#efe2cf" stroke="${INK}" stroke-width="2"/>
+    <circle cx="44" cy="36" r="2" fill="${INK}"/><circle cx="56" cy="36" r="2" fill="${INK}"/><circle cx="50" cy="52" r="2.6" fill="${INK}"/>
+    <rect x="32" y="56" width="36" height="22" rx="8" fill="#8c1d2b" stroke="${INK}" stroke-width="2"/>
+    <path d="M30 76 h40 l6 18 h-52z" fill="#4b5a4a" stroke="${INK}" stroke-width="2" stroke-linejoin="round"/>
+    <path d="M38 76 l-3 18 M50 76 v18 M62 76 l3 18 M28 84 h44" stroke="#c43d3d" stroke-width="1.8"/>
+    <rect x="38" y="94" width="8" height="12" rx="3" fill="#efe2cf" stroke="${INK}" stroke-width="2"/><rect x="54" y="94" width="8" height="12" rx="3" fill="#efe2cf" stroke="${INK}" stroke-width="2"/>` },
+  jason: { vb: [100, 100], svg: `
+    <circle cx="50" cy="50" r="44" fill="#ff8a5c" stroke="${INK}" stroke-width="2.2"/>
+    <path d="M6 58 h88 M10 68 h80 M16 78 h68" stroke="#ff6fa3" stroke-width="4"/>
+    <ellipse cx="50" cy="52" rx="20" ry="23" fill="#e2b48c" stroke="${INK}" stroke-width="2.2"/>
+    <path d="M30 46 Q30 24 50 24 Q70 24 70 46 Q62 34 50 36 Q38 34 30 46Z" fill="#3a2a22" stroke="${INK}" stroke-width="2"/>
+    <rect x="35" y="47" width="12" height="7" rx="2" fill="${INK}"/><rect x="53" y="47" width="12" height="7" rx="2" fill="${INK}"/><path d="M47 50 h6" stroke="${INK}" stroke-width="2"/>
+    <path d="M38 62 q12 14 24 0" fill="#6a5040" opacity=".55"/>
+    <path d="M44 64 q6 4 12 0" fill="none" stroke="${INK}" stroke-width="1.8" stroke-linecap="round"/>` },
+  lucia: { vb: [100, 100], svg: `
+    <circle cx="50" cy="50" r="44" fill="#ff8a5c" stroke="${INK}" stroke-width="2.2"/>
+    <path d="M6 58 h88 M10 68 h80 M16 78 h68" stroke="#ff6fa3" stroke-width="4"/>
+    <path d="M24 56 Q18 22 50 20 Q82 22 76 56 Q80 80 66 84 L34 84 Q20 80 24 56Z" fill="#2a1a16" stroke="${INK}" stroke-width="2"/>
+    <ellipse cx="50" cy="52" rx="18" ry="22" fill="#c98f66" stroke="${INK}" stroke-width="2.2"/>
+    <path d="M32 44 Q40 28 62 32 Q66 36 68 44 Q56 34 32 44Z" fill="#2a1a16"/>
+    <circle cx="43" cy="50" r="2" fill="${INK}"/><circle cx="57" cy="50" r="2" fill="${INK}"/>
+    <path d="M44 62 q6 4 12 0" fill="#d84a6a" stroke="${INK}" stroke-width="1.6" stroke-linecap="round"/>
+    <circle cx="31" cy="62" r="5" fill="none" stroke="#f7d24a" stroke-width="2.4"/><circle cx="69" cy="62" r="5" fill="none" stroke="#f7d24a" stroke-width="2.4"/>` },
+  travis: { vb: [100, 100], svg: `
+    <path d="M40 96 V24 Q40 10 50 10 Q60 10 60 24 V96Z" fill="#5f9a46" stroke="${INK}" stroke-width="2.5"/>
+    <path d="M40 60 H28 Q20 60 20 50 V38 Q20 32 26 32 Q32 32 32 38 V48 H40" fill="#5f9a46" stroke="${INK}" stroke-width="2.5" stroke-linejoin="round"/>
+    <path d="M60 52 H72 Q80 52 80 42 V30 Q80 24 74 24 Q68 24 68 30 V40 H60" fill="#5f9a46" stroke="${INK}" stroke-width="2.5" stroke-linejoin="round"/>
+    <path d="M46 70 v6 M54 82 v6 M46 88 v4 M54 30 v5" stroke="#3f6e2e" stroke-width="2" stroke-linecap="round"/>
+    <rect x="38" y="26" width="11" height="7" rx="2" fill="${INK}"/><rect x="51" y="26" width="11" height="7" rx="2" fill="${INK}"/>
+    <path d="M45 42 q5 4 10 0" fill="none" stroke="${INK}" stroke-width="1.8" stroke-linecap="round"/>
+    <rect x="28" y="92" width="44" height="6" rx="3" fill="#b36a3c" stroke="${INK}" stroke-width="2"/>` },
+  sabrina: { vb: [100, 100], svg: `
+    <path d="M44 20 q-6 -8 0 -14 M56 22 q6 -8 0 -14" fill="none" stroke="#c7c0cc" stroke-width="3" stroke-linecap="round"/>
+    <ellipse cx="48" cy="86" rx="40" ry="9" fill="#fbf6ef" stroke="${INK}" stroke-width="2.2"/>
+    <path d="M20 40 h56 v18 Q76 82 48 82 Q20 82 20 58Z" fill="#fbf6ef" stroke="${INK}" stroke-width="2.5"/>
+    <path d="M76 48 q14 0 14 12 q0 12 -16 10" fill="none" stroke="${INK}" stroke-width="5"/>
+    <ellipse cx="48" cy="40" rx="28" ry="5" fill="#6b3a24" stroke="${INK}" stroke-width="2"/>
+    <text x="48" y="66" text-anchor="middle" font-family="Caveat, cursive" font-weight="700" font-size="16" fill="#ff6fa3">espresso</text>
+    <path d="M32 30 l-10 -8 v14z M32 30 l10 -8 v14z" fill="#ff6fa3" stroke="${INK}" stroke-width="1.8" stroke-linejoin="round"/><circle cx="32" cy="30" r="3" fill="#ff6fa3" stroke="${INK}" stroke-width="1.6"/>` },
+  carBlack: { vb: [120, 80], svg: carSVG('#1f1d24', '#3a3742') },
+  carGrey: { vb: [120, 80], svg: carSVG('#9ea0aa', '#c2c4cc') + `
+    <circle cx="74" cy="22" r="2.5" fill="#a47a52"/>
+    <path d="M70 32 Q70 23 78 23 H86 Q93 23 93 29 V32Z" fill="#c9a37b" stroke="${INK}" stroke-width="1.2"/>
+    <path d="M86 23 Q93 23 93 29 V32 H85 Q84 26 86 23Z" fill="#7a4a2e"/>
+    <path d="M76 27 q2 1.5 4 0" fill="none" stroke="${INK}" stroke-width="1.2" stroke-linecap="round"/>` },
+  lady: { vb: [100, 100], svg: `
+    <ellipse cx="22" cy="56" rx="14" ry="28" fill="#8a5a34" stroke="${INK}" stroke-width="2.2" transform="rotate(12 22 56)"/>
+    <ellipse cx="78" cy="56" rx="14" ry="28" fill="#8a5a34" stroke="${INK}" stroke-width="2.2" transform="rotate(-12 78 56)"/>
+    <path d="M28 40 Q28 16 50 16 Q72 16 72 40 Q74 70 50 80 Q26 70 28 40Z" fill="#e3b77e" stroke="${INK}" stroke-width="2.4"/>
+    <ellipse cx="50" cy="64" rx="12" ry="9" fill="#f3d3a6"/>
+    <circle cx="41" cy="46" r="3" fill="${INK}"/><circle cx="59" cy="46" r="3" fill="${INK}"/>
+    <ellipse cx="50" cy="60" rx="5" ry="3.5" fill="${INK}"/>
+    <path d="M38 22 q12 -6 24 0" fill="none" stroke="#8a5a34" stroke-width="5" stroke-linecap="round"/>
+    <path d="M30 84 h40" stroke="#5ab0d8" stroke-width="7" stroke-linecap="round"/><circle cx="50" cy="90" r="4" fill="#f7d24a" stroke="${INK}" stroke-width="1.6"/>` },
+  tramp: { vb: [100, 100], svg: `
+    <path d="M26 30 L18 6 L40 22Z M74 30 L82 6 L60 22Z" fill="#8f8f96" stroke="${INK}" stroke-width="2.2" stroke-linejoin="round"/>
+    <path d="M26 36 Q26 14 50 14 Q74 14 74 36 Q78 72 50 82 Q22 72 26 36Z" fill="#a8a8ae" stroke="${INK}" stroke-width="2.4"/>
+    <path d="M38 16 l4 -8 l4 8 l4 -10 l4 10 l4 -8 l4 8" fill="#a8a8ae" stroke="${INK}" stroke-width="2" stroke-linejoin="round"/>
+    <ellipse cx="50" cy="64" rx="14" ry="10" fill="#d6d6da"/>
+    <path d="M34 40 l12 2 M54 42 l12 -2" stroke="${INK}" stroke-width="2.6" stroke-linecap="round"/>
+    <circle cx="41" cy="48" r="3" fill="${INK}"/><circle cx="59" cy="48" r="3" fill="${INK}"/>
+    <ellipse cx="50" cy="60" rx="5.5" ry="4" fill="${INK}"/>
+    <path d="M44 70 q6 5 12 0" fill="none" stroke="${INK}" stroke-width="1.8" stroke-linecap="round"/>` },
+  colosseum: { vb: [140, 100], svg: `
+    <path d="M10 92 V40 Q70 10 130 34 V92Z" fill="#e8c79a" stroke="${INK}" stroke-width="2.5" stroke-linejoin="round"/>
+    <path d="M10 56 Q70 34 130 50 M10 74 Q70 56 130 70" fill="none" stroke="${INK}" stroke-width="2"/>
+    <g fill="#8a5a34">${[0,1,2,3,4,5].map(i=>`<path d="M${18+i*19} 92 v-10 q5 -7 10 0 v10z"/><path d="M${18+i*19} 70 v-8 q5 -6 10 0 v8z"/>`).join('')}${[0,1,2,3,4].map(i=>`<path d="M${22+i*22} 50 v-6 q5 -5 10 0 v6z"/>`).join('')}</g>
+    <path d="M120 34 L130 20 V34" fill="#e8c79a" stroke="${INK}" stroke-width="2" stroke-linejoin="round"/>` },
+  lemon: { vb: [120, 100], svg: `
+    <path d="M62 22 Q80 4 104 10 Q96 34 66 30Z" fill="#6aa83f" stroke="${INK}" stroke-width="2.4"/>
+    <path d="M66 28 Q84 18 100 12" fill="none" stroke="#3f6e2e" stroke-width="2"/>
+    <path d="M12 58 Q8 52 14 46 Q30 22 62 26 Q96 30 106 54 Q110 60 104 64 Q92 90 56 88 Q24 86 14 66 Q8 62 12 58Z" fill="#f7d24a" stroke="${INK}" stroke-width="2.6"/>
+    <path d="M32 44 q8 -6 16 -6" fill="none" stroke="#fff6c4" stroke-width="5" stroke-linecap="round"/>
+    <g fill="#e2b824"><circle cx="40" cy="64" r="2"/><circle cx="62" cy="54" r="2"/><circle cx="78" cy="70" r="2"/><circle cx="56" cy="76" r="2"/></g>` },
+  positano: { vb: [140, 110], svg: `
+    <path d="M4 106 V96 Q40 90 70 98 Q100 104 136 94 V106Z" fill="#2f6fd0" stroke="${INK}" stroke-width="2.2"/>
+    <path d="M30 96 L40 20 Q70 10 120 26 L132 92Z" fill="#9b8a72" stroke="${INK}" stroke-width="2.2" stroke-linejoin="round"/>
+    ${[[44,64,'#ff8a5c'],[64,70,'#f7d24a'],[86,64,'#ff6fa3'],[106,70,'#fbf6ef'],[50,42,'#fbf6ef'],[72,46,'#f39a4b'],[94,42,'#ffb3c7'],[60,24,'#f7d24a'],[84,24,'#fbf6ef']].map(([x,y,c])=>`<rect x="${x}" y="${y}" width="18" height="16" fill="${c}" stroke="${INK}" stroke-width="1.8"/><rect x="${x+6}" y="${y+5}" width="6" height="6" fill="#2b1b2a" opacity=".7"/>`).join('')}
+    <circle cx="20" cy="30" r="10" fill="#f7d24a" stroke="${INK}" stroke-width="2"/>` },
+  stamp: { vb: [90, 100], svg: `
+    <rect x="3" y="3" width="84" height="94" rx="4" fill="#fbf6ef" stroke="${INK}" stroke-width="2.2" stroke-dasharray="6 4"/>
+    <rect x="11" y="11" width="68" height="78" rx="2" fill="#7e1b4c"/>
+    <circle cx="45" cy="50" r="22" fill="#2448b8"/><path d="M30 44 q8 -10 18 -4 q-4 10 -18 4z M48 56 q10 -4 14 4 q-8 8 -14 -4z" fill="#7fb03a"/>
+    <path d="M18 22 l2 5 l5 1 l-5 2 l-2 5 l-2 -5 l-5 -2 l5 -1z" fill="#fbeef5"/>
+    <text x="45" y="84" text-anchor="middle" font-family="Caveat, cursive" font-weight="700" font-size="14" fill="#fbeef5">1 рік</text>` },
+};
+Object.assign(ART, {
+  capybara: { vb: [120, 112], svg: `
+    <circle cx="30" cy="12" r="7" fill="#a47a52" stroke="${INK}" stroke-width="2"/><circle cx="54" cy="9" r="7" fill="#a47a52" stroke="${INK}" stroke-width="2"/>
+    <ellipse cx="104" cy="78" rx="11" ry="17" fill="#8fd14f" stroke="${INK}" stroke-width="2"/>
+    <path d="M98 70 l6 -6 l6 6 M98 84 l6 6 l6 -6 M104 64 v28" fill="none" stroke="#2f6b2a" stroke-width="1.6"/>
+    <ellipse cx="58" cy="78" rx="38" ry="30" fill="#c9a37b" stroke="${INK}" stroke-width="2.5"/>
+    <path d="M20 22 Q20 8 40 8 H76 Q100 8 102 30 V46 Q102 60 84 60 H40 Q20 60 20 46Z" fill="#c9a37b" stroke="${INK}" stroke-width="2.5"/>
+    <path d="M74 14 Q102 12 102 34 Q102 56 82 56 Q66 54 66 36 Q66 18 74 14Z" fill="#7a4a2e" stroke="${INK}" stroke-width="2"/>
+    <circle cx="86" cy="24" r="1.8" fill="#4a2a18"/><circle cx="94" cy="26" r="1.8" fill="#4a2a18"/>
+    <path d="M44 30 q5 3 10 0" fill="none" stroke="${INK}" stroke-width="2.4" stroke-linecap="round"/>
+    <path d="M30 62 Q36 82 28 98 M88 60 Q84 80 90 94" fill="none" stroke="#8fd14f" stroke-width="6" stroke-linecap="round"/>
+    <ellipse cx="38" cy="78" rx="7" ry="10" fill="#7a4a2e" stroke="${INK}" stroke-width="1.8"/><ellipse cx="80" cy="78" rx="7" ry="10" fill="#7a4a2e" stroke="${INK}" stroke-width="1.8"/>
+    <ellipse cx="42" cy="106" rx="11" ry="6" fill="#7a4a2e" stroke="${INK}" stroke-width="1.8"/><ellipse cx="76" cy="106" rx="11" ry="6" fill="#7a4a2e" stroke="${INK}" stroke-width="1.8"/>` },
+  turtle: { vb: [100, 92], svg: `
+    <ellipse cx="20" cy="40" rx="10" ry="7" fill="#9bdc5a" stroke="${INK}" stroke-width="2" transform="rotate(-30 20 40)"/>
+    <ellipse cx="80" cy="40" rx="10" ry="7" fill="#9bdc5a" stroke="${INK}" stroke-width="2" transform="rotate(30 80 40)"/>
+    <ellipse cx="26" cy="78" rx="9" ry="6" fill="#9bdc5a" stroke="${INK}" stroke-width="2" transform="rotate(30 26 78)"/>
+    <ellipse cx="74" cy="78" rx="9" ry="6" fill="#9bdc5a" stroke="${INK}" stroke-width="2" transform="rotate(-30 74 78)"/>
+    <circle cx="50" cy="18" r="12" fill="#9bdc5a" stroke="${INK}" stroke-width="2"/>
+    <circle cx="45" cy="16" r="2" fill="${INK}"/><circle cx="55" cy="16" r="2" fill="${INK}"/>
+    <ellipse cx="50" cy="58" rx="32" ry="28" fill="#8fd14f" stroke="${INK}" stroke-width="2.5"/>
+    <path d="M50 38 l10 8 v12 l-10 8 l-10 -8 v-12z M40 46 l-14 -2 M60 46 l14 -2 M40 58 l-16 6 M60 58 l16 6 M50 66 v18 M50 38 v-8" fill="none" stroke="#2f6b2a" stroke-width="2"/>` },
+  mickey: { vb: [100, 100], svg: mouseSVG(false) },
+  minnie: { vb: [100, 100], svg: mouseSVG(true) },
+  sushi: { vb: [110, 80], svg: `
+    <path d="M10 70 L100 54 M14 76 L104 62" stroke="#b07a46" stroke-width="4" stroke-linecap="round"/>
+    ${[[32, 40], [74, 36]].map(([x, y]) => `<circle cx="${x}" cy="${y}" r="22" fill="#24302b" stroke="${INK}" stroke-width="2"/><circle cx="${x}" cy="${y}" r="17" fill="#fbf7f2"/><circle cx="${x}" cy="${y}" r="8" fill="#ff8a5c"/><circle cx="${x + 3}" cy="${y - 3}" r="2.5" fill="#7fb03a"/>`).join('')}` },
+  lemonade: { vb: [60, 112], svg: `
+    <rect x="22" y="2" width="16" height="10" rx="2" fill="#e8352e" stroke="${INK}" stroke-width="2"/>
+    <path d="M24 12 h12 v12 q14 8 14 26 v54 q0 6 -6 6 h-28 q-6 0 -6 -6 v-54 q0 -18 14 -26z" fill="#ffe680" stroke="${INK}" stroke-width="2.5"/>
+    <rect x="12" y="58" width="36" height="28" rx="3" fill="#fbf7f2" stroke="${INK}" stroke-width="1.8"/>
+    <text x="30" y="70" text-anchor="middle" font-family="Caveat, cursive" font-weight="700" font-size="10" fill="#2f6fd0">лимонадик</text>
+    <circle cx="30" cy="79" r="4" fill="#f7d24a" stroke="${INK}" stroke-width="1.2"/>
+    <path d="M18 34 q-2 10 0 18" stroke="#fff" stroke-width="3" stroke-linecap="round" opacity=".8"/>` },
+  leaf: { vb: [60, 60], svg: `<path d="M8 52 Q6 12 52 8 Q54 52 8 52Z" fill="#f39a4b" stroke="${INK}" stroke-width="2.4"/><path d="M10 50 Q28 30 46 14 M22 38 l-2 -10 M32 28 l8 2" fill="none" stroke="#b5552b" stroke-width="2"/>` },
+  snowflake: { vb: [60, 60], svg: `<g stroke="#cfe0f5" stroke-width="5" stroke-linecap="round"><path d="M30 4 V56 M7 17 L53 43 M7 43 L53 17"/><path d="M22 8 l8 8 l8 -8 M22 52 l8 -8 l8 8"/></g><circle cx="30" cy="30" r="4" fill="#fff"/>` },
+  flower: { vb: [60, 60], svg: `${[0, 72, 144, 216, 288].map(a => `<ellipse cx="30" cy="15" rx="9" ry="13" fill="#ffb3c7" stroke="${INK}" stroke-width="2" transform="rotate(${a} 30 30)"/>`).join('')}<circle cx="30" cy="30" r="7" fill="#f7d24a" stroke="${INK}" stroke-width="2"/>` },
+  sun: { vb: [60, 60], svg: `<g stroke="#f7d24a" stroke-width="4" stroke-linecap="round">${[0, 45, 90, 135, 180, 225, 270, 315].map(a => `<path d="M30 4 V12" transform="rotate(${a} 30 30)"/>`).join('')}</g><circle cx="30" cy="30" r="14" fill="#f7d24a" stroke="${INK}" stroke-width="2.4"/><path d="M25 32 q5 4 10 0" fill="none" stroke="${INK}" stroke-width="1.8" stroke-linecap="round"/><circle cx="25" cy="27" r="1.6" fill="${INK}"/><circle cx="35" cy="27" r="1.6" fill="${INK}"/>` },
+  mountain: { vb: [90, 70], svg: `
+    <path d="M4 64 L32 14 L50 42 L62 26 L86 64Z" fill="#7d8fb8" stroke="${INK}" stroke-width="2.4" stroke-linejoin="round"/>
+    <path d="M24 28 L32 14 L40 28 L35 25 L30 30Z M56 34 L62 26 L68 36 L63 34Z" fill="#fbf7f2"/>
+    <path d="M40 58 h30 q0 8 -15 8 q-15 0 -15 -8z" fill="#5ab0d8" stroke="${INK}" stroke-width="2"/>
+    <path d="M48 52 q-3 -5 0 -9 M56 52 q-3 -5 0 -9 M64 52 q-3 -5 0 -9" fill="none" stroke="#fbf7f2" stroke-width="2.4" stroke-linecap="round"/>` },
+  mic: { vb: [60, 84], svg: `
+    <path d="M26 40 L22 80 h10 L36 40Z" fill="#3a3742" stroke="${INK}" stroke-width="2.2"/>
+    <circle cx="31" cy="24" r="18" fill="#c7c0cc" stroke="${INK}" stroke-width="2.4"/>
+    <path d="M17 18 h28 M15 26 h32 M18 34 h26 M25 8 v32 M37 8 v32" stroke="#8e8796" stroke-width="1.6"/>
+    <path d="M50 52 v-12 l8 -2 v12" fill="none" stroke="#f7d24a" stroke-width="2.5"/><circle cx="48" cy="52" r="3" fill="#f7d24a"/><circle cx="56" cy="50" r="3" fill="#f7d24a"/>` },
+  masks: { vb: [90, 64], svg: `
+    <path d="M6 10 Q24 2 42 10 Q44 40 24 50 Q4 40 6 10Z" fill="#f7d24a" stroke="${INK}" stroke-width="2.2"/>
+    <path d="M14 20 q4 -4 8 0 M28 20 q4 -4 8 0 M16 32 q8 10 16 0" fill="none" stroke="${INK}" stroke-width="2.2" stroke-linecap="round"/>
+    <path d="M46 16 Q64 8 84 16 Q86 46 66 58 Q46 46 46 16Z" fill="#ff6fa3" stroke="${INK}" stroke-width="2.2"/>
+    <path d="M54 26 q4 4 8 0 M68 26 q4 4 8 0 M58 44 q8 -8 16 0" fill="none" stroke="${INK}" stroke-width="2.2" stroke-linecap="round"/>` },
+  kiss: { vb: [70, 50], svg: `<path d="M6 26 Q20 6 35 18 Q50 6 64 26 Q50 46 35 44 Q20 46 6 26Z" fill="#e8355e" stroke="${INK}" stroke-width="2.4"/><path d="M8 26 Q35 32 62 26" fill="none" stroke="${INK}" stroke-width="2"/><path d="M20 16 q6 -4 10 0" stroke="#fff" stroke-width="2.4" stroke-linecap="round" opacity=".7"/>` },
+  popcorn: { vb: [64, 84], svg: `
+    <g fill="#fbf7f2" stroke="${INK}" stroke-width="2"><circle cx="18" cy="24" r="9"/><circle cx="32" cy="16" r="10"/><circle cx="46" cy="24" r="9"/><circle cx="24" cy="12" r="7"/><circle cx="40" cy="10" r="7"/></g>
+    <path d="M8 28 H56 L50 80 H14Z" fill="#fbf7f2" stroke="${INK}" stroke-width="2.4" stroke-linejoin="round"/>
+    <path d="M18 28 L22 80 H30 L28 28Z M38 28 L36 80 H44 L48 28Z" fill="#e8352e"/>` },
+  cake: { vb: [70, 74], svg: `
+    <path d="M34 4 q-4 6 0 10 q4 -4 0 -10z" fill="#f39a4b"/><rect x="32" y="14" width="5" height="14" fill="#5ab0d8" stroke="${INK}" stroke-width="1.5"/>
+    <rect x="12" y="28" width="46" height="18" rx="4" fill="#ffb3c7" stroke="${INK}" stroke-width="2.2"/>
+    <rect x="6" y="46" width="58" height="22" rx="4" fill="#fbf7f2" stroke="${INK}" stroke-width="2.2"/>
+    <path d="M12 34 q6 6 11 0 t11 0 t11 0 t11 0" fill="none" stroke="#fbf7f2" stroke-width="3"/>
+    <circle cx="18" cy="57" r="2.5" fill="#ff6fa3"/><circle cx="35" cy="57" r="2.5" fill="#f7d24a"/><circle cx="52" cy="57" r="2.5" fill="#7fb03a"/>` },
+  pysanka: { vb: [52, 66], svg: `
+    <ellipse cx="26" cy="34" rx="22" ry="29" fill="#c43d3d" stroke="${INK}" stroke-width="2.4"/>
+    <path d="M6 26 h40 M5 42 h42" stroke="#f7d24a" stroke-width="3"/>
+    <path d="M8 34 l6 -6 l6 6 l6 -6 l6 6 l6 -6 l6 6" fill="none" stroke="#fbf7f2" stroke-width="2"/>
+    <circle cx="26" cy="15" r="3" fill="#f7d24a"/><circle cx="26" cy="53" r="3" fill="#f7d24a"/>` },
+  chernivtsi: { vb: [100, 74], svg: `
+    <rect x="8" y="34" width="84" height="36" fill="#b5523a" stroke="${INK}" stroke-width="2.2"/>
+    <path d="M4 36 L50 16 L96 36Z" fill="#3d8a7a" stroke="${INK}" stroke-width="2.2" stroke-linejoin="round"/>
+    <rect x="42" y="10" width="16" height="28" fill="#b5523a" stroke="${INK}" stroke-width="2"/>
+    <path d="M40 12 L50 0 L60 12Z" fill="#f7d24a" stroke="${INK}" stroke-width="2" stroke-linejoin="round"/>
+    <g fill="#f7e2b0" stroke="${INK}" stroke-width="1.5">${[16, 30, 64, 78].map(x => `<path d="M${x} 66 v-14 q4 -6 8 0 v14z"/>`).join('')}<path d="M44 70 v-18 q6 -8 12 0 v18z"/></g>` },
+  ball: { vb: [110, 120], svg: `
+    <path d="M24 98 h62 l10 18 h-82z" fill="#8a5a34" stroke="${INK}" stroke-width="2.4" stroke-linejoin="round"/>
+    <circle cx="55" cy="54" r="44" fill="#8b6fd6" stroke="${INK}" stroke-width="2.6"/>
+    <circle cx="55" cy="54" r="34" fill="#a68ae6" opacity=".6"/>
+    <path d="M30 34 q10 -14 26 -16" stroke="#fff" stroke-width="5" stroke-linecap="round" opacity=".75"/>
+    <path d="M62 50 l3 7 l7 1 l-5 5 l1 7 l-6 -4 l-6 4 l1 -7 l-5 -5 l7 -1z" fill="#f7d24a"/>
+    <circle cx="40" cy="66" r="2.5" fill="#fbeef5"/><circle cx="76" cy="38" r="2" fill="#fbeef5"/><circle cx="72" cy="76" r="2.5" fill="#fbeef5"/>
+    <g fill="#dcd6d3" stroke="${INK}" stroke-width="2"><ellipse cx="26" cy="96" rx="12" ry="8"/><ellipse cx="84" cy="96" rx="12" ry="8"/></g>
+    <g fill="#f4a3c4"><circle cx="22" cy="95" r="1.8"/><circle cx="27" cy="93" r="1.8"/><circle cx="32" cy="96" r="1.8"/><circle cx="78" cy="96" r="1.8"/><circle cx="83" cy="93" r="1.8"/><circle cx="88" cy="95" r="1.8"/></g>` },
+});
+Object.assign(ART, {
+  pizza: { vb: [100, 92], svg: `
+    <path d="M10 16 Q50 2 90 16 L52 88Z" fill="#f7d24a" stroke="${INK}" stroke-width="2.5" stroke-linejoin="round"/>
+    <path d="M8 16 Q50 0 92 16 Q90 26 86 24 Q50 12 14 24 Q10 26 8 16Z" fill="#d9883e" stroke="${INK}" stroke-width="2.5" stroke-linejoin="round"/>
+    <g fill="#d8433a" stroke="${INK}" stroke-width="1.8"><circle cx="38" cy="36" r="7"/><circle cx="62" cy="38" r="7"/><circle cx="50" cy="60" r="6"/></g>
+    <path d="M28 48 q4 4 0 8 M70 52 q-4 4 0 8" fill="none" stroke="#6aa83f" stroke-width="2.5" stroke-linecap="round"/>` },
+  gates: { vb: [96, 96], svg: `
+    <path d="M42 18 Q48 4 54 18Z" fill="#f2c84b" stroke="${INK}" stroke-width="2" stroke-linejoin="round"/>
+    <path d="M48 2 v6" stroke="${INK}" stroke-width="2"/>
+    <path d="M34 30 Q34 16 48 16 Q62 16 62 30Z" fill="#f2c84b" stroke="${INK}" stroke-width="2.2"/>
+    <rect x="30" y="30" width="36" height="22" fill="#efe0c4" stroke="${INK}" stroke-width="2.2"/>
+    <path d="M42 52 v-12 q6 -6 12 0 v12" fill="#8a5a34" stroke="${INK}" stroke-width="1.8"/>
+    <path d="M4 92 V56 H92 V92Z" fill="#c9a37b" stroke="${INK}" stroke-width="2.4" stroke-linejoin="round"/>
+    <path d="M4 56 h88" stroke="${INK}" stroke-width="2"/>
+    <path d="M34 92 V74 Q34 62 48 62 Q62 62 62 74 V92Z" fill="#5c3a26" stroke="${INK}" stroke-width="2"/>
+    <path d="M10 66 h14 M10 76 h14 M72 66 h14 M72 76 h14 M10 86 h14 M72 86 h14" stroke="#a47a52" stroke-width="2"/>` },
+  bridge: { vb: [120, 70], svg: `
+    <path d="M2 58 Q30 52 60 58 T118 58 V70 H2Z" fill="#2f6fd0" stroke="${INK}" stroke-width="2"/>
+    <path d="M8 46 Q60 -4 112 46" fill="none" stroke="#c7c0cc" stroke-width="7" stroke-linecap="round"/>
+    <path d="M8 46 Q60 -4 112 46" fill="none" stroke="${INK}" stroke-width="1.8"/>
+    <path d="M4 46 H116" stroke="#8e8796" stroke-width="6" stroke-linecap="round"/>
+    <path d="M28 46 V26 M44 46 V16 M60 46 V12 M76 46 V16 M92 46 V26" stroke="${INK}" stroke-width="1.8"/>
+    <circle cx="44" cy="40" r="3" fill="#ff6fa3" stroke="${INK}" stroke-width="1.2"/><circle cx="50" cy="40" r="3" fill="#f39a4b" stroke="${INK}" stroke-width="1.2"/>` },
+  sunrise: { vb: [100, 72], svg: `
+    <g stroke="#f7d24a" stroke-width="4" stroke-linecap="round">${[-60, -30, 0, 30, 60].map(a => `<path d="M50 14 V4" transform="rotate(${a} 50 44)"/>`).join('')}</g>
+    <path d="M24 44 A26 26 0 0 1 76 44Z" fill="#ff8a5c" stroke="${INK}" stroke-width="2.4"/>
+    <path d="M4 44 H96" stroke="${INK}" stroke-width="2.4" stroke-linecap="round"/>
+    <path d="M18 70 V54 M82 70 V54" stroke="#3f6e2e" stroke-width="3"/>
+    <path d="M10 54 Q12 44 18 50 Q24 44 26 54 Q18 60 10 54Z M74 54 Q76 44 82 50 Q88 44 90 54 Q82 60 74 54Z" fill="#ffb3c7" stroke="${INK}" stroke-width="1.8"/>
+    <path d="M40 66 q10 -8 20 0" fill="none" stroke="#7fb03a" stroke-width="5" stroke-linecap="round"/>` },
+  giraffe: { vb: [80, 100], svg: `
+    <path d="M30 96 L36 40 H50 L54 96Z" fill="#f2c84b" stroke="${INK}" stroke-width="2.2" stroke-linejoin="round"/>
+    <path d="M30 14 v-8 M44 12 v-8" stroke="${INK}" stroke-width="2.4"/><circle cx="30" cy="5" r="3" fill="#a0612f"/><circle cx="44" cy="4" r="3" fill="#a0612f"/>
+    <ellipse cx="38" cy="26" rx="16" ry="14" fill="#f2c84b" stroke="${INK}" stroke-width="2.2"/>
+    <ellipse cx="50" cy="34" rx="12" ry="8" fill="#f6dca0" stroke="${INK}" stroke-width="2"/>
+    <circle cx="34" cy="22" r="2.2" fill="${INK}"/><circle cx="54" cy="33" r="1.4" fill="${INK}"/>
+    <ellipse cx="20" cy="20" rx="6" ry="3" fill="#f2c84b" stroke="${INK}" stroke-width="1.8" transform="rotate(-20 20 20)"/>
+    <g fill="#a0612f"><circle cx="40" cy="54" r="4"/><circle cx="46" cy="68" r="4.5"/><circle cx="39" cy="82" r="4"/><circle cx="34" cy="64" r="3"/></g>` },
+  tree: { vb: [80, 100], svg: `
+    <rect x="33" y="80" width="14" height="14" fill="#8a5a34" stroke="${INK}" stroke-width="2"/>
+    <path d="M40 10 L66 46 H52 L72 80 H8 L28 46 H14Z" fill="#3d8a4a" stroke="${INK}" stroke-width="2.4" stroke-linejoin="round"/>
+    <path d="M40 2 l3 7 l7 1 l-5 5 l1 7 l-6 -4 l-6 4 l1 -7 l-5 -5 l7 -1z" fill="#f7d24a" stroke="${INK}" stroke-width="1.6"/>
+    <g stroke="${INK}" stroke-width="1.2"><circle cx="34" cy="38" r="3.5" fill="#ff6fa3"/><circle cx="48" cy="54" r="3.5" fill="#f7d24a"/><circle cx="28" cy="64" r="3.5" fill="#5ab0d8"/><circle cx="54" cy="72" r="3.5" fill="#ff6fa3"/><circle cx="40" cy="70" r="3.5" fill="#fbf7f2"/></g>
+    <path d="M4 96 h72" stroke="#fbf7f2" stroke-width="5" stroke-linecap="round"/>` },
+  hydropark: { vb: [110, 76], svg: `
+    <circle cx="90" cy="16" r="10" fill="#f7d24a" stroke="${INK}" stroke-width="2"/>
+    <path d="M2 50 Q40 40 108 48 V76 H2Z" fill="#f2dca0" stroke="${INK}" stroke-width="2"/>
+    <path d="M2 60 q9 -6 18 0 t18 0 t18 0 t18 0 t18 0 t18 0 V76 H2Z" fill="#2f6fd0" stroke="${INK}" stroke-width="2"/>
+    <rect x="28" y="30" width="6" height="22" fill="#8a5a34" stroke="${INK}" stroke-width="1.8"/>
+    <path d="M10 32 Q14 6 31 8 Q50 6 52 32 Q40 26 31 30 Q20 26 10 32Z" fill="#7fb03a" stroke="${INK}" stroke-width="2.2"/>
+    <path d="M16 30 v8 M24 28 v10 M40 28 v10 M46 30 v8" stroke="#5c8a2a" stroke-width="2" stroke-linecap="round"/>` },
+});
+function mouseSVG(bow) {
+  return `
+    <circle cx="22" cy="26" r="18" fill="#1d1b20" stroke="${INK}" stroke-width="2"/><circle cx="78" cy="26" r="18" fill="#1d1b20" stroke="${INK}" stroke-width="2"/>
+    <circle cx="50" cy="58" r="32" fill="#1d1b20" stroke="${INK}" stroke-width="2"/>
+    <path d="M28 62 Q26 40 40 44 Q50 50 60 44 Q74 40 72 62 Q72 88 50 88 Q28 88 28 62Z" fill="#f3cfa6" stroke="${INK}" stroke-width="2"/>
+    <ellipse cx="43" cy="56" rx="4" ry="7" fill="${INK}"/><ellipse cx="57" cy="56" rx="4" ry="7" fill="${INK}"/>
+    <circle cx="44" cy="53" r="1.4" fill="#fff"/><circle cx="58" cy="53" r="1.4" fill="#fff"/>
+    <ellipse cx="50" cy="68" rx="6" ry="4" fill="${INK}"/>
+    <path d="M38 74 q12 12 24 0" fill="#c43d3d" stroke="${INK}" stroke-width="2" stroke-linecap="round"/>
+    ${bow ? `<path d="M50 28 L30 14 L30 42Z M50 28 L70 14 L70 42Z" fill="#e8352e" stroke="${INK}" stroke-width="2" stroke-linejoin="round"/><circle cx="50" cy="28" r="5" fill="#e8352e" stroke="${INK}" stroke-width="2"/><g fill="#fff"><circle cx="36" cy="22" r="2.2"/><circle cx="36" cy="34" r="2.2"/><circle cx="64" cy="22" r="2.2"/><circle cx="64" cy="34" r="2.2"/></g><path d="M38 48 l-4 -3 M62 48 l4 -3" stroke="${INK}" stroke-width="1.8"/>` : ''}`;
+}
+function carSVG(body, shine) {
+  return `
+    <path d="M8 56 V44 Q8 36 18 34 L30 18 Q34 12 44 12 H84 Q92 12 98 20 L108 34 Q114 36 114 44 V56Z" fill="${body}" stroke="${INK}" stroke-width="2.5" stroke-linejoin="round"/>
+    <path d="M34 32 L42 18 H62 V32Z M68 32 V18 H86 Q90 18 94 24 L100 32Z" fill="#bfe0f5" stroke="${INK}" stroke-width="2"/>
+    <path d="M14 42 h10 M100 42 h8" stroke="#f7d24a" stroke-width="4" stroke-linecap="round"/>
+    <path d="M20 46 H100" stroke="${shine}" stroke-width="2"/>
+    <circle cx="32" cy="58" r="12" fill="#2b2a30" stroke="${INK}" stroke-width="2"/><circle cx="32" cy="58" r="5" fill="#c7c0cc"/>
+    <circle cx="90" cy="58" r="12" fill="#2b2a30" stroke="${INK}" stroke-width="2"/><circle cx="90" cy="58" r="5" fill="#c7c0cc"/>`;
+}
+ART.catsTogether = { vb: [220, 120], svg: `<g transform="translate(0 6)">${ART.catGrey.svg}</g><g transform="translate(96 8)">${ART.catGinger.svg}</g><g transform="translate(94 0) scale(.8)">${ART.heart.svg}</g>` };
+
+/* символи + вставка наліпок у [data-art] */
+(() => {
+  const defs = document.getElementById('defs');
+  let html = '';
+  for (const [k, a] of Object.entries(ART)) html += `<symbol id="a-${k}" viewBox="0 0 ${a.vb[0]} ${a.vb[1]}">${a.svg}</symbol>`;
+  defs.insertAdjacentHTML('beforeend', html);
+})();
+function sticker(name) {
+  const [w, h] = ART[name].vb, p = Math.max(w, h) * .08;
+  return `<svg class="sticker" viewBox="${-p} ${-p} ${w + 2 * p} ${h + 2 * p}" aria-hidden="true"><g filter="url(#sticker)"><use href="#a-${name}" width="${w}" height="${h}"/></g></svg>`;
+}
+document.querySelectorAll('[data-art]').forEach(el => el.innerHTML = sticker(el.dataset.art));
+</script>
+
+<script>
+(() => {
+  const $ = s => document.querySelector(s);
+  const reduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const start = new Date(CONFIG.startDate);
+  const plural = (n, [one, few, many]) => {
+    const a = Math.abs(n) % 100, b = a % 10;
+    if (a > 10 && a < 20) return many;
+    if (b > 1 && b < 5) return few;
+    if (b === 1) return one;
+    return many;
+  };
+  const dateStr = start.toLocaleDateString('uk-UA', { day: 'numeric', month: 'long', year: 'numeric' }).replace(/\s?р\.?$/, '');
+
+  /* --- фон: крейдяні зірочки, сердечка, іскорки --- */
+  (() => {
+    const c = '#fbeef5', s = '#d8cfe0';
+    const tile = `<svg xmlns="http://www.w3.org/2000/svg" width="420" height="420" fill="none" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M40 30 l6 14 l15 1 l-12 9 l4 15 l-13 -8 l-13 8 l4 -15 l-12 -9 l15 -1z" stroke="${c}" stroke-width="2.2"/>
+      <path d="M300 60 l3 9 l9 3 l-9 3 l-3 9 l-3 -9 l-9 -3 l9 -3z" fill="${s}"/>
+      <path d="M200 140 c-10 -8 -10 -18 -3 -20 c3 -1 3 2 3 4 c0 -2 0 -5 3 -4 c7 2 7 12 -3 20z" stroke="${c}" stroke-width="2"/>
+      <path d="M90 200 v26 M77 213 h26" stroke="${s}" stroke-width="3"/>
+      <path d="M360 220 l5 12 l13 1 l-10 8 l3 13 l-11 -7 l-11 7 l3 -13 l-10 -8 l13 -1z" stroke="${c}" stroke-width="2"/>
+      <path d="M150 320 l4 12 l12 4 l-12 4 l-4 12 l-4 -12 l-12 -4 l12 -4z" stroke="${s}" stroke-width="2"/>
+      <path d="M320 360 c-9 -7 -9 -16 -3 -18 c3 -1 3 2 3 3 c0 -1 0 -4 3 -3 c6 2 6 11 -3 18z" stroke="${c}" stroke-width="2"/>
+      <path d="M40 380 l2 6 l6 2 l-6 2 l-2 6 l-2 -6 l-6 -2 l6 -2z" fill="${c}"/>
+      <circle cx="250" cy="30" r="3" fill="${c}"/><circle cx="120" cy="100" r="2.5" fill="${c}"/><circle cx="380" cy="140" r="3" fill="${s}"/>
+      <circle cx="30" cy="290" r="4" stroke="${c}" stroke-width="2"/><circle cx="250" cy="270" r="2.5" fill="${c}"/><circle cx="210" cy="400" r="3" fill="${s}"/>
+      <circle cx="400" cy="300" r="2" fill="${c}"/><circle cx="160" cy="20" r="4" stroke="${s}" stroke-width="2"/>
+      <path d="M240 200 q14 -6 26 2 M60 140 q10 -10 24 -8 M380 400 q10 -8 22 -4" stroke="${s}" stroke-width="3" opacity=".8"/>
+    </svg>`.replace('<svg ', '<svg opacity=".55" ');
+    document.body.style.backgroundImage = `url("data:image/svg+xml,${encodeURIComponent(tile)}")`;
+    document.body.style.backgroundSize = '420px 420px';
+  })();
+
+  /* --- сердечка, що злітають --- */
+  function floatHearts(x, y, n = 5) {
+    if (reduced) return;
+    for (let i = 0; i < n; i++) {
+      const h = document.createElement('div');
+      h.className = 'float-heart';
+      h.innerHTML = sticker('heart');
+      h.style.left = (x + (Math.random() - .5) * 40) + 'px';
+      h.style.top = (y + (Math.random() - .5) * 20) + 'px';
+      h.style.setProperty('--dx', ((Math.random() - .5) * 120) + 'px');
+      h.style.animationDelay = (i * 70) + 'ms';
+      document.body.append(h);
+      h.addEventListener('animationend', () => h.remove());
+    }
+  }
+  const centerOf = el => { const r = el.getBoundingClientRect(); return [r.left + r.width / 2, r.top + r.height / 2]; };
+
+  /* ===== 1. привітання ===== */
+  const notReadyLines = ['Кітик почекає… але недовго', 'Кітик досі чекає. І Гусь теж', 'Гаразд, вважаю це за «так»'];
+  let notReadyCount = 0;
+  function toLock() {
+    $('#gate').classList.add('fade-out');
+    setTimeout(() => { $('#gate').hidden = true; $('#lock').hidden = false; $('#lock').classList.add('fade-in'); $('#pw').focus({ preventScroll: true }); }, reduced ? 0 : 550);
+  }
+  $('#ready').addEventListener('click', e => { floatHearts(e.clientX || innerWidth / 2, e.clientY || innerHeight / 2, 6); toLock(); });
+  $('#notReady').addEventListener('click', () => {
+    $('#gateNote').textContent = notReadyLines[Math.min(notReadyCount, 2)];
+    notReadyCount++;
+    if (notReadyCount === 2) $('#notReady').textContent = 'А тепер?';
+    if (notReadyCount >= 3) setTimeout(toLock, 900);
+  });
+
+  /* ===== 2. пароль ===== */
+  const OK = [1026368257, 1026373551, 849536245, 380714295];
+  const norm = s => s.toLowerCase().replace(/[^a-zа-яіїєґё]/g, '');
+  const hash = s => { let x = 5381; for (const ch of s) x = ((x * 33) ^ ch.codePointAt(0)) >>> 0; return x; };
+  const wrong = [
+    'Хм, ні. Кітик підозріло на тебе дивиться.',
+    'Знову ні. Кицюню, згадуй осінь!',
+    'Підказка: назва гурту починається на «Х».',
+    'Ще підказка: «Хейт…» Далі сама :)',
+    'Кітик вірить у тебе. Спробуй ще!'
+  ];
+  let tries = 0;
+  $('#pwForm').addEventListener('submit', e => {
+    e.preventDefault();
+    const v = norm($('#pw').value);
+    const msg = $('#pwMsg');
+    if (!v) { msg.textContent = 'Спочатку напиши щось :)'; return; }
+    if (OK.includes(hash(v))) {
+      msg.className = 'pw-msg ok';
+      msg.textContent = 'Доступ дозволено. Ласкаво просимо, кицюню!';
+      floatHearts(...centerOf(msg), 8);
+      setTimeout(() => {
+        $('#lock').hidden = true;
+        $('#main').hidden = false;
+        $('#main').classList.add('fade-in');
+        scrollTo(0, 0);
+        sizeGame();
+      }, reduced ? 300 : 1300);
+    } else {
+      msg.className = 'pw-msg';
+      msg.textContent = wrong[Math.min(tries, wrong.length - 1)];
+      tries++;
+      const card = $('#lockCard');
+      card.classList.remove('shake'); void card.offsetWidth; card.classList.add('shake');
+    }
+  });
+
+  /* ===== 3. планетка ===== */
+  const gGrey = $('#walkGrey'), gGinger = $('#walkGinger'), meetHeart = $('#meetHeart'), bubble = $('#bubble');
+  let aGrey = -118, aGinger = 118, met = false, walking = false, pets = 0;
+  const placeCats = (bob = 0) => {
+    gGrey.setAttribute('transform', `rotate(${aGrey} 300 300) translate(0 ${-bob})`);
+    gGinger.setAttribute('transform', `rotate(${aGinger} 300 300) translate(0 ${-bob})`);
+  };
+  placeCats();
+  const dots = $('#dots');
+  CONFIG.reasons.forEach(() => dots.append(document.createElement('i')));
+  function say(text) { bubble.textContent = text; bubble.classList.remove('pop'); void bubble.offsetWidth; bubble.classList.add('pop'); }
+
+  function meet() {
+    if (met || walking) return;
+    walking = true;
+    $('#meetBtn').disabled = true;
+    say('Йдуть… йдуть…');
+    const from = [aGrey, aGinger], to = [-15, 15], t0 = performance.now(), dur = reduced ? 1 : 2800;
+    $('#planetTurn').classList.add('fast');
+    (function step(t) {
+      const k = Math.min(1, (t - t0) / dur), e = k < .5 ? 2 * k * k : 1 - Math.pow(-2 * k + 2, 2) / 2;
+      aGrey = from[0] + (to[0] - from[0]) * e;
+      aGinger = from[1] + (to[1] - from[1]) * e;
+      placeCats(k < 1 ? Math.abs(Math.sin(k * Math.PI * 9)) * 7 : 0);
+      if (k < 1) return requestAnimationFrame(step);
+      walking = false; met = true;
+      $('#planetTurn').classList.remove('fast');
+      meetHeart.classList.add('on');
+      floatHearts(...centerOf(meetHeart), 8);
+      say('Знайшли! Це сталося 8 листопада на концерті Хейтспіч. Тепер гладь котиків: кітик розкаже, за що любить кицюню.');
+      $('#meetBtn').hidden = true;
+      $('#countLine').hidden = false;
+    })(t0);
+  }
+  function pet(e) {
+    if (!met) return meet();
+    floatHearts(e.clientX || centerOf(meetHeart)[0], e.clientY || centerOf(meetHeart)[1], 4);
+    if (pets < CONFIG.reasons.length) {
+      say(CONFIG.reasons[pets]);
+      pets++;
+      dots.children[pets - 1].classList.add('on');
+      $('#petCount').textContent = pets;
+    } else say(CONFIG.afterReasons);
+  }
+  $('#meetBtn').addEventListener('click', meet);
+  gGrey.addEventListener('click', pet);
+  gGinger.addEventListener('click', pet);
+  $('#planet').addEventListener('click', e => met ? pet(e) : meet());
+  $('#planet').addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); met ? pet(e) : meet(); } });
+
+  /* ===== лічильник ===== */
+  $('#sinceLabel').textContent = 'з ' + dateStr;
+  const metDay = new Date(CONFIG.metDate);
+  function tick() {
+    $('#fMet').textContent = Math.max(0, Math.floor((Date.now() - metDay) / 86400000));
+    let s = Math.max(0, Math.floor((Date.now() - start) / 1000));
+    const purrs = s * 25;
+    const d = Math.floor(s / 86400); s -= d * 86400;
+    const h = Math.floor(s / 3600); s -= h * 3600;
+    const m = Math.floor(s / 60); s -= m * 60;
+    $('#cD').textContent = d; $('#lD').textContent = plural(d, ['день', 'дні', 'днів']);
+    $('#cH').textContent = h; $('#lH').textContent = plural(h, ['година', 'години', 'годин']);
+    $('#cM').textContent = m; $('#lM').textContent = plural(m, ['хвилина', 'хвилини', 'хвилин']);
+    $('#cS').textContent = s; $('#lS').textContent = plural(s, ['секунда', 'секунди', 'секунд']);
+    $('#fPurr').textContent = purrs.toLocaleString('uk-UA');
+  }
+  tick(); setInterval(tick, 1000);
+
+  /* ===== листівки ===== */
+  document.querySelectorAll('.pcard').forEach(b => b.addEventListener('click', () => b.classList.toggle('flipped')));
+
+  /* ===== мемо ===== */
+  const PAIRS = [
+    ['catGrey', 'Кітик', 'catGinger', 'Кицюня', 'Кітик знайшов свою кицюню'],
+    ['goose', 'Гусь', 'lamb', 'Ягнятко', 'Гусь знайшов своє ягнятко'],
+    ['mickey', 'Міккі', 'minnie', 'Мінні', 'Міккі й Мінні Маус — це теж ми'],
+    ['jason', 'Джейсон', 'lucia', 'Люсія', 'Джейсон і Люсія: Vice City чекає'],
+    ['travis', 'Тревіс', 'sabrina', 'Сабріна', 'Тревіс Скотт і Сабріна Карпентер на одній сцені'],
+    ['carBlack', 'Фольцик', 'carGrey', 'Беха', 'Чорний фольцик і сіра беха паркуються поруч'],
+  ];
+  const grid = $('#memGrid');
+  let open = [], lockBoard = false, moves = 0, found = 0;
+  function buildMemory() {
+    grid.innerHTML = ''; open = []; moves = 0; found = 0; lockBoard = false;
+    const cards = PAIRS.flatMap((p, i) => [{ art: p[0], label: p[1], pair: i }, { art: p[2], label: p[3], pair: i }]);
+    for (let i = cards.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); [cards[i], cards[j]] = [cards[j], cards[i]]; }
+    cards.forEach(c => {
+      const b = document.createElement('button');
+      b.className = 'mcard';
+      b.dataset.pair = c.pair;
+      b.setAttribute('aria-label', 'Закрита картка');
+      b.innerHTML = `<div class="mc-inner"><div class="mc-face mc-back">${sticker('star')}</div><div class="mc-face mc-front">${sticker(c.art)}<span>${c.label}</span></div></div>`;
+      b.addEventListener('click', () => flip(b, c));
+      grid.append(b);
+    });
+    status();
+  }
+  function status() { $('#memStatus').textContent = `Ходів: ${moves} · Пар: ${found}/${PAIRS.length}`; }
+  function flip(b, c) {
+    if (lockBoard || b.classList.contains('open') || b.classList.contains('done')) return;
+    b.classList.add('open'); b.setAttribute('aria-label', c.label);
+    open.push(b);
+    if (open.length < 2) return;
+    moves++;
+    const [x, y] = open;
+    if (x.dataset.pair === y.dataset.pair) {
+      found++;
+      x.classList.add('done'); y.classList.add('done');
+      $('#memToast').textContent = PAIRS[x.dataset.pair][4];
+      floatHearts(...centerOf(y), 4);
+      open = [];
+      if (found === PAIRS.length) setTimeout(() => {
+        $('#memToast').textContent = `Усі пари знайшлися за ${moves} ${plural(moves, ['хід', 'ходи', 'ходів'])}. Як і ми!`;
+        floatHearts(...centerOf(grid), 10);
+      }, 700);
+    } else {
+      lockBoard = true;
+      setTimeout(() => { x.classList.remove('open'); y.classList.remove('open'); x.setAttribute('aria-label', 'Закрита картка'); y.setAttribute('aria-label', 'Закрита картка'); open = []; lockBoard = false; }, 950);
+    }
+    status();
+  }
+  buildMemory();
+
+  /* ===== сезони ===== */
+  const tabs = document.querySelectorAll('.stab');
+  tabs.forEach(t => t.addEventListener('click', () => {
+    tabs.forEach(x => x.setAttribute('aria-selected', String(x === t)));
+    document.querySelectorAll('.spanel').forEach(p => p.hidden = p.id !== t.dataset.panel);
+  }));
+
+  /* ===== полиця плюшевих ===== */
+  const plushSay = $('#plushSay');
+  document.querySelectorAll('.toy-btn').forEach(b => b.addEventListener('click', () => {
+    b.classList.remove('jump'); void b.offsetWidth; b.classList.add('jump');
+    plushSay.textContent = CONFIG.plush[b.dataset.toy];
+    plushSay.classList.remove('pop'); void plushSay.offsetWidth; plushSay.classList.add('pop');
+    floatHearts(...centerOf(b), 3);
+  }));
+
+  /* ===== меню ===== */
+  const order = {};
+  let paid = false;
+  const kiss = n => `${n} ${plural(n, ['цьомчик', 'цьомчики', 'цьомчиків'])}`;
+  CONFIG.menu.forEach((m, i) => {
+    const b = document.createElement('button');
+    b.className = 'mitem paper';
+    b.innerHTML = `<span>${sticker(m.art)}</span><b></b><small>${kiss(m.price)}</small>`;
+    b.querySelector('b').textContent = m.name;
+    b.addEventListener('click', e => {
+      order[i] = (order[i] || 0) + 1;
+      if (paid) { paid = false; $('#paidStamp').classList.remove('on'); }
+      $('#rNote').textContent = ['Чудовий вибір!', 'Мрр, смачно', 'Ще щось?', 'Кітик схвалює'][Math.floor(Math.random() * 4)];
+      renderReceipt();
+      floatHearts(e.clientX || centerOf(b)[0], e.clientY || centerOf(b)[1], 2);
+    });
+    $('#menuItems').append(b);
+  });
+  function renderReceipt() {
+    const lines = $('#rLines');
+    lines.innerHTML = '';
+    let total = 0;
+    Object.entries(order).forEach(([i, q]) => {
+      const m = CONFIG.menu[i]; total += m.price * q;
+      const p = document.createElement('p'); p.className = 'r-line';
+      p.innerHTML = '<span></span><span></span>';
+      p.children[0].textContent = `${q} × ${m.name}`;
+      p.children[1].textContent = m.price * q;
+      lines.append(p);
+    });
+    if (!total) lines.innerHTML = '<p class="r-empty">Тут поки порожньо</p>';
+    $('#rTotal').textContent = kiss(total);
+    return total;
+  }
+  $('#payBtn').addEventListener('click', e => {
+    const total = renderReceipt();
+    if (!total) { $('#rNote').textContent = 'Спочатку обери щось смачне'; return; }
+    paid = true;
+    $('#paidStamp').classList.add('on');
+    $('#rNote').textContent = `Оплачено обіймами: ${kiss(total)}. Смачного, кицюню!`;
+    floatHearts(e.clientX || centerOf($('#receipt'))[0], e.clientY || centerOf($('#receipt'))[1], 6);
+  });
+  $('#clearBtn').addEventListener('click', () => {
+    for (const k in order) delete order[k];
+    paid = false; $('#paidStamp').classList.remove('on'); $('#rNote').textContent = '';
+    renderReceipt();
+  });
+
+  /* ===== куля-передбачувач ===== */
+  const prophecies = [...CONFIG.prophecies, CONFIG.finalProphecy];
+  let pIdx = 0;
+  $('#ball').addEventListener('click', () => {
+    const ball = $('#ball'), p = $('#prophecy');
+    ball.classList.remove('wobble'); void ball.offsetWidth; ball.classList.add('wobble');
+    p.textContent = 'Хм-м-м…';
+    setTimeout(() => {
+      p.textContent = prophecies[pIdx];
+      p.classList.remove('pop'); void p.offsetWidth; p.classList.add('pop');
+      $('#prophCount').textContent = pIdx === prophecies.length - 1 ? 'Це головне передбачення. Можна запитати ще раз.' : `Передбачення ${pIdx + 1} з ${prophecies.length}`;
+      if (pIdx === prophecies.length - 1) floatHearts(...centerOf(ball), 10);
+      pIdx = (pIdx + 1) % prophecies.length;
+    }, reduced ? 0 : 600);
+  });
+
+  /* ===== кіндер ===== */
+  let couponBag = [];
+  const nextCoupon = () => { if (!couponBag.length) couponBag = [...CONFIG.coupons].sort(() => Math.random() - .5); return couponBag.pop(); };
+  const kinder = $('#kinder');
+  $('#kinderBtn').addEventListener('click', e => {
+    if (kinder.classList.contains('open')) {
+      kinder.classList.remove('open');
+      $('#coupon').textContent = 'Натисни, щоб відкрити';
+      $('#kinderBtn').textContent = 'Відкрити кіндер';
+      return;
+    }
+    kinder.classList.add('open');
+    $('#coupon').textContent = nextCoupon();
+    $('#kinderBtn').textContent = 'Ще один кіндер';
+    floatHearts(e.clientX || centerOf(kinder)[0], e.clientY || centerOf(kinder)[1], 4);
+  });
+
+  /* ===== спагеті ===== */
+  let spDone = false, spBusy = false;
+  const setNoodle = (shift, sag) => {
+    const d = `M${75 + shift} 112 Q200 ${112 + sag} ${325 - shift} 112`;
+    $('#noodle').setAttribute('d', d); $('#noodleInk').setAttribute('d', d);
+    $('#spLeft').setAttribute('transform', `translate(${shift} 0)`);
+    $('#spRight').setAttribute('transform', `translate(${-shift} 0)`);
+  };
+  $('#spBtn').addEventListener('click', () => {
+    if (spBusy) return;
+    if (spDone) { spDone = false; setNoodle(0, 58); $('#spHeart').classList.remove('on'); $('#kissText').classList.remove('on'); $('#spBtn').textContent = 'Поділити спагеті'; return; }
+    spBusy = true;
+    const t0 = performance.now(), dur = reduced ? 1 : 2200;
+    (function step(t) {
+      const k = Math.min(1, (t - t0) / dur), e = 1 - Math.pow(1 - k, 3);
+      setNoodle(e * 104, 58 * (1 - e) + 2);
+      if (k < 1) return requestAnimationFrame(step);
+      spBusy = false; spDone = true;
+      $('#spHeart').classList.add('on'); $('#kissText').classList.add('on');
+      floatHearts(...centerOf($('#spHeart')), 6);
+      $('#spBtn').textContent = 'Ще раз';
+    })(t0);
+  });
+
+  /* ===== гра «Нагодуй кицюню» ===== */
+  const cv = $('#cv'), ctx = cv.getContext('2d'), box = $('#gameBox');
+  const GOAL = 12;
+  const IMG = {};
+  const FILTER = document.getElementById('sticker').outerHTML;
+  ['catGinger', 'fries', 'burger', 'pizza', 'kinder', 'sushi', 'lemonade', 'capybara', 'cucumber', 'heart'].forEach(k => {
+    const [w, h] = ART[k].vb, p = Math.max(w, h) * .08;
+    const svg = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="${-p} ${-p} ${w + 2 * p} ${h + 2 * p}" width="${(w + 2 * p) * 2}" height="${(h + 2 * p) * 2}"><defs>${FILTER}</defs><g filter="url(#sticker)">${ART[k].svg}</g></svg>`;
+    const img = new Image();
+    img.onload = () => { if (!running) draw(); };
+    img.src = 'data:image/svg+xml;charset=utf-8,' + encodeURIComponent(svg);
+    IMG[k] = { img, ratio: (h + 2 * p) / (w + 2 * p) };
+  });
+  let W = 0, H = 0, catX = 0, targetX = 0, items = [], score = 0, running = false, lastT = 0, lastSpawn = 0, toastTimer, happyUntil = 0;
+  const stars = Array.from({ length: 40 }, () => ({ x: Math.random(), y: Math.random(), r: Math.random() * 1.6 + .4 }));
+
+  function sizeGame() {
+    const r = cv.getBoundingClientRect();
+    if (!r.width) return;
+    const dpr = Math.min(2, devicePixelRatio || 1);
+    W = r.width; H = r.height;
+    cv.width = W * dpr; cv.height = H * dpr;
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    if (!catX) catX = targetX = W / 2;
+    catX = Math.min(Math.max(catX, 50), W - 50);
+    if (!running) draw();
+  }
+  function drawImg(k, x, y, w, rot = 0) {
+    const o = IMG[k]; if (!o.img.complete || !o.img.naturalWidth) return;
+    const h = w * o.ratio;
+    ctx.save(); ctx.translate(x, y); ctx.rotate(rot); ctx.drawImage(o.img, -w / 2, -h / 2, w, h); ctx.restore();
+  }
+  function draw(now = 0) {
+    ctx.clearRect(0, 0, W, H);
+    ctx.fillStyle = 'rgba(251,238,245,.7)';
+    stars.forEach(s => { ctx.beginPath(); ctx.arc(s.x * W, s.y * H, s.r, 0, 7); ctx.fill(); });
+    items.forEach(it => drawImg(it.type, it.x, it.y, it.type === 'cucumber' || it.type === 'lemonade' ? 30 : it.type === 'sushi' ? 60 : 52, it.rot));
+    const bounce = now < happyUntil ? -8 : 0;
+    drawImg('catGinger', catX, H - 52 + bounce, 104);
+    if (now < happyUntil) drawImg('heart', catX + 46, H - 108, 26);
+  }
+  function toast(text) {
+    const t = $('#toast'); t.textContent = text; t.classList.add('show');
+    clearTimeout(toastTimer); toastTimer = setTimeout(() => t.classList.remove('show'), 900);
+  }
+  function loop(t) {
+    if (!running) return;
+    const dt = Math.min(48, t - lastT || 16) / 16.67; lastT = t;
+    catX += (targetX - catX) * Math.min(1, .28 * dt);
+    if (t - lastSpawn > Math.max(430, 780 - score * 24)) {
+      lastSpawn = t;
+      const r = Math.random();
+      const goodies = ['fries', 'pizza', 'kinder', 'sushi', 'lemonade', 'burger'];
+      const type = score > 1 && r < .24 ? 'cucumber' : goodies[Math.floor(Math.random() * goodies.length)];
+      items.push({ type, x: 30 + Math.random() * (W - 60), y: -40, v: 2.1 + Math.random() * 1.6 + score * .09, rot: (Math.random() - .5) * .6, vr: (Math.random() - .5) * .04 });
+    }
+    const catchY = H - 92;
+    items = items.filter(it => {
+      it.y += it.v * dt; it.rot += it.vr * dt;
+      if (Math.abs(it.y - catchY) < 24 && Math.abs(it.x - catX) < 48) {
+        if (it.type === 'cucumber') {
+          score = Math.max(0, score - 1); toast('Огірок! Фу!');
+          box.classList.remove('shake'); void box.offsetWidth; box.classList.add('shake');
+        } else {
+          score++; happyUntil = t + 380;
+          toast(['ням!', 'мур!', 'смакота!', 'ще!', 'мрр'][score % 5]);
+        }
+        $('#score').textContent = score;
+        return false;
+      }
+      return it.y < H + 50;
+    });
+    draw(t);
+    if (score >= GOAL) return win();
+    requestAnimationFrame(loop);
+  }
+  function startGame() {
+    sizeGame();
+    score = 0; items = []; $('#score').textContent = 0;
+    $('#ov').hidden = true; running = true;
+    lastT = performance.now(); lastSpawn = lastT;
+    requestAnimationFrame(loop);
+  }
+  function openLetter() {
+    $('#letterSec').hidden = false;
+    $('#letterSec').scrollIntoView({ behavior: reduced ? 'auto' : 'smooth', block: 'start' });
+  }
+  function win() {
+    running = false; items = []; happyUntil = Infinity; draw(0);
+    $('#ovText').textContent = 'Кицюня сита й щаслива!';
+    $('#ovSmall').textContent = 'Лист відкрився нижче';
+    $('#startBtn').textContent = 'Читати лист';
+    $('#startBtn').onclick = openLetter;
+    $('#ov').hidden = false;
+    $('#letterSec').hidden = false;
+    floatHearts(...centerOf(box), 10);
+  }
+  const setTarget = e => { const r = cv.getBoundingClientRect(); targetX = Math.min(Math.max(e.clientX - r.left, 50), W - 50); };
+  cv.addEventListener('pointermove', setTarget);
+  cv.addEventListener('pointerdown', setTarget);
+  addEventListener('keydown', e => {
+    if (!running) return;
+    if (e.key === 'ArrowLeft') { targetX = Math.max(50, targetX - 55); e.preventDefault(); }
+    if (e.key === 'ArrowRight') { targetX = Math.min(W - 50, targetX + 55); e.preventDefault(); }
+  });
+  $('#startBtn').onclick = startGame;
+  $('#skip').addEventListener('click', openLetter);
+  addEventListener('resize', sizeGame);
+
+  /* ===== лист ===== */
+  $('#letterTitle').textContent = CONFIG.letterTitle;
+  $('#sign').textContent = CONFIG.sign;
+  CONFIG.letter.forEach(t => { const p = document.createElement('p'); p.textContent = t; $('#letterText').append(p); });
+
+  /* ===== фінал ===== */
+  const no = $('#no'), yes = $('#yes'), answers = $('#answers');
+  const noTexts = ['Ні', 'Точно?', 'Подумай ще', 'Кітик засмутиться', 'Гусь теж засмутиться', 'Ну будь ласка', 'Не-а, не впіймаєш'];
+  let noTries = 0;
+  function runAway(e) {
+    if (e) e.preventDefault();
+    noTries++;
+    no.textContent = noTexts[Math.min(noTries, noTexts.length - 1)];
+    yes.style.transform = `scale(${Math.min(1 + noTries * .12, 1.8)})`;
+    const a = answers.getBoundingClientRect();
+    no.classList.add('run');
+    no.style.left = Math.max(0, Math.random() * (a.width - no.offsetWidth)) + 'px';
+    no.style.top = Math.max(0, Math.random() * (a.height - no.offsetHeight)) + 'px';
+  }
+  no.addEventListener('pointerenter', e => { if (e.pointerType === 'mouse') runAway(); });
+  no.addEventListener('pointerdown', runAway);
+  no.addEventListener('click', runAway);
+
+  const cf = $('#confetti'), cfx = cf.getContext('2d');
+  yes.addEventListener('click', () => {
+    $('#yay').hidden = false; no.hidden = true;
+    yes.textContent = 'Так! ♥'; yes.style.transform = 'scale(1)';
+    if (reduced) return;
+    cf.hidden = false;
+    const dpr = Math.min(2, devicePixelRatio || 1);
+    cf.width = innerWidth * dpr; cf.height = innerHeight * dpr; cfx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    const kinds = ['catGinger', 'heart', 'fries', 'burger', 'kinder', 'sushi', 'capybara', 'heart'];
+    const parts = Array.from({ length: 70 }, () => ({
+      k: kinds[Math.floor(Math.random() * kinds.length)],
+      x: Math.random() * innerWidth, y: -60 - Math.random() * innerHeight,
+      v: 2 + Math.random() * 3, s: 28 + Math.random() * 26, r: Math.random() * 6, vr: (Math.random() - .5) * .08, sway: Math.random() * 6
+    }));
+    const t0 = performance.now();
+    (function fall(t) {
+      cfx.clearRect(0, 0, innerWidth, innerHeight);
+      parts.forEach(p => {
+        p.y += p.v; p.r += p.vr;
+        const o = IMG[p.k];
+        if (!o.img.naturalWidth) return;
+        cfx.save(); cfx.translate(p.x + Math.sin(t / 400 + p.sway) * 14, p.y); cfx.rotate(p.r);
+        cfx.drawImage(o.img, -p.s / 2, -p.s * o.ratio / 2, p.s, p.s * o.ratio); cfx.restore();
+      });
+      if (t - t0 < 6500) requestAnimationFrame(fall); else { cfx.clearRect(0, 0, innerWidth, innerHeight); cf.hidden = true; }
+    })(t0);
+  });
+})();
+</script>
+
+</html>
