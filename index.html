@@ -149,7 +149,14 @@ p{margin:0}
 .spanel h3{margin-bottom:16px;font-size:40px}
 .walks{margin-top:44px}
 .walks h3{font-size:40px}
-.walks .events{margin-top:18px}
+.walk-picker{display:flex;align-items:center;gap:18px;flex-wrap:wrap;margin-top:18px}
+.walk-result{font-family:var(--display);font-size:30px;line-height:1.05;color:var(--sun);min-height:32px}
+.walk-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:18px;margin-top:22px}
+.wcard{display:flex;flex-direction:column;align-items:center;text-align:center;gap:4px;padding:12px 10px 14px;min-width:0;transition:transform .15s,box-shadow .15s}
+.wcard .sticker{height:58px;width:auto;max-width:76px}
+.wcard b{font-family:var(--display);font-size:24px;line-height:1}
+.wcard small{color:var(--ink-soft);font-size:13px;line-height:1.3}
+.wcard.hot{transform:translateY(-4px) rotate(-2deg);box-shadow:0 0 0 5px var(--sun),3px 6px 0 6px rgba(43,10,28,.35)}
 .events{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:22px}
 .event{display:flex;gap:14px;align-items:center;padding:14px 16px;min-width:0}
 .event .ic{width:66px;flex:none}
@@ -501,12 +508,12 @@ footer{text-align:center;color:var(--chalk-dim);font-size:14px;padding-block:0 4
 
     <div class="walks">
       <h3>А гуляли ми всюди й завжди</h3>
-      <p class="sub">У будь-яку пору року, в будь-яку погоду.</p>
-      <div class="events">
-        <div class="event paper"><span class="ic" data-art="gates"></span><div><p class="when">Золоті ворота</p><p>Вечірній центр і довгі розмови.</p></div></div>
-        <div class="event paper"><span class="ic" data-art="bridge"></span><div><p class="when">Пішохідний міст</p><p>Київ під ногами, ти поруч.</p></div></div>
-        <div class="event paper"><span class="ic" data-art="hydropark"></span><div><p class="when">Гідропарк</p><p>Вода, дерева і ми.</p></div></div>
+      <p class="sub">Наш Київ: у будь-яку пору року, в будь-яку погоду.</p>
+      <div class="walk-picker">
+        <button class="btn" id="walkBtn">Куди підемо гуляти?</button>
+        <p class="walk-result" id="walkResult" aria-live="polite"></p>
       </div>
+      <div class="walk-grid" id="walkGrid"></div>
     </div>
   </section>
 
@@ -712,6 +719,22 @@ const CONFIG = {
     "З нашою першою річницею!"
   ],
 
+  // місця для прогулянок
+  walks: [
+    { art: "kpi", name: "КПІ", note: "тут був наш поцілунок" },
+    { art: "gates", name: "Золоті ворота", note: "вечірній центр" },
+    { art: "chestnut", name: "Хрещатик", note: "головна вулиця міста" },
+    { art: "bench", name: "Парк Шевченка", note: "лавочки й розмови" },
+    { art: "metro", name: "Арсенальна", note: "найглибше метро" },
+    { art: "houses", name: "Нова Англія", note: "наче й не в Києві" },
+    { art: "bridge", name: "Пішохідний міст", note: "Київ під ногами" },
+    { art: "hydropark", name: "Гідропарк", note: "вода і дерева" },
+    { art: "church", name: "Андріївський узвіз", note: "найгарніший спуск" },
+    { art: "tram", name: "Поділ", note: "трамваї й кав'ярні" },
+    { art: "pin", name: "Пейзажна алея", note: "дивні й смішні скульптури" },
+    { art: "pin", name: "Володимирська гірка", note: "вид на Дніпро" }
+  ],
+
   // що кажуть іграшки на полиці
   plush: {
     goose: "Га-га-га! Я Goooooose, і я — це він. Так, це офіційно.",
@@ -726,7 +749,7 @@ const CONFIG = {
     { art: "gates", name: "Прогулянка вечірнім Києвом", price: 3 },
     { art: "sunrise", name: "Зустріч світанку", price: 5 },
     { art: "popcorn", name: "Вечір кіно", price: 2 },
-    { art: "mountain", name: "Поїздка в гори", price: 8 },
+    { art: "suitcase", name: "Подорож", price: 8 },
     { art: "kiss", name: "Поцілунок без приводу", price: 1 },
     { art: "heart", name: "Довгі обійми", price: 1 }
   ],
@@ -1077,6 +1100,61 @@ Object.assign(ART, {
     <path d="M10 32 Q14 6 31 8 Q50 6 52 32 Q40 26 31 30 Q20 26 10 32Z" fill="#7fb03a" stroke="${INK}" stroke-width="2.2"/>
     <path d="M16 30 v8 M24 28 v10 M40 28 v10 M46 30 v8" stroke="#5c8a2a" stroke-width="2" stroke-linecap="round"/>` },
 });
+Object.assign(ART, {
+  kpi: { vb: [100, 70], svg: `
+    <path d="M10 26 L50 6 L90 26Z" fill="#efe0c4" stroke="${INK}" stroke-width="2.2" stroke-linejoin="round"/>
+    <rect x="12" y="26" width="76" height="36" fill="#f6e9a8" stroke="${INK}" stroke-width="2.2"/>
+    <g fill="#fbf7f2" stroke="${INK}" stroke-width="1.6">${[20, 32, 44, 56, 68].map(x => `<rect x="${x}" y="30" width="6" height="28"/>`).join('')}</g>
+    <rect x="6" y="62" width="88" height="6" fill="#c9a37b" stroke="${INK}" stroke-width="1.8"/>
+    <circle cx="50" cy="18" r="4" fill="#f2c84b" stroke="${INK}" stroke-width="1.4"/>` },
+  metro: { vb: [80, 76], svg: `
+    <path d="M6 72 V40 Q6 8 40 8 Q74 8 74 40 V72Z" fill="#4a4258" stroke="${INK}" stroke-width="2.4"/>
+    <path d="M18 72 L46 30 H58 L30 72Z" fill="#8e8796"/>
+    <path d="M22 66 h8 M27 58 h8 M32 50 h8 M37 42 h8" stroke="#c7c0cc" stroke-width="2"/>
+    <circle cx="56" cy="24" r="12" fill="#3d9a5a" stroke="${INK}" stroke-width="2"/>
+    <path d="M50 30 V18 L56 25 L62 18 V30" fill="none" stroke="#fff" stroke-width="2.4" stroke-linejoin="round"/>` },
+  houses: { vb: [100, 74], svg: `
+    ${[[6, '#b5523a', 26], [36, '#efe0c4', 18], [64, '#9b4a3a', 24]].map(([x, c, h]) => `<path d="M${x} ${70 - 30 - h / 2} L${x + 15} ${70 - 44 - h / 2} L${x + 30} ${70 - 30 - h / 2} V70 H${x}Z" fill="${c}" stroke="${INK}" stroke-width="2" stroke-linejoin="round"/><rect x="${x + 6}" y="${70 - 24 - h / 2}" width="7" height="8" fill="#bfe0f5" stroke="${INK}" stroke-width="1.2"/><rect x="${x + 17}" y="${70 - 24 - h / 2}" width="7" height="8" fill="#bfe0f5" stroke="${INK}" stroke-width="1.2"/><rect x="${x + 11}" y="58" width="8" height="12" fill="#5c3a26"/>`).join('')}
+    <path d="M2 70 H98" stroke="${INK}" stroke-width="2.4" stroke-linecap="round"/>` },
+  chestnut: { vb: [90, 80], svg: `
+    ${[-60, -30, 0, 30, 60].map(a => `<ellipse cx="40" cy="20" rx="8" ry="20" fill="#6aa83f" stroke="${INK}" stroke-width="1.8" transform="rotate(${a} 40 44)"/>`).join('')}
+    <path d="M40 44 V76" stroke="#3f6e2e" stroke-width="3"/>
+    <circle cx="68" cy="58" r="14" fill="#8a4a2b" stroke="${INK}" stroke-width="2"/>
+    <path d="M60 52 q6 -6 14 -2" stroke="#c98a5a" stroke-width="3" stroke-linecap="round" fill="none"/>` },
+  bench: { vb: [100, 76], svg: `
+    <rect x="72" y="36" width="7" height="36" fill="#8a5a34" stroke="${INK}" stroke-width="1.8"/>
+    <circle cx="76" cy="26" r="20" fill="#7fb03a" stroke="${INK}" stroke-width="2"/>
+    <circle cx="66" cy="20" r="3" fill="#f39a4b"/><circle cx="84" cy="30" r="3" fill="#f39a4b"/>
+    <rect x="8" y="38" width="52" height="7" rx="2" fill="#b9895a" stroke="${INK}" stroke-width="1.8"/>
+    <rect x="8" y="50" width="52" height="7" rx="2" fill="#b9895a" stroke="${INK}" stroke-width="1.8"/>
+    <path d="M14 57 V72 M54 57 V72" stroke="${INK}" stroke-width="3"/>
+    <path d="M2 72 H98" stroke="${INK}" stroke-width="2" stroke-linecap="round"/>` },
+  church: { vb: [80, 90], svg: `
+    <path d="M40 2 V12" stroke="#f2c84b" stroke-width="3"/>
+    <path d="M26 30 Q26 12 40 12 Q54 12 54 30Z" fill="#5fb3a1" stroke="${INK}" stroke-width="2"/>
+    <rect x="28" y="30" width="24" height="14" fill="#7fb7e0" stroke="${INK}" stroke-width="1.8"/>
+    <path d="M10 50 Q10 40 18 40 Q26 40 26 50Z M54 50 Q54 40 62 40 Q70 40 70 50Z" fill="#5fb3a1" stroke="${INK}" stroke-width="1.8"/>
+    <rect x="8" y="44" width="64" height="40" fill="#bfe0f5" stroke="${INK}" stroke-width="2.2"/>
+    <path d="M34 84 V66 Q40 58 46 66 V84" fill="#fbf7f2" stroke="${INK}" stroke-width="1.8"/>
+    <path d="M16 60 v8 M64 60 v8" stroke="${INK}" stroke-width="2"/>` },
+  tram: { vb: [80, 84], svg: `
+    <path d="M40 4 V14 M30 4 H50" stroke="${INK}" stroke-width="2"/>
+    <rect x="10" y="14" width="60" height="58" rx="12" fill="#e8352e" stroke="${INK}" stroke-width="2.4"/>
+    <rect x="18" y="22" width="44" height="22" rx="4" fill="#bfe0f5" stroke="${INK}" stroke-width="1.8"/>
+    <rect x="10" y="50" width="60" height="5" fill="#f7d24a"/>
+    <circle cx="22" cy="62" r="4" fill="#f7d24a" stroke="${INK}" stroke-width="1.4"/><circle cx="58" cy="62" r="4" fill="#f7d24a" stroke="${INK}" stroke-width="1.4"/>
+    <path d="M16 80 H64" stroke="${INK}" stroke-width="3" stroke-linecap="round"/><path d="M22 72 v8 M58 72 v8" stroke="${INK}" stroke-width="2.4"/>` },
+  pin: { vb: [60, 80], svg: `
+    <path d="M30 76 C10 50 6 40 6 30 A24 24 0 0 1 54 30 C54 40 50 50 30 76Z" fill="#ff6fa3" stroke="${INK}" stroke-width="2.4"/>
+    <path d="M30 42 C20 35 20 27 25 25 C28 24 30 26 30 28 C30 26 32 24 35 25 C40 27 40 35 30 42Z" fill="#fbf7f2"/>` },
+  suitcase: { vb: [90, 80], svg: `
+    <path d="M32 18 V10 Q32 6 36 6 H54 Q58 6 58 10 V18" fill="none" stroke="${INK}" stroke-width="3"/>
+    <rect x="8" y="18" width="74" height="54" rx="8" fill="#f39a4b" stroke="${INK}" stroke-width="2.4"/>
+    <path d="M26 18 V72 M64 18 V72" stroke="#b5552b" stroke-width="4"/>
+    <circle cx="20" cy="76" r="4" fill="${INK}"/><circle cx="70" cy="76" r="4" fill="${INK}"/>
+    <rect x="34" y="34" width="22" height="14" rx="2" fill="#fbf7f2" stroke="${INK}" stroke-width="1.6" transform="rotate(-8 45 41)"/>
+    <path d="M45 46 C40 43 40 39 42 38 C44 37 45 39 45 40 C45 39 46 37 48 38 C50 39 50 43 45 46Z" fill="#ff6fa3"/>` },
+});
 function mouseSVG(bow) {
   return `
     <circle cx="22" cy="26" r="18" fill="#1d1b20" stroke="${INK}" stroke-width="2"/><circle cx="78" cy="26" r="18" fill="#1d1b20" stroke="${INK}" stroke-width="2"/>
@@ -1346,6 +1424,40 @@ document.querySelectorAll('[data-art]').forEach(el => el.innerHTML = sticker(el.
     tabs.forEach(x => x.setAttribute('aria-selected', String(x === t)));
     document.querySelectorAll('.spanel').forEach(p => p.hidden = p.id !== t.dataset.panel);
   }));
+
+  /* ===== прогулянки ===== */
+  const walkCards = CONFIG.walks.map(w => {
+    const d = document.createElement('div');
+    d.className = 'wcard paper';
+    d.innerHTML = `${sticker(w.art)}<b></b><small></small>`;
+    d.querySelector('b').textContent = w.name;
+    d.querySelector('small').textContent = w.note;
+    $('#walkGrid').append(d);
+    return d;
+  });
+  let walkBusy = false, lastWalk = -1;
+  $('#walkBtn').addEventListener('click', () => {
+    if (walkBusy) return;
+    walkBusy = true;
+    let pick;
+    do { pick = Math.floor(Math.random() * walkCards.length); } while (pick === lastWalk && walkCards.length > 1);
+    lastWalk = pick;
+    const steps = reduced ? 1 : 14 + pick;
+    let i = 0;
+    $('#walkResult').textContent = 'Кітик думає…';
+    (function hop() {
+      walkCards.forEach(c => c.classList.remove('hot'));
+      const idx = reduced ? pick : (i % walkCards.length);
+      walkCards[idx].classList.add('hot');
+      if (i < steps - 1 && !(i >= 14 && idx === pick)) { i++; return setTimeout(hop, 60 + i * 8); }
+      walkCards.forEach(c => c.classList.remove('hot'));
+      walkCards[pick].classList.add('hot');
+      $('#walkResult').textContent = `Сьогодні гуляємо: ${CONFIG.walks[pick].name}!`;
+      walkCards[pick].scrollIntoView({ behavior: reduced ? 'auto' : 'smooth', block: 'nearest' });
+      floatHearts(...centerOf(walkCards[pick]), 4);
+      walkBusy = false;
+    })();
+  });
 
   /* ===== полиця плюшевих ===== */
   const plushSay = $('#plushSay');
