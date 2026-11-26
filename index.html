@@ -149,14 +149,21 @@ p{margin:0}
 .spanel h3{margin-bottom:16px;font-size:40px}
 .walks{margin-top:44px}
 .walks h3{font-size:40px}
-.walk-picker{display:flex;align-items:center;gap:18px;flex-wrap:wrap;margin-top:18px}
-.walk-result{font-family:var(--display);font-size:30px;line-height:1.05;color:var(--sun);min-height:32px}
-.walk-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:18px;margin-top:22px}
-.wcard{display:flex;flex-direction:column;align-items:center;text-align:center;gap:4px;padding:12px 10px 14px;min-width:0;transition:transform .15s,box-shadow .15s}
-.wcard .sticker{height:58px;width:auto;max-width:76px}
-.wcard b{font-family:var(--display);font-size:24px;line-height:1}
-.wcard small{color:var(--ink-soft);font-size:13px;line-height:1.3}
-.wcard.hot{transform:translateY(-4px) rotate(-2deg);box-shadow:0 0 0 5px var(--sun),3px 6px 0 6px rgba(43,10,28,.35)}
+.kmap-wrap{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.15fr);gap:28px;margin-top:22px;align-items:start}
+.kmap{padding:10px;background:#fdf3d6}
+.kmap svg{display:block;width:100%;height:auto;overflow:visible}
+.kpin{cursor:pointer;-webkit-tap-highlight-color:transparent}
+.kpin .kp{fill:#fbf7f2;transition:fill .2s}
+.kpin.seen .kp{fill:#ff6fa3}
+.kpin.on .kp{fill:#f7d24a;transform:scale(1.35);transform-box:fill-box;transform-origin:50% 100%}
+.kpin:focus-visible{outline:none}
+.kpin:focus-visible .kp{stroke:#7e1b4c;stroke-width:3}
+.kmap-card{display:flex;gap:16px;align-items:center;padding:18px;position:sticky;top:calc(env(safe-area-inset-top,0px) + 12px)}
+.kmap-card.pop{animation:pop .35s ease}
+.kc-art{width:84px;flex:none;display:block}
+.kmap-card b{font-family:var(--display);font-size:34px;line-height:1;display:block}
+.kmap-card p{color:var(--ink-soft);margin-top:4px}
+.kmap-progress{grid-column:1/-1;font-family:var(--display);font-size:28px;color:var(--sun)}
 .events{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:22px}
 .event{display:flex;gap:14px;align-items:center;padding:14px 16px;min-width:0}
 .event .ic{width:66px;flex:none}
@@ -204,6 +211,20 @@ p{margin:0}
 .kiss-text{font-family:var(--display);font-size:34px;color:var(--pink);opacity:0;transition:opacity .3s}
 .kiss-text.on{opacity:1}
 
+/* ---------- quiz ---------- */
+.quiz{margin-top:22px;padding:22px;max-width:680px}
+.quiz-top{display:flex;justify-content:space-between;align-items:center;gap:10px;color:var(--ink-soft);font-weight:800;font-size:14px}
+.quiz .dots i{border-color:var(--ink-soft)}
+.quiz-q{font-family:var(--display);font-size:clamp(30px,4.6vw,40px);line-height:1.05;margin:12px 0 16px}
+.quiz-opts{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+.qopt{font:700 16px/1.25 var(--body);color:var(--ink);background:#fdf3d6;border:2.5px solid var(--ink);border-radius:16px;padding:14px 12px;cursor:pointer;text-align:center;transition:transform .12s,background .2s}
+.qopt:hover:not(:disabled){transform:translateY(-2px)}
+.qopt:focus-visible{outline:3px dashed var(--space);outline-offset:3px}
+.qopt.right{background:#c9f0a8;transform:scale(1.04)}
+.qopt.wrong{background:#f4d2dc;color:var(--ink-soft);text-decoration:line-through;animation:shake .35s}
+.qopt:disabled{cursor:default}
+.quiz-fb{font-family:var(--display);font-size:26px;color:var(--space);min-height:30px;margin-top:12px}
+
 /* ---------- plush shelf ---------- */
 .plush-say{margin-top:20px;max-width:46ch}
 .shelf{margin-top:26px}
@@ -216,30 +237,34 @@ p{margin:0}
 @keyframes jump{35%{transform:translateY(-26px) rotate(-7deg)}70%{transform:translateY(0) rotate(3deg)}}
 .plank{height:20px;border-radius:6px;background:#b9895a;background-image:repeating-linear-gradient(90deg,transparent 0 60px,rgba(43,27,42,.18) 60px 62px);box-shadow:0 0 0 4px var(--paper),3px 8px 0 4px rgba(43,10,28,.35);margin-top:-4px}
 
-/* ---------- menu ---------- */
-.menu-wrap{display:grid;grid-template-columns:1.4fr 1fr;gap:28px;margin-top:24px;align-items:start}
-.menu-items{display:grid;grid-template-columns:repeat(auto-fill,minmax(140px,1fr));gap:18px}
-.mitem{display:flex;flex-direction:column;align-items:center;gap:4px;padding:14px 10px;border:0;cursor:pointer;font:inherit;color:var(--ink);transition:transform .12s}
-.mitem:hover{transform:translateY(-3px) rotate(-1deg)}
-.mitem:active{transform:scale(.96)}
-.mitem:focus-visible{outline:3px dashed var(--sun);outline-offset:6px}
-.mitem span{width:76px;height:76px;display:flex;align-items:center;justify-content:center}
-.mitem span svg{max-height:76px;width:auto;max-width:76px}
-.mitem b{font-family:var(--display);font-size:24px;line-height:1;text-align:center}
-.mitem small{color:var(--space);font-weight:800}
-.receipt{position:relative;background:#fffdf8;color:var(--ink);padding:22px 20px 30px;font-family:"Courier New",ui-monospace,monospace;font-size:15px;box-shadow:3px 6px 0 rgba(43,10,28,.35);
-  -webkit-mask:radial-gradient(circle 7px at 50% 100%,transparent 98%,#000) 0 0/18px 100% repeat-x;mask:radial-gradient(circle 7px at 50% 100%,transparent 98%,#000) 0 0/18px 100% repeat-x;}
-.r-head{text-align:center;font-weight:700;border-bottom:2px dashed var(--ink-soft);padding-bottom:10px;margin-bottom:10px}
-.r-head small{font-weight:400;color:var(--ink-soft)}
-.r-lines{display:flex;flex-direction:column;gap:4px;min-height:60px}
-.r-line{display:flex;justify-content:space-between;gap:10px}
-.r-empty{color:var(--ink-soft);text-align:center;padding-top:14px}
-.r-total{display:flex;justify-content:space-between;font-weight:700;border-top:2px dashed var(--ink-soft);margin-top:10px;padding-top:10px;font-variant-numeric:tabular-nums}
-.r-actions{display:flex;gap:14px;align-items:center;flex-wrap:wrap;margin-top:16px}
-.r-actions .link{color:var(--ink-soft);margin-top:0}
-.r-note{font-family:var(--display);font-size:24px;color:var(--space);min-height:28px;margin-top:8px;line-height:1.1}
-.paid-stamp{position:absolute;right:14px;top:58px;border:3px solid var(--pink);color:var(--pink);font:800 22px var(--body);padding:4px 12px;border-radius:10px;transform:rotate(-14deg) scale(0);transition:transform .35s cubic-bezier(.3,1.8,.5,1);background:rgba(255,253,248,.85)}
-.paid-stamp.on{transform:rotate(-14deg) scale(1)}
+/* ---------- 10 dates ---------- */
+.dates-bar{position:sticky;top:calc(env(safe-area-inset-top,0px) + 8px);z-index:5;display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;margin-top:20px;padding:10px 10px 10px 18px;background:var(--space-deep);border:2px dashed var(--chalk-dim);border-radius:999px}
+.dates-bar span{font-weight:800;font-variant-numeric:tabular-nums}
+.btn:disabled{opacity:.45;cursor:not-allowed;transform:none}
+.dates-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:14px;margin-top:18px}
+.dopt{position:relative;display:flex;align-items:center;gap:12px;text-align:left;padding:10px 14px 10px 10px;border:0;border-radius:18px;background:var(--paper);color:var(--ink);font:700 15px/1.25 var(--body);cursor:pointer;box-shadow:3px 4px 0 rgba(43,10,28,.35);transition:transform .12s,background .2s}
+.dopt:hover{transform:translateY(-2px)}
+.dopt:focus-visible{outline:3px dashed var(--sun);outline-offset:4px}
+.do-art{width:48px;flex:none;display:flex;justify-content:center}
+.do-art svg{max-height:46px;width:auto;max-width:48px}
+.do-name{flex:1;min-width:0}
+.do-check{width:26px;height:26px;flex:none;border-radius:50%;border:2px solid var(--ink-soft);color:transparent;display:grid;place-items:center;font-weight:800}
+.dopt[aria-pressed="true"]{background:#fff1b8;box-shadow:0 0 0 3px var(--sun),3px 4px 0 3px rgba(43,10,28,.35)}
+.dopt[aria-pressed="true"] .do-check{background:var(--pink);border-color:var(--pink);color:#fff}
+.dates-grid.full .dopt[aria-pressed="false"]{opacity:.55}
+.dates-note{font-family:var(--display);font-size:26px;color:var(--sun);min-height:30px;margin-top:12px}
+.coupon-sheet{margin-top:18px;background:var(--paper);color:var(--ink);border-radius:22px;padding:18px;box-shadow:0 0 0 5px var(--paper),3px 6px 0 6px rgba(43,10,28,.35);animation:fadeIn .5s ease}
+.cs-head{display:flex;gap:12px;align-items:center;margin-bottom:14px}
+.cs-head span{width:96px;flex:none}
+.cs-head b{font-family:var(--display);font-size:32px;line-height:1;display:block}
+.cs-head p{color:var(--ink-soft);font-size:14px}
+.cs-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+.cs-coupon{display:flex;gap:8px;align-items:center;padding:8px 10px;border:2px dashed var(--space);border-radius:12px;background:#fdf3d6;min-width:0}
+.cs-art{width:38px;flex:none;display:flex;justify-content:center}
+.cs-art svg{max-height:36px;width:auto;max-width:38px}
+.cs-coupon small{display:block;font-size:10px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:var(--space)}
+.cs-coupon b{font-family:var(--display);font-size:19px;line-height:1.05;display:block}
+.cs-foot{text-align:center;color:var(--ink-soft);font-size:13px;margin-top:12px}
 
 /* ---------- fortune ---------- */
 .fortune{display:grid;grid-template-columns:auto 1fr;gap:32px;align-items:center;margin-top:22px}
@@ -269,6 +294,13 @@ p{margin:0}
 .sign{font-family:var(--display);font-size:32px;margin-top:18px;text-align:right}
 .letter .stamp{position:absolute;top:-40px;right:18px;width:96px;transform:rotate(9deg)}
 
+/* ---------- future ---------- */
+.future{text-align:center;padding-block:30px 60px}
+.future-cats{display:block;width:min(260px,64%);margin:0 auto 14px}
+.future h2{max-width:16ch;margin:0 auto}
+.future-text{max-width:56ch;margin:16px auto 0;font-size:18px;color:var(--chalk-dim)}
+.future-sign{font-family:var(--display);font-size:32px;color:var(--sun);margin-top:14px}
+
 /* ---------- final ---------- */
 .final{text-align:center;padding-bottom:70px}
 .answers{position:relative;min-height:230px;display:flex;gap:20px;justify-content:center;align-items:center;flex-wrap:wrap;margin-top:18px}
@@ -287,8 +319,11 @@ footer{text-align:center;color:var(--chalk-dim);font-size:14px;padding-block:0 4
   .facts{grid-template-columns:1fr}
   .postcards{grid-template-columns:1fr;max-width:300px}
   .treats{grid-template-columns:1fr}
-  .menu-wrap{grid-template-columns:1fr}
-  .menu-items{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .kmap-wrap{grid-template-columns:1fr}
+  .kmap-card{position:static}
+  .dates-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+  .dopt{flex-direction:column;text-align:center;gap:6px;padding:12px 8px 12px;font-size:14px}
+  .do-check{position:absolute;top:6px;right:6px;width:22px;height:22px;font-size:12px}
   .fortune{grid-template-columns:1fr;justify-items:center;text-align:center}
   .mem-grid{grid-template-columns:repeat(4,minmax(0,1fr))}
   .events{grid-template-columns:1fr}
@@ -508,12 +543,15 @@ footer{text-align:center;color:var(--chalk-dim);font-size:14px;padding-block:0 4
 
     <div class="walks">
       <h3>А гуляли ми всюди й завжди</h3>
-      <p class="sub">Наш Київ: у будь-яку пору року, в будь-яку погоду.</p>
-      <div class="walk-picker">
-        <button class="btn" id="walkBtn">Куди підемо гуляти?</button>
-        <p class="walk-result" id="walkResult" aria-live="polite"></p>
+      <p class="sub">У будь-яку пору року, в будь-яку погоду. Ось наш Київ: карта трохи приблизна, як і мій почерк.</p>
+      <div class="kmap-wrap">
+        <div class="kmap-card paper" id="kmapCard" aria-live="polite">
+          <span class="kc-art" id="kcArt"></span>
+          <div><b id="kcName">Наш Київ</b><p id="kcNote">Натискай на сердечка на карті й згадуй, де ми гуляли.</p></div>
+        </div>
+        <div class="kmap paper"><svg viewBox="0 0 300 400" id="kmap" role="group" aria-label="Карта наших прогулянок Києвом"></svg></div>
+        <p class="kmap-progress" id="kmapProgress"></p>
       </div>
-      <div class="walk-grid" id="walkGrid"></div>
     </div>
   </section>
 
@@ -529,6 +567,19 @@ footer{text-align:center;color:var(--chalk-dim);font-size:14px;padding-block:0 4
     </div>
     <div class="mem-grid" id="memGrid"></div>
     <p class="mem-toast" id="memToast" aria-live="polite"></p>
+  </section>
+
+  <!-- вікторина -->
+  <section class="wrap" id="quizSec">
+    <p class="eyebrow">Вікторина</p>
+    <h2>Хто ти для мене?</h2>
+    <p class="sub">Шість питань. Правильна відповідь у кожному лише одна, але ти точно впораєшся.</p>
+    <div class="quiz paper" id="quiz">
+      <div class="quiz-top"><span class="quiz-step" id="quizStep">Питання 1 з 6</span><span class="dots" id="quizDots"></span></div>
+      <p class="quiz-q" id="quizQ"></p>
+      <div class="quiz-opts" id="quizOpts"></div>
+      <p class="quiz-fb" id="quizFb" aria-live="polite"></p>
+    </div>
   </section>
 
   <!-- м'які іграшки -->
@@ -596,37 +647,32 @@ footer{text-align:center;color:var(--chalk-dim);font-size:14px;padding-block:0 4
     </div>
   </section>
 
-  <!-- меню -->
-  <section class="wrap">
-    <p class="eyebrow">Кав'ярня побачень «Кітик і Кицюня»</p>
-    <h2>Меню побачень</h2>
-    <p class="sub">Обирай, які побачення хочеш наступними. Ціни в цьомчиках, оплата обіймами. Замовлення кітик виконає.</p>
-    <div class="menu-wrap">
-      <div class="menu-items" id="menuItems"></div>
-      <div class="receipt" id="receipt">
-        <p class="r-head">Кітик і Кицюня<br><small>чек № 365</small></p>
-        <div class="r-lines" id="rLines"><p class="r-empty">Тут поки порожньо</p></div>
-        <p class="r-total"><span>Разом</span><span id="rTotal">0 цьомчиків</span></p>
-        <div class="r-actions">
-          <button class="btn pink" id="payBtn">Оплатити обіймами</button>
-          <button class="link" id="clearBtn">Очистити</button>
-        </div>
-        <p class="r-note" id="rNote" aria-live="polite"></p>
-        <span class="paid-stamp" id="paidStamp">Оплачено ♥</span>
-      </div>
+  <!-- 10 побачень -->
+  <section class="wrap" id="datesSec">
+    <p class="eyebrow">Наш наступний рік</p>
+    <h2>Збери 10 побачень</h2>
+    <p class="sub">Обери з цього списку рівно 10 побачень, які хочеш у наступному році. Отримаєш купони: зроби скріншот і пред'являй кітику, коли захочеш.</p>
+    <div class="dates-bar"><span id="datesCount">Обрано 0 з 10</span><button class="btn pink" id="datesDone" disabled>Отримати купони</button></div>
+    <div class="dates-grid" id="datesGrid"></div>
+    <p class="dates-note" id="datesNote" aria-live="polite"></p>
+    <div class="coupon-sheet" id="couponSheet" hidden>
+      <div class="cs-head"><span data-art="catsTogether"></span><div><b>Купони на побачення</b><p>Для кицюні від кітика. Дійсні весь наступний рік і навіть довше.</p></div></div>
+      <div class="cs-grid" id="csGrid"></div>
+      <p class="cs-foot">Зроби скріншот, щоб не загубити</p>
     </div>
+    <button class="link" id="datesReset" hidden>Обрати інші побачення</button>
   </section>
 
   <!-- гра -->
   <section class="wrap" id="gameSec">
     <p class="eyebrow">Міні-гра</p>
-    <h2>Нагодуй кицюню</h2>
-    <p class="sub">Лови фрі, піцики, сушики, кіндери й лимонадик: 12 смаколиків, по одному за кожен наш місяць. Овочевий супчик котики не люблять: кожна тарілка забирає один смаколик. Керуй пальцем, мишкою або стрілками.</p>
+    <h2>Збери наш рік</h2>
+    <p class="sub">Лови сердечка й наші спогади: 12 штук, по одному за кожен місяць разом. Овочевий супчик котики не люблять, кожна тарілка забирає один спогад. Керуй пальцем, мишкою або стрілками.</p>
     <div class="game-box" id="gameBox">
       <canvas id="cv" aria-label="Гра: кицюня ловить смаколики"></canvas>
-      <div class="hud"><span class="score">смаколики: <span id="score">0</span>/12</span><span class="toast" id="toast"></span></div>
+      <div class="hud"><span class="score">місяців: <span id="score">0</span>/12</span><span class="toast" id="toast"></span></div>
       <div class="overlay" id="ov">
-        <p id="ovText">Кицюня зголодніла</p>
+        <p id="ovText">Збери 12 наших місяців</p>
         <small id="ovSmall">У кінці на тебе чекає лист</small>
         <button class="btn" id="startBtn">Грати</button>
       </div>
@@ -668,6 +714,15 @@ footer{text-align:center;color:var(--chalk-dim);font-size:14px;padding-block:0 4
       <button class="btn ghost" id="no">Ні</button>
     </div>
     <p class="yay" id="yay" hidden>Ура! Котики святкують разом з нами</p>
+  </section>
+
+  <!-- майбутнє -->
+  <section class="wrap future">
+    <span class="future-cats float" data-art="catsTogether"></span>
+    <p class="eyebrow">Далі буде</p>
+    <h2>Нас обов'язково чекає щасливе майбутнє</h2>
+    <p class="future-text">Наша планетка зробила перше коло навколо сонця. Попереду нові міста й світанки, побачення з купонів, ще більше прогулянок Києвом і подорожей. Я не знаю всього, що на нас чекає, але точно знаю головне: ми будемо разом, і це буде щасливо.</p>
+    <p class="future-sign">Твій кітик</p>
   </section>
 
   <footer>зроблено з любов'ю, муркотінням і трішки гусячого ґелґотіння</footer>
@@ -721,19 +776,36 @@ const CONFIG = {
 
   // місця для прогулянок
   walks: [
-    { art: "kpi", name: "КПІ", note: "тут був наш поцілунок" },
-    { art: "gates", name: "Золоті ворота", note: "вечірній центр" },
-    { art: "chestnut", name: "Хрещатик", note: "головна вулиця міста" },
-    { art: "bench", name: "Парк Шевченка", note: "лавочки й розмови" },
-    { art: "metro", name: "Арсенальна", note: "найглибше метро" },
-    { art: "houses", name: "Нова Англія", note: "наче й не в Києві" },
-    { art: "bridge", name: "Пішохідний міст", note: "Київ під ногами" },
-    { art: "hydropark", name: "Гідропарк", note: "вода і дерева" },
-    { art: "church", name: "Андріївський узвіз", note: "найгарніший спуск" },
-    { art: "tram", name: "Поділ", note: "трамваї й кав'ярні" },
-    { art: "pin", name: "Пейзажна алея", note: "дивні й смішні скульптури" },
-    { art: "pin", name: "Володимирська гірка", note: "вид на Дніпро" }
+    { art: "hydropark", name: "Наталка", note: "Оболонь і набережна", x: 172, y: 30 },
+    { art: "tram", name: "Поділ", note: "трамваї й кав'ярні", x: 150, y: 86 },
+    { art: "pin", name: "Пейзажна алея", note: "смішні скульптури і вид на місто", x: 98, y: 106 },
+    { art: "church", name: "Андріївський узвіз", note: "найгарніший спуск у Києві", x: 128, y: 124 },
+    { art: "church", name: "Михайлівська площа", note: "золоті бані й голуби", x: 160, y: 138 },
+    { art: "pin", name: "Володимирська гірка", note: "вид на Дніпро", x: 186, y: 156 },
+    { art: "bridge", name: "Пішохідний міст", note: "Київ під ногами", x: 212, y: 128 },
+    { art: "hydropark", name: "Труханів острів", note: "пляж посеред міста", x: 226, y: 80 },
+    { art: "gates", name: "Золоті ворота", note: "вечірній центр і довгі розмови", x: 106, y: 162 },
+    { art: "chestnut", name: "Хрещатик", note: "головна вулиця міста", x: 150, y: 176 },
+    { art: "bench", name: "Парк Шевченка", note: "лавочки й розмови", x: 90, y: 200 },
+    { art: "bench", name: "Маріїнський парк", note: "тихі алеї біля Ради", x: 180, y: 202 },
+    { art: "metro", name: "Арсенальна", note: "найглибше метро і найдовший ескалатор", x: 162, y: 234 },
+    { art: "kpi", name: "КПІ", note: "тут був наш поцілунок", x: 46, y: 236 },
+    { art: "hydropark", name: "Гідропарк", note: "вода і дерева", x: 242, y: 206 },
+    { art: "sunrise", name: "Ботсад", note: "тут ми зустріли світанок", x: 178, y: 288 },
+    { art: "houses", name: "Нова Англія", note: "наче й не в Києві", x: 112, y: 320 },
+    { art: "pin", name: "ВДНГ", note: "простір, повітря і довгі прогулянки", x: 96, y: 366 }
   ],
+
+  // вікторина: перша відповідь у кожному питанні правильна (на екрані перемішуються)
+  quiz: [
+    { q: "Хто гуляє зі мною по нашій планетці?", a: ["Кицюня", "Сусідський кіт", "Голуб з Хрещатика", "Містер Капібара (він ревнує)"] },
+    { q: "Хто світить мені навіть у найпохмуріший день?", a: ["Сонечко", "Ліхтарик на телефоні", "Лампочка в холодильнику", "Екран ноутбука"] },
+    { q: "Хто найніжніший і найпухнастіший у світі?", a: ["Зайка", "Goose", "Плед", "Кактус Тревіса"] },
+    { q: "Хто виконує всі мої бажання, просто коли поруч?", a: ["Рибка", "Джин з лампи", "Доставка піци", "Святий Миколай"] },
+    { q: "Що я відчуваю, коли ти поруч?", a: ["Моє щастя", "Легкий голод", "Бажання поспати", "Нічого особливого"] },
+    { q: "А якщо зовсім серйозно: хто ти для мене?", a: ["Сенс мого буття", "Знайома з концерту", "Підписниця в інстаграмі", "Сусідка по парті"] }
+  ],
+  quizFinal: "6 з 6! Ти моя кицюня, сонечко, зайка, рибка, моє щастя і сенс мого буття.",
 
   // що кажуть іграшки на полиці
   plush: {
@@ -744,14 +816,32 @@ const CONFIG = {
     capybara: "Я Містер Капібара з рюкзачком-черепашкою. Їжджу з кицюнею в бесі й охороняю її, поки кітика немає поруч."
   },
 
-  // меню побачень: ціни в цьомчиках
-  menu: [
-    { art: "gates", name: "Прогулянка вечірнім Києвом", price: 3 },
-    { art: "sunrise", name: "Зустріч світанку", price: 5 },
-    { art: "popcorn", name: "Вечір кіно", price: 2 },
-    { art: "suitcase", name: "Подорож", price: 8 },
-    { art: "kiss", name: "Поцілунок без приводу", price: 1 },
-    { art: "heart", name: "Довгі обійми", price: 1 }
+  // варіанти побачень (обирає рівно 10)
+  dates: [
+    { art: "sunrise", name: "Зустріти світанок разом" },
+    { art: "bridge", name: "Захід сонця на пішохідному мосту" },
+    { art: "suitcase", name: "Подорож у нове місто" },
+    { art: "lemon", name: "Знову в Італію" },
+    { art: "mountain", name: "Вихідні в горах" },
+    { art: "popcorn", name: "Кіно з великим попкорном" },
+    { art: "masks", name: "Вечір у театрі" },
+    { art: "mic", name: "Концерт улюбленого гурту" },
+    { art: "bench", name: "Пікнік у парку" },
+    { art: "giraffe", name: "Знову в зоопарк" },
+    { art: "flower", name: "Ботсад, коли цвіте бузок" },
+    { art: "hydropark", name: "Катер по Дніпру" },
+    { art: "tram", name: "Вечірній Поділ" },
+    { art: "gates", name: "Нічний Київ з оглядового майданчика" },
+    { art: "tree", name: "Зимова країна і гарячий шоколад" },
+    { art: "snowflake", name: "Каток, тримаючись за руки" },
+    { art: "pizza", name: "Піцики й настолки вдома" },
+    { art: "sushi", name: "Сушики й улюблений серіал" },
+    { art: "cake", name: "Десерти в новій кав'ярні" },
+    { art: "heart", name: "Вечір мультиків під пледом" },
+    { art: "carBlack", name: "Поїздка на фольцику без плану" },
+    { art: "kinder", name: "Побачення-сюрприз, яке планую я" },
+    { art: "sun", name: "День без телефонів, тільки ми" },
+    { art: "ball", name: "Вечір мрій: плануємо наше майбутнє" }
   ],
 
   // передбачення кулі
@@ -1425,39 +1515,104 @@ document.querySelectorAll('[data-art]').forEach(el => el.innerHTML = sticker(el.
     document.querySelectorAll('.spanel').forEach(p => p.hidden = p.id !== t.dataset.panel);
   }));
 
-  /* ===== прогулянки ===== */
-  const walkCards = CONFIG.walks.map(w => {
-    const d = document.createElement('div');
-    d.className = 'wcard paper';
-    d.innerHTML = `${sticker(w.art)}<b></b><small></small>`;
-    d.querySelector('b').textContent = w.name;
-    d.querySelector('small').textContent = w.note;
-    $('#walkGrid').append(d);
-    return d;
-  });
-  let walkBusy = false, lastWalk = -1;
-  $('#walkBtn').addEventListener('click', () => {
-    if (walkBusy) return;
-    walkBusy = true;
-    let pick;
-    do { pick = Math.floor(Math.random() * walkCards.length); } while (pick === lastWalk && walkCards.length > 1);
-    lastWalk = pick;
-    const steps = reduced ? 1 : 14 + pick;
-    let i = 0;
-    $('#walkResult').textContent = 'Кітик думає…';
-    (function hop() {
-      walkCards.forEach(c => c.classList.remove('hot'));
-      const idx = reduced ? pick : (i % walkCards.length);
-      walkCards[idx].classList.add('hot');
-      if (i < steps - 1 && !(i >= 14 && idx === pick)) { i++; return setTimeout(hop, 60 + i * 8); }
-      walkCards.forEach(c => c.classList.remove('hot'));
-      walkCards[pick].classList.add('hot');
-      $('#walkResult').textContent = `Сьогодні гуляємо: ${CONFIG.walks[pick].name}!`;
-      walkCards[pick].scrollIntoView({ behavior: reduced ? 'auto' : 'smooth', block: 'nearest' });
-      floatHearts(...centerOf(walkCards[pick]), 4);
-      walkBusy = false;
-    })();
-  });
+  /* ===== карта прогулянок ===== */
+  (() => {
+    const svg = $('#kmap'), seen = new Set();
+    const NS = 'http://www.w3.org/2000/svg';
+    svg.innerHTML = `
+      <defs><pattern id="kgrid" width="20" height="20" patternUnits="userSpaceOnUse"><path d="M20 0 H0 V20" fill="none" stroke="rgba(126,27,76,.08)" stroke-width="1"/></pattern></defs>
+      <rect width="300" height="400" fill="url(#kgrid)"/>
+      <path d="M200 -10 C214 60 206 120 226 190 C244 260 214 320 228 410 L262 410 C250 320 278 260 262 190 C246 120 252 60 236 -10Z" fill="#8cc2ec" stroke="#2b1b2a" stroke-width="2"/>
+      <path d="M212 40 q6 10 0 20 M230 150 q6 10 0 20 M240 300 q6 10 0 20" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" opacity=".8"/>
+      <ellipse cx="226" cy="84" rx="9" ry="26" fill="#9fd06a" stroke="#2b1b2a" stroke-width="1.8"/>
+      <ellipse cx="242" cy="208" rx="9" ry="30" fill="#9fd06a" stroke="#2b1b2a" stroke-width="1.8"/>
+      <path d="M190 146 L222 108" stroke="#8e8796" stroke-width="4" stroke-linecap="round"/>
+      <text x="252" y="140" font-family="Caveat, cursive" font-size="18" fill="#2448b8" transform="rotate(78 252 140)">Дніпро</text>
+      <text x="270" y="388" font-family="Caveat, cursive" font-size="15" fill="#6b5466" text-anchor="end">лівий берег</text>
+      <text x="14" y="388" font-family="Caveat, cursive" font-size="15" fill="#6b5466">правий берег</text>
+      <path d="M262 22 l0 -14 M262 8 l-4 6 M262 8 l4 6" stroke="#2b1b2a" stroke-width="1.6" fill="none"/><text x="262" y="34" text-anchor="middle" font-family="Nunito, sans-serif" font-size="9" font-weight="800" fill="#2b1b2a">Пн</text>`;
+    const progress = () => {
+      $('#kmapProgress').textContent = seen.size === CONFIG.walks.length
+        ? 'Увесь наш Київ згадано! А попереду ще стільки нових місць.'
+        : `Згадали ${seen.size} з ${CONFIG.walks.length} наших місць`;
+    };
+    const pins = CONFIG.walks.map((w, i) => {
+      const g = document.createElementNS(NS, 'g');
+      g.setAttribute('class', 'kpin');
+      g.setAttribute('transform', `translate(${w.x} ${w.y})`);
+      g.setAttribute('tabindex', '0');
+      g.setAttribute('role', 'button');
+      g.setAttribute('aria-label', w.name);
+      g.innerHTML = `<circle r="16" fill="transparent"/><path class="kp" d="M0 12 C-11 2 -11 -9 -5 -11 C-2 -12 0 -9 0 -7 C0 -9 2 -12 5 -11 C11 -9 11 2 0 12Z" stroke="#2b1b2a" stroke-width="1.8"/>`;
+      const open = () => {
+        pins.forEach(p => p.classList.remove('on'));
+        g.classList.add('on', 'seen');
+        svg.appendChild(g);
+        seen.add(i);
+        $('#kcArt').innerHTML = sticker(w.art);
+        $('#kcName').textContent = w.name;
+        $('#kcNote').textContent = w.note;
+        const card = $('#kmapCard');
+        card.classList.remove('pop'); void card.offsetWidth; card.classList.add('pop');
+        progress();
+        if (seen.size === CONFIG.walks.length) floatHearts(...centerOf(svg), 10);
+      };
+      g.addEventListener('click', open);
+      g.addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); open(); } });
+      svg.appendChild(g);
+      return g;
+    });
+    $('#kcArt').innerHTML = sticker('pin');
+    progress();
+  })();
+
+  /* ===== вікторина ===== */
+  (() => {
+    const Q = CONFIG.quiz, dots = $('#quizDots');
+    Q.forEach(() => dots.append(document.createElement('i')));
+    let qi = 0, misses = 0;
+    const wrongLines = ['Ні-ні, подумай ще', 'Майже… але ні', 'Кітик хитає головою', 'Спробуй інший варіант'];
+    function show() {
+      const item = Q[qi];
+      $('#quizStep').textContent = `Питання ${qi + 1} з ${Q.length}`;
+      $('#quizQ').textContent = item.q;
+      $('#quizFb').textContent = '';
+      const opts = item.a.map((t, k) => ({ t, ok: k === 0 })).sort(() => Math.random() - .5);
+      const box = $('#quizOpts'); box.innerHTML = '';
+      opts.forEach(o => {
+        const b = document.createElement('button');
+        b.className = 'qopt'; b.textContent = o.t;
+        b.addEventListener('click', () => {
+          if (b.disabled) return;
+          if (o.ok) {
+            b.classList.add('right');
+            box.querySelectorAll('.qopt').forEach(x => x.disabled = true);
+            dots.children[qi].classList.add('on');
+            $('#quizFb').textContent = 'Так! ♥';
+            floatHearts(...centerOf(b), 4);
+            setTimeout(() => { qi++; qi < Q.length ? show() : finish(); }, reduced ? 300 : 1100);
+          } else {
+            misses++;
+            b.classList.add('wrong'); b.disabled = true;
+            $('#quizFb').textContent = wrongLines[misses % wrongLines.length];
+          }
+        });
+        box.append(b);
+      });
+    }
+    function finish() {
+      $('#quizStep').textContent = 'Готово!';
+      $('#quizQ').textContent = CONFIG.quizFinal;
+      $('#quizOpts').innerHTML = '';
+      const again = document.createElement('button');
+      again.className = 'link'; again.textContent = 'Пройти ще раз';
+      again.addEventListener('click', () => { qi = 0; misses = 0; [...dots.children].forEach(d => d.classList.remove('on')); show(); });
+      $('#quizOpts').append(again);
+      $('#quizFb').textContent = misses ? `Помилок: ${misses}. Але кітик усе одно тебе любить.` : 'Без жодної помилки!';
+      floatHearts(...centerOf($('#quiz')), 10);
+    }
+    show();
+  })();
 
   /* ===== полиця плюшевих ===== */
   const plushSay = $('#plushSay');
@@ -1468,53 +1623,52 @@ document.querySelectorAll('[data-art]').forEach(el => el.innerHTML = sticker(el.
     floatHearts(...centerOf(b), 3);
   }));
 
-  /* ===== меню ===== */
-  const order = {};
-  let paid = false;
-  const kiss = n => `${n} ${plural(n, ['цьомчик', 'цьомчики', 'цьомчиків'])}`;
-  CONFIG.menu.forEach((m, i) => {
-    const b = document.createElement('button');
-    b.className = 'mitem paper';
-    b.innerHTML = `<span>${sticker(m.art)}</span><b></b><small>${kiss(m.price)}</small>`;
-    b.querySelector('b').textContent = m.name;
-    b.addEventListener('click', e => {
-      order[i] = (order[i] || 0) + 1;
-      if (paid) { paid = false; $('#paidStamp').classList.remove('on'); }
-      $('#rNote').textContent = ['Чудовий вибір!', 'Мрр, записав', 'Ще щось?', 'Кітик схвалює'][Math.floor(Math.random() * 4)];
-      renderReceipt();
-      floatHearts(e.clientX || centerOf(b)[0], e.clientY || centerOf(b)[1], 2);
+  /* ===== 10 побачень ===== */
+  (() => {
+    const MAX = 10, chosen = [];
+    const grid = $('#datesGrid');
+    const update = () => {
+      $('#datesCount').textContent = `Обрано ${chosen.length} з ${MAX}`;
+      $('#datesDone').disabled = chosen.length !== MAX;
+      grid.classList.toggle('full', chosen.length >= MAX);
+    };
+    CONFIG.dates.forEach((d, i) => {
+      const b = document.createElement('button');
+      b.className = 'dopt';
+      b.setAttribute('aria-pressed', 'false');
+      b.innerHTML = `<span class="do-art">${sticker(d.art)}</span><span class="do-name"></span><span class="do-check">✓</span>`;
+      b.querySelector('.do-name').textContent = d.name;
+      b.addEventListener('click', () => {
+        const at = chosen.indexOf(i);
+        if (at >= 0) { chosen.splice(at, 1); b.setAttribute('aria-pressed', 'false'); $('#datesNote').textContent = ''; }
+        else if (chosen.length >= MAX) { $('#datesNote').textContent = 'Уже 10! Зніми якесь, щоб обрати інше.'; return; }
+        else { chosen.push(i); b.setAttribute('aria-pressed', 'true'); $('#datesNote').textContent = chosen.length === MAX ? 'Ідеально! Тепер натискай «Отримати купони».' : ''; }
+        update();
+      });
+      grid.append(b);
     });
-    $('#menuItems').append(b);
-  });
-  function renderReceipt() {
-    const lines = $('#rLines');
-    lines.innerHTML = '';
-    let total = 0;
-    Object.entries(order).forEach(([i, q]) => {
-      const m = CONFIG.menu[i]; total += m.price * q;
-      const p = document.createElement('p'); p.className = 'r-line';
-      p.innerHTML = '<span></span><span></span>';
-      p.children[0].textContent = `${q} × ${m.name}`;
-      p.children[1].textContent = m.price * q;
-      lines.append(p);
+    $('#datesDone').addEventListener('click', () => {
+      const cs = $('#csGrid'); cs.innerHTML = '';
+      chosen.forEach((i, n) => {
+        const d = CONFIG.dates[i];
+        const c = document.createElement('div');
+        c.className = 'cs-coupon';
+        c.innerHTML = `<span class="cs-art">${sticker(d.art)}</span><div><small>Купон № ${n + 1}</small><b></b></div>`;
+        c.querySelector('b').textContent = d.name;
+        cs.append(c);
+      });
+      grid.hidden = true; $('.dates-bar').hidden = true; $('#datesNote').textContent = '';
+      $('#couponSheet').hidden = false; $('#datesReset').hidden = false;
+      $('#couponSheet').scrollIntoView({ behavior: reduced ? 'auto' : 'smooth', block: 'start' });
+      floatHearts(...centerOf($('#couponSheet')), 8);
     });
-    if (!total) lines.innerHTML = '<p class="r-empty">Тут поки порожньо</p>';
-    $('#rTotal').textContent = kiss(total);
-    return total;
-  }
-  $('#payBtn').addEventListener('click', e => {
-    const total = renderReceipt();
-    if (!total) { $('#rNote').textContent = 'Спочатку обери побачення'; return; }
-    paid = true;
-    $('#paidStamp').classList.add('on');
-    $('#rNote').textContent = `Оплачено обіймами: ${kiss(total)}. Чекай на побачення, кицюню!`;
-    floatHearts(e.clientX || centerOf($('#receipt'))[0], e.clientY || centerOf($('#receipt'))[1], 6);
-  });
-  $('#clearBtn').addEventListener('click', () => {
-    for (const k in order) delete order[k];
-    paid = false; $('#paidStamp').classList.remove('on'); $('#rNote').textContent = '';
-    renderReceipt();
-  });
+    $('#datesReset').addEventListener('click', () => {
+      grid.hidden = false; $('.dates-bar').hidden = false;
+      $('#couponSheet').hidden = true; $('#datesReset').hidden = true;
+      grid.scrollIntoView({ behavior: reduced ? 'auto' : 'smooth', block: 'start' });
+    });
+    update();
+  })();
 
   /* ===== куля-передбачувач ===== */
   const prophecies = [...CONFIG.prophecies, CONFIG.finalProphecy];
@@ -1573,12 +1727,12 @@ document.querySelectorAll('[data-art]').forEach(el => el.innerHTML = sticker(el.
     })(t0);
   });
 
-  /* ===== гра «Нагодуй кицюню» ===== */
+  /* ===== гра «Збери наш рік» ===== */
   const cv = $('#cv'), ctx = cv.getContext('2d'), box = $('#gameBox');
   const GOAL = 12;
   const IMG = {};
   const FILTER = document.getElementById('sticker').outerHTML;
-  ['catGinger', 'fries', 'burger', 'pizza', 'kinder', 'sushi', 'lemonade', 'capybara', 'soup', 'heart'].forEach(k => {
+  ['catGinger', 'fries', 'burger', 'pizza', 'kinder', 'sushi', 'capybara', 'soup', 'heart', 'mic', 'popcorn', 'cake', 'flower', 'suitcase', 'tree', 'sunrise', 'kiss'].forEach(k => {
     const [w, h] = ART[k].vb, p = Math.max(w, h) * .08;
     const svg = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="${-p} ${-p} ${w + 2 * p} ${h + 2 * p}" width="${(w + 2 * p) * 2}" height="${(h + 2 * p) * 2}"><defs>${FILTER}</defs><g filter="url(#sticker)">${ART[k].svg}</g></svg>`;
     const img = new Image();
@@ -1609,7 +1763,7 @@ document.querySelectorAll('[data-art]').forEach(el => el.innerHTML = sticker(el.
     ctx.clearRect(0, 0, W, H);
     ctx.fillStyle = 'rgba(251,238,245,.7)';
     stars.forEach(s => { ctx.beginPath(); ctx.arc(s.x * W, s.y * H, s.r, 0, 7); ctx.fill(); });
-    items.forEach(it => drawImg(it.type, it.x, it.y, it.type === 'lemonade' ? 30 : it.type === 'sushi' || it.type === 'soup' ? 58 : 52, it.rot));
+    items.forEach(it => drawImg(it.type, it.x, it.y, it.type === 'soup' ? 58 : it.type === 'heart' ? 42 : 50, it.rot));
     const bounce = now < happyUntil ? -8 : 0;
     drawImg('catGinger', catX, H - 52 + bounce, 104);
     if (now < happyUntil) drawImg('heart', catX + 46, H - 108, 26);
@@ -1625,7 +1779,7 @@ document.querySelectorAll('[data-art]').forEach(el => el.innerHTML = sticker(el.
     if (t - lastSpawn > Math.max(430, 780 - score * 24)) {
       lastSpawn = t;
       const r = Math.random();
-      const goodies = ['fries', 'pizza', 'kinder', 'sushi', 'lemonade', 'burger'];
+      const goodies = ['heart', 'heart', 'mic', 'popcorn', 'cake', 'flower', 'suitcase', 'tree', 'sunrise', 'kiss'];
       const type = score > 1 && r < .24 ? 'soup' : goodies[Math.floor(Math.random() * goodies.length)];
       items.push({ type, x: 30 + Math.random() * (W - 60), y: -40, v: 2.1 + Math.random() * 1.6 + score * .09, rot: (Math.random() - .5) * .6, vr: (Math.random() - .5) * .04 });
     }
@@ -1638,7 +1792,7 @@ document.querySelectorAll('[data-art]').forEach(el => el.innerHTML = sticker(el.
           box.classList.remove('shake'); void box.offsetWidth; box.classList.add('shake');
         } else {
           score++; happyUntil = t + 380;
-          toast(['ням!', 'мур!', 'смакота!', 'ще!', 'мрр'][score % 5]);
+          toast(`${score} ${plural(score, ['місяць', 'місяці', 'місяців'])}!`);
         }
         $('#score').textContent = score;
         return false;
@@ -1662,7 +1816,7 @@ document.querySelectorAll('[data-art]').forEach(el => el.innerHTML = sticker(el.
   }
   function win() {
     running = false; items = []; happyUntil = Infinity; draw(0);
-    $('#ovText').textContent = 'Кицюня сита й щаслива!';
+    $('#ovText').textContent = 'Увесь наш рік зібрано!';
     $('#ovSmall').textContent = 'Лист відкрився нижче';
     $('#startBtn').textContent = 'Читати лист';
     $('#startBtn').onclick = openLetter;
