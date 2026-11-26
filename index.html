@@ -217,6 +217,45 @@ p{margin:0}
 .qopt:disabled{cursor:default}
 .quiz-fb{font-family:var(--display);font-size:26px;color:var(--space);min-height:30px;margin-top:12px}
 
+/* season icon tap animations */
+.spanel .event{cursor:pointer;-webkit-tap-highlight-color:transparent;transition:transform .12s}
+.spanel .event:active{transform:scale(.98)}
+.event .ic{display:block;transform-origin:50% 50%}
+.ic.go[data-anim="sing"]{animation:a-sing .9s ease}
+@keyframes a-sing{20%{transform:rotate(-18deg) translateY(-6px)}40%{transform:rotate(14deg)}60%{transform:rotate(-10deg) translateY(-4px)}80%{transform:rotate(6deg)}}
+.ic.go[data-anim="rock"]{animation:a-rock .8s ease;transform-origin:50% 100%}
+@keyframes a-rock{15%,45%,75%{transform:rotate(-12deg) scale(1.08)}30%,60%,90%{transform:rotate(12deg) scale(1.08)}}
+.ic.go[data-anim="party"]{animation:a-party .9s cubic-bezier(.3,1.6,.5,1)}
+@keyframes a-party{30%{transform:translateY(-18px) rotate(-10deg)}60%{transform:translateY(0) rotate(360deg) scale(1.1)}100%{transform:rotate(360deg)}}
+.ic.go[data-anim="candle"]{animation:a-candle .8s ease;transform-origin:50% 100%}
+@keyframes a-candle{25%{transform:scale(1.15,.85)}50%{transform:scale(.9,1.15)}75%{transform:scale(1.05,.95)}}
+.ic.go[data-anim="flip"]{animation:a-flip .8s ease}
+@keyframes a-flip{to{transform:rotateY(360deg)}}
+.ic.go[data-anim="beat"]{animation:a-beat .9s ease}
+@keyframes a-beat{15%{transform:scale(1.3)}30%{transform:scale(1)}45%{transform:scale(1.22)}70%{transform:scale(1)}}
+.ic.go[data-anim="smooch"]{animation:a-smooch .7s ease}
+@keyframes a-smooch{30%{transform:scale(.7,1.25)}55%{transform:scale(1.3,.8)}80%{transform:scale(.95,1.05)}}
+.ic.go[data-anim="pop"]{animation:a-pop .7s ease;transform-origin:50% 100%}
+@keyframes a-pop{20%{transform:scale(1.15,.8)}50%{transform:translateY(-22px) scale(.95,1.1)}80%{transform:translateY(0) scale(1.1,.9)}}
+.ic.go[data-anim="jingle"]{animation:a-jingle .8s ease;transform-origin:50% 100%}
+@keyframes a-jingle{10%,30%,50%,70%{transform:rotate(-8deg)}20%,40%,60%,80%{transform:rotate(8deg)}}
+.ic.go[data-anim="rise"]{animation:a-rise 1s ease}
+@keyframes a-rise{0%{transform:translateY(18px);opacity:.2}60%{transform:translateY(-6px);opacity:1}}
+.ic.go[data-anim="spin"]{animation:a-spin .9s cubic-bezier(.3,1.4,.5,1)}
+@keyframes a-spin{to{transform:rotate(360deg) scale(1)}50%{transform:rotate(180deg) scale(1.2)}}
+.ic.go[data-anim="roll"]{animation:a-roll 1s ease}
+@keyframes a-roll{40%{transform:translateX(16px) rotate(200deg)}100%{transform:translateX(0) rotate(360deg)}}
+.ic.go[data-anim="glow"]{animation:a-glow 1s ease}
+@keyframes a-glow{40%{transform:scale(1.12);filter:drop-shadow(0 0 10px #f7d24a)}}
+.ic.go[data-anim="stretch"]{animation:a-stretch .9s ease;transform-origin:50% 100%}
+@keyframes a-stretch{35%{transform:scaleY(1.35) scaleX(.9)}65%{transform:scaleY(.9)}}
+.ic.go[data-anim="swing"]{animation:a-swing .9s ease;transform-origin:50% 10%}
+@keyframes a-swing{20%{transform:rotate(25deg)}40%{transform:rotate(-20deg)}60%{transform:rotate(12deg)}80%{transform:rotate(-6deg)}}
+.ic.go[data-anim="quake"]{animation:a-quake .6s linear}
+@keyframes a-quake{10%,50%,90%{transform:translate(-3px,1px)}30%,70%{transform:translate(3px,-1px)}}
+.ic.go[data-anim="hop"]{animation:a-hop .9s ease}
+@keyframes a-hop{20%,60%{transform:translateY(-16px)}40%,80%{transform:translateY(0)}}
+
 /* ---------- plush shelf ---------- */
 .plush-say{margin-top:20px;max-width:46ch}
 .shelf{margin-top:26px}
@@ -470,36 +509,36 @@ footer{text-align:center;color:var(--chalk-dim);font-size:14px;padding-block:0 4
     <div class="spanel" id="s-autumn25" role="tabpanel">
       <h3>Як усе почалося</h3>
       <div class="events">
-        <div class="event paper"><span class="ic" data-art="mic"></span><div><p class="when">8 листопада</p><p>Концерт Хейтспіч. Два котики гуляли кожен по своїй планетці й тут знайшли одне одного.</p></div></div>
-        <div class="event paper"><span class="ic" data-art="masks"></span><div><p class="when">Листопад</p><p>Перші побачення і театр.</p></div></div>
-        <div class="event paper"><span class="ic" data-art="heart"></span><div><p class="when">28 листопада</p><p>Я запропонував тобі зустрічатися. І ти сказала «так»!</p></div></div>
-        <div class="event paper"><span class="ic" data-art="kiss"></span><div><p class="when">КПІ</p><p>Наш поцілунок на КПІ. Найкращий кампус у світі.</p></div></div>      </div>
+        <div class="event paper"><span class="ic" data-art="mic" data-anim="sing"></span><div><p class="when">8 листопада</p><p>Концерт Хейтспіч. Два котики гуляли кожен по своїй планетці й тут знайшли одне одного.</p></div></div>
+        <div class="event paper"><span class="ic" data-art="masks" data-anim="flip"></span><div><p class="when">Листопад</p><p>Перші побачення і походи в театр.</p></div></div>
+        <div class="event paper"><span class="ic" data-art="heart" data-anim="beat"></span><div><p class="when">28 листопада</p><p>Я запропонував тобі зустрічатися. І ти сказала «так»!</p></div></div>
+        <div class="event paper"><span class="ic" data-art="kiss" data-anim="smooch"></span><div><p class="when">КПІ</p><p>Наш поцілунок на КПІ. Найкращий кампус у світі.</p></div></div>      </div>
     </div>
 
     <div class="spanel" id="s-winter" role="tabpanel" hidden>
       <h3>Кіношки й вогники</h3>
       <div class="events">
-        <div class="event paper"><span class="ic" data-art="popcorn"></span><div><p class="when">Грудень</p><p>Походи в кіно. Багато кіно. І ще трохи кіно.</p></div></div>
-        <div class="event paper"><span class="ic" data-art="tree"></span><div><p class="when">Зима</p><p>Зимова країна: вогники, гірлянди і казка.</p></div></div>
+        <div class="event paper"><span class="ic" data-art="popcorn" data-anim="pop"></span><div><p class="when">Грудень</p><p>Походи в кіно. Багато кіно. І ще трохи кіно.</p></div></div>
+        <div class="event paper"><span class="ic" data-art="tree" data-anim="jingle"></span><div><p class="when">Зима</p><p>Зимова країна: вогники, гірлянди і казка.</p></div></div>
       </div>
     </div>
 
     <div class="spanel" id="s-spring" role="tabpanel" hidden>
       <h3>Світанки і сакури</h3>
       <div class="events">
-        <div class="event paper"><span class="ic" data-art="cake"></span><div><p class="when">Березень</p><p>Твій день народження. Найважливіше свято року.</p></div></div>
-        <div class="event paper"><span class="ic" data-art="sunrise"></span><div><p class="when">Весна</p><p>Зустріли світанок у ботсаду.</p></div></div>        <div class="event paper"><span class="ic" data-art="flower"></span><div><p class="when">Квітень</p><p>Ужгород.</p></div></div>
-        <div class="event paper"><span class="ic" data-art="pysanka"></span><div><p class="when">Великдень</p><p>Паска Фест.</p></div></div>
+        <div class="event paper"><span class="ic" data-art="cake" data-anim="party"></span><div><p class="when">Березень</p><p>Твій день народження. Найважливіше свято року.</p></div></div>
+        <div class="event paper"><span class="ic" data-art="sunrise" data-anim="rise"></span><div><p class="when">Весна</p><p>Зустріли світанок у ботсаду.</p></div></div>        <div class="event paper"><span class="ic" data-art="flower" data-anim="spin"></span><div><p class="when">Квітень</p><p>Ужгород.</p></div></div>
+        <div class="event paper"><span class="ic" data-art="pysanka" data-anim="roll"></span><div><p class="when">Великдень</p><p>Паска Фест.</p></div></div>
       </div>
     </div>
 
     <div class="spanel" id="s-summer" role="tabpanel" hidden>
       <h3>Дороги і море</h3>
       <div class="events">
-        <div class="event paper"><span class="ic" data-art="chernivtsi"></span><div><p class="when">Червень</p><p>Чернівці.</p></div></div>
-        <div class="event paper"><span class="ic" data-art="giraffe"></span><div><p class="when">Літо</p><p>Похід у зоопарк.</p></div></div>
-        <div class="event paper"><span class="ic" data-art="mic"></span><div><p class="when">Літо</p><p>Концерти. Бо одного концерту нам було мало.</p></div></div>
-        <div class="event paper"><span class="ic" data-art="lemon"></span><div><p class="when">Серпень</p><p>Італія: Рим, Амальфі та Позітано. Переверни листівки.</p></div></div>
+        <div class="event paper"><span class="ic" data-art="chernivtsi" data-anim="glow"></span><div><p class="when">Червень</p><p>Чернівці.</p></div></div>
+        <div class="event paper"><span class="ic" data-art="giraffe" data-anim="stretch"></span><div><p class="when">Літо</p><p>Похід у зоопарк.</p></div></div>
+        <div class="event paper"><span class="ic" data-art="mic" data-anim="rock"></span><div><p class="when">Літо</p><p>Концерти. Бо одного концерту нам було мало.</p></div></div>
+        <div class="event paper"><span class="ic" data-art="lemon" data-anim="swing"></span><div><p class="when">Серпень</p><p>Італія: Рим, Амальфі та Позітано. Переверни листівки.</p></div></div>
       </div>
         <div class="postcards">
           <button class="pcard" aria-label="Листівка з Риму">
@@ -526,9 +565,9 @@ footer{text-align:center;color:var(--chalk-dim);font-size:14px;padding-block:0 4
     <div class="spanel" id="s-autumn26" role="tabpanel" hidden>
       <h3>Рік разом</h3>
       <div class="events">
-        <div class="event paper"><span class="ic" data-art="cake"></span><div><p class="when">Жовтень</p><p>Мій день народження. Провели його разом на масажику.</p></div></div>
-        <div class="event paper"><span class="ic" data-art="mountain"></span><div><p class="when">Зараз</p><p>Буковель і спа. Святкуємо наш перший рік у горах.</p></div></div>
-        <div class="event paper"><span class="ic" data-art="catsTogether"></span><div><p class="when">Далі</p><p>Ми класна пара, і на нас чекає щасливе майбутнє.</p></div></div>
+        <div class="event paper"><span class="ic" data-art="cake" data-anim="candle"></span><div><p class="when">Жовтень</p><p>Мій день народження. Провели його разом на масажику.</p></div></div>
+        <div class="event paper"><span class="ic" data-art="mountain" data-anim="quake"></span><div><p class="when">Зараз</p><p>Буковель і спа. Святкуємо наш перший рік у горах.</p></div></div>
+        <div class="event paper"><span class="ic" data-art="catsTogether" data-anim="hop"></span><div><p class="when">Далі</p><p>Нові сезони, нові міста й нові спогади.</p></div></div>
       </div>
     </div>
 
@@ -593,16 +632,18 @@ footer{text-align:center;color:var(--chalk-dim);font-size:14px;padding-block:0 4
         <h3>Кіндер-сюрприз</h3>
         <p>Усередині не іграшка, а купон. Діє безстроково.</p>
         <svg viewBox="0 0 200 190" aria-hidden="true">
-          <g class="toy"><use href="#a-catGrey" x="62" y="56" width="76" height="72" filter="url(#sticker)"/></g>
+          <g class="toy"><ellipse cx="100" cy="100" rx="40" ry="34" fill="#f7d24a" stroke="#2b1b2a" stroke-width="2.5"/><use href="#a-catGrey" x="64" y="60" width="72" height="68" filter="url(#sticker)"/></g>
           <g filter="url(#sticker)">
-            <path d="M40 112 Q40 176 100 176 Q160 176 160 112 Z" fill="#fbf6ef" stroke="#2b1b2a" stroke-width="3"/>
-            <path d="M40 112 L160 112" stroke="#2b1b2a" stroke-width="3"/>
-            <path d="M60 140 q40 18 80 0" fill="none" stroke="#e8352e" stroke-width="7" stroke-linecap="round"/>
+            <path d="M44 112 C44 150 64 178 100 178 C136 178 156 150 156 112 Z" fill="#fbfaf7" stroke="#2b1b2a" stroke-width="3"/>
+            <path d="M44 112 L156 112" stroke="#2b1b2a" stroke-width="3"/>
+            <text x="100" y="140" text-anchor="middle" font-family="Nunito, sans-serif" font-weight="800" font-size="24" fill="#2b1b2a">k<tspan fill="#e8452e">inder</tspan></text>
+            <text x="100" y="160" text-anchor="middle" font-family="Nunito, sans-serif" font-weight="800" font-size="13" letter-spacing="2" fill="#e8452e">СЮРПРИЗ</text>
           </g>
           <g class="egg-top" filter="url(#sticker)">
-            <path d="M40 112 Q40 30 100 30 Q160 30 160 112 Z" fill="#fbf6ef" stroke="#2b1b2a" stroke-width="3"/>
-            <path d="M58 62 Q100 40 142 62 L150 84 Q100 66 50 84 Z" fill="#f39a4b" stroke="#2b1b2a" stroke-width="2.5"/>
-            <text x="100" y="72" text-anchor="middle" font-family="Caveat, cursive" font-weight="700" font-size="20" fill="#fff">сюрприз</text>
+            <path d="M44 112 C44 66 64 24 100 24 C136 24 156 66 156 112 Z" fill="#fbfaf7" stroke="#2b1b2a" stroke-width="3"/>
+            <path d="M54 74 C64 42 80 24 100 24 C120 24 136 42 146 74 C130 66 116 82 100 74 C84 66 70 82 54 74Z" fill="#e8452e" stroke="#2b1b2a" stroke-width="2.5" stroke-linejoin="round"/>
+            <path d="M58 82 C72 74 84 90 100 82 C116 74 128 90 142 82" fill="none" stroke="#f39a4b" stroke-width="5"/>
+            <path d="M76 40 q10 -10 22 -10" fill="none" stroke="#fff" stroke-width="5" stroke-linecap="round" opacity=".7"/>
           </g>
         </svg>
         <div class="coupon" id="coupon" aria-live="polite">Натисни, щоб відкрити</div>
@@ -705,7 +746,7 @@ footer{text-align:center;color:var(--chalk-dim);font-size:14px;padding-block:0 4
     <span class="future-cats float" data-art="catsTogether"></span>
     <p class="eyebrow">Далі буде</p>
     <h2>Нас обов'язково чекає щасливе майбутнє</h2>
-    <p class="future-text">Наша планетка зробила перше коло навколо сонця. Попереду нові міста й світанки, побачення з купонів, ще більше прогулянок Києвом і подорожей. Я не знаю всього, що на нас чекає, але точно знаю головне: ми будемо разом, і це буде щасливо.</p>
+    <p class="future-text">Наша планетка зробила перше коло навколо сонця. Попереду нові міста й світанки, побачення з купонів, ще більше прогулянок Києвом і подорожей. Я не знаю всього, що на нас чекає, але точно знаю головне: ми будемо разом.</p>
     <p class="future-sign">Твій кітик</p>
   </section>
 
@@ -734,7 +775,7 @@ const CONFIG = {
     "Твої обійми. Найкраще місце на всій планетці.",
     "Поруч із тобою тепло, як котику на підвіконні під сонцем.",
     "Ти красива, як нічний Париж.",
-    "Ми класна пара, і на нас чекає щасливе майбутнє."
+    "Ми з тобою класна пара. Це видно навіть з космосу."
   ],
   afterReasons: "Причин набагато більше за дванадцять, просто кітик утомився рахувати. Мрр.",
 
@@ -754,13 +795,12 @@ const CONFIG = {
     "Восьмого листопада ми знайшли одне одного, як ті два котики на планетці. А двадцять восьмого я запропонував тобі зустрічатися. Досі вважаю це найкращим рішенням у своєму житті.",
     "За цей рік у нас було стільки всього: театр і кіношки, наш поцілунок на КПІ, Ужгород, Паска Фест, Чернівці, Рим, Амальфі й Позітано, а тепер ще й Буковель. А ще прогулянки Золотими воротами, пішохідним мостом і Гідропарком, світанок у ботсаду, Зимова країна, зоопарк і концерти.",
     "Ти красива, як нічний Париж, і рідна, як улюблена м'яка іграшка. Ти моя Сабріна, моя Люсія, моя Мінні, моє ягнятко і моя кицюня.",
-    "Ми з тобою класна пара, і я точно знаю: на нас чекає щасливе майбутнє. А Містер Капібара хай і далі охороняє тебе в бесі, поки мене немає поруч.",
+    "Ми з тобою класна пара, і я дуже чекаю всього, що в нас попереду. А Містер Капібара хай і далі охороняє тебе в бесі, поки мене немає поруч.",
     "З нашою першою річницею!"
   ],
 
   // місця для прогулянок
   walks: [
-    { art: "hydropark", name: "Наталка", note: "Оболонь і набережна" },
     { art: "tram", name: "Поділ", note: "трамваї й кав'ярні" },
     { art: "pin", name: "Пейзажна алея", note: "смішні скульптури і вид на місто" },
     { art: "church", name: "Андріївський узвіз", note: "найгарніший спуск у Києві" },
@@ -836,7 +876,7 @@ const CONFIG = {
     "Ще багато поїздок у бесі під охороною Містера Капібари.",
     "Ти й далі будеш найкрасивішою, а я найщасливішим."
   ],
-  finalProphecy: "Ми класна пара, і на нас чекає щасливе майбутнє. Кітик перевірив."
+  finalProphecy: "А головне: ми будемо разом. Кітик перевірив."
 };
 </script>
 
@@ -898,10 +938,14 @@ const ART = {
     </g>
     <path d="M16 40 L74 40 L66 94 L24 94Z" fill="#e8352e" stroke="${INK}" stroke-width="2.5" stroke-linejoin="round"/>
     <path d="M45 76 C34 68 34 59 40 57 C43 56 45 58 45 61 C45 58 47 56 50 57 C56 59 56 68 45 76Z" fill="#f7d24a"/>` },
-  kinder: { vb: [80, 100], svg: `
-    <ellipse cx="40" cy="52" rx="32" ry="42" fill="#fbf6ef" stroke="${INK}" stroke-width="2.5"/>
-    <path d="M12 38 Q40 22 68 38 L70 52 Q40 40 10 52Z" fill="#f39a4b" stroke="${INK}" stroke-width="2"/>
-    <path d="M14 70 q26 12 52 0" fill="none" stroke="#e8352e" stroke-width="5" stroke-linecap="round"/>` },
+  kinder: { vb: [80, 104], svg: `
+    <path d="M40 4 C62 4 72 34 72 60 C72 86 58 100 40 100 C22 100 8 86 8 60 C8 34 18 4 40 4Z" fill="#fbfaf7" stroke="${INK}" stroke-width="2.5"/>
+    <path d="M14 34 C20 14 30 4 40 4 C50 4 60 14 66 34 C58 30 50 38 40 34 C30 30 22 38 14 34Z" fill="#e8452e" stroke="${INK}" stroke-width="2" stroke-linejoin="round"/>
+    <path d="M17 38 C24 34 30 42 40 38 C50 34 56 42 63 38" fill="none" stroke="#f39a4b" stroke-width="3"/>
+    <text x="40" y="62" text-anchor="middle" font-family="Nunito, sans-serif" font-weight="800" font-size="15" fill="#2b1b2a">k<tspan fill="#e8452e">inder</tspan></text>
+    <text x="40" y="75" text-anchor="middle" font-family="Nunito, sans-serif" font-weight="800" font-size="9" letter-spacing="1" fill="#e8452e">СЮРПРИЗ</text>
+    <path d="M22 84 q4 6 10 8 M52 90 q6 -2 8 -8" fill="none" stroke="#c7c0cc" stroke-width="2" stroke-linecap="round"/>
+    <path d="M28 16 q6 -6 12 -6" fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round" opacity=".7"/>` },
   soup: { vb: [100, 84], svg: `
     <path d="M34 20 q-5 -8 0 -16 M50 20 q-5 -8 0 -16 M66 20 q-5 -8 0 -16" fill="none" stroke="#c7c0cc" stroke-width="3" stroke-linecap="round"/>
     <path d="M70 34 L94 10" stroke="#c7c0cc" stroke-width="6" stroke-linecap="round"/><path d="M70 34 L94 10" stroke="${INK}" stroke-width="1.5" stroke-linecap="round"/>
@@ -1510,6 +1554,10 @@ document.querySelectorAll('[data-art]').forEach(el => el.innerHTML = sticker(el.
   buildMemory();
 
   /* ===== сезони ===== */
+  document.querySelectorAll('.spanel .event').forEach(ev => ev.addEventListener('click', () => {
+    const ic = ev.querySelector('.ic');
+    ic.classList.remove('go'); void ic.offsetWidth; ic.classList.add('go');
+  }));
   const tabs = document.querySelectorAll('.stab');
   tabs.forEach(t => t.addEventListener('click', () => {
     tabs.forEach(x => x.setAttribute('aria-selected', String(x === t)));
@@ -1777,7 +1825,7 @@ document.querySelectorAll('[data-art]').forEach(el => el.innerHTML = sticker(el.
   }
   function win() {
     running = false; items = []; happyUntil = Infinity; draw(0);
-    $('#ovText').textContent = 'Кицюня сита й щаслива!';
+    $('#ovText').textContent = 'Кицюня сита й задоволена!';
     $('#ovSmall').textContent = 'Лист відкрився нижче';
     $('#startBtn').textContent = 'Читати лист';
     $('#startBtn').onclick = openLetter;
