@@ -32,6 +32,7 @@
 html{scroll-behavior:smooth}
 body{margin:0}
 [hidden]{display:none!important}
+*,*::before,*::after{box-sizing:border-box}
 body{
   background-color:var(--space);
   color:var(--chalk);
@@ -146,6 +147,9 @@ p{margin:0}
 .stab:focus-visible{outline:3px dashed var(--sun);outline-offset:4px}
 .spanel{margin-top:26px;animation:fadeIn .45s ease}
 .spanel h3{margin-bottom:16px;font-size:40px}
+.walks{margin-top:44px}
+.walks h3{font-size:40px}
+.walks .events{margin-top:18px}
 .events{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:22px}
 .event{display:flex;gap:14px;align-items:center;padding:14px 16px;min-width:0}
 .event .ic{width:66px;flex:none}
@@ -412,7 +416,7 @@ footer{text-align:center;color:var(--chalk-dim);font-size:14px;padding-block:0 4
       <div class="unit paper"><b id="cS">0</b><span id="lS">секунд</span></div>
     </div>
     <div class="facts">
-      <div class="fact chalk-box"><span data-art="mic"></span><div><b id="fMet">0</b><span>днів, відколи ми знайшли одне одного на концерті Хейтспіч</span></div></div>
+      <div class="fact chalk-box"><span data-art="mic"></span><div><b id="fMet">0</b><span>днів відтоді, як у моєму житті сталася найважливіша зміна</span></div></div>
       <div class="fact chalk-box"><span data-art="catGinger"></span><div><b id="fPurr">0</b><span>муркотінь: котик муркоче ~25 разів на секунду</span></div></div>
     </div>
   </section>
@@ -436,10 +440,7 @@ footer{text-align:center;color:var(--chalk-dim);font-size:14px;padding-block:0 4
         <div class="event paper"><span class="ic" data-art="mic"></span><div><p class="when">8 листопада</p><p>Концерт Хейтспіч. Два котики гуляли кожен по своїй планетці й тут знайшли одне одного.</p></div></div>
         <div class="event paper"><span class="ic" data-art="masks"></span><div><p class="when">Листопад</p><p>Перші побачення і театр.</p></div></div>
         <div class="event paper"><span class="ic" data-art="heart"></span><div><p class="when">28 листопада</p><p>Я запропонував тобі зустрічатися. І ти сказала «так»!</p></div></div>
-        <div class="event paper"><span class="ic" data-art="kiss"></span><div><p class="when">КПІ</p><p>Наш поцілунок на КПІ. Найкращий кампус у світі.</p></div></div>
-        <div class="event paper"><span class="ic" data-art="gates"></span><div><p class="when">Прогулянки</p><p>Золоті ворота і вечірній центр.</p></div></div>
-        <div class="event paper"><span class="ic" data-art="bridge"></span><div><p class="when">Прогулянки</p><p>Пішохідний міст і Київ з висоти.</p></div></div>
-      </div>
+        <div class="event paper"><span class="ic" data-art="kiss"></span><div><p class="when">КПІ</p><p>Наш поцілунок на КПІ. Найкращий кампус у світі.</p></div></div>      </div>
     </div>
 
     <div class="spanel" id="s-winter" role="tabpanel" hidden>
@@ -454,9 +455,7 @@ footer{text-align:center;color:var(--chalk-dim);font-size:14px;padding-block:0 4
       <h3>Світанки і сакури</h3>
       <div class="events">
         <div class="event paper"><span class="ic" data-art="cake"></span><div><p class="when">Березень</p><p>Твій день народження. Найважливіше свято року.</p></div></div>
-        <div class="event paper"><span class="ic" data-art="sunrise"></span><div><p class="when">Весна</p><p>Зустріли світанок у ботсаду.</p></div></div>
-        <div class="event paper"><span class="ic" data-art="hydropark"></span><div><p class="when">Весна</p><p>Гідропарк, сонце і вода.</p></div></div>
-        <div class="event paper"><span class="ic" data-art="flower"></span><div><p class="when">Квітень</p><p>Ужгород.</p></div></div>
+        <div class="event paper"><span class="ic" data-art="sunrise"></span><div><p class="when">Весна</p><p>Зустріли світанок у ботсаду.</p></div></div>        <div class="event paper"><span class="ic" data-art="flower"></span><div><p class="when">Квітень</p><p>Ужгород.</p></div></div>
         <div class="event paper"><span class="ic" data-art="pysanka"></span><div><p class="when">Великдень</p><p>Паска Фест.</p></div></div>
       </div>
     </div>
@@ -494,9 +493,19 @@ footer{text-align:center;color:var(--chalk-dim);font-size:14px;padding-block:0 4
     <div class="spanel" id="s-autumn26" role="tabpanel" hidden>
       <h3>Рік разом</h3>
       <div class="events">
-        <div class="event paper"><span class="ic" data-art="cake"></span><div><p class="when">Жовтень</p><p>Мій день народження.</p></div></div>
+        <div class="event paper"><span class="ic" data-art="cake"></span><div><p class="when">Жовтень</p><p>Мій день народження. Провели його разом на масажику.</p></div></div>
         <div class="event paper"><span class="ic" data-art="mountain"></span><div><p class="when">Зараз</p><p>Буковель і спа. Святкуємо наш перший рік у горах.</p></div></div>
         <div class="event paper"><span class="ic" data-art="catsTogether"></span><div><p class="when">Далі</p><p>Ми класна пара, і на нас чекає щасливе майбутнє.</p></div></div>
+      </div>
+    </div>
+
+    <div class="walks">
+      <h3>А гуляли ми всюди й завжди</h3>
+      <p class="sub">У будь-яку пору року, в будь-яку погоду.</p>
+      <div class="events">
+        <div class="event paper"><span class="ic" data-art="gates"></span><div><p class="when">Золоті ворота</p><p>Вечірній центр і довгі розмови.</p></div></div>
+        <div class="event paper"><span class="ic" data-art="bridge"></span><div><p class="when">Пішохідний міст</p><p>Київ під ногами, ти поруч.</p></div></div>
+        <div class="event paper"><span class="ic" data-art="hydropark"></span><div><p class="when">Гідропарк</p><p>Вода, дерева і ми.</p></div></div>
       </div>
     </div>
   </section>
@@ -523,7 +532,7 @@ footer{text-align:center;color:var(--chalk-dim);font-size:14px;padding-block:0 4
     <div class="bubble plush-say" id="plushSay" aria-live="polite">Банда в зборі. Хто перший?</div>
     <div class="shelf">
       <div class="shelf-row">
-        <button class="toy-btn" data-toy="goose" aria-label="Гусь"><span data-art="goose"></span></button>
+        <button class="toy-btn" data-toy="goose" aria-label="Goose"><span data-art="goose"></span></button>
         <button class="toy-btn" data-toy="lamb" aria-label="Ягнятко"><span data-art="lamb"></span></button>
         <button class="toy-btn" data-toy="ratHe" aria-label="Криска в штанцях"><span data-art="ratHe"></span></button>
         <button class="toy-btn" data-toy="ratShe" aria-label="Криска в спідничці"><span data-art="ratShe"></span></button>
@@ -582,9 +591,9 @@ footer{text-align:center;color:var(--chalk-dim);font-size:14px;padding-block:0 4
 
   <!-- меню -->
   <section class="wrap">
-    <p class="eyebrow">Ресторан «Кітик і Кицюня»</p>
-    <h2>Меню нашого року</h2>
-    <p class="sub">Обирай, що замовити. Ціни в цьомчиках, оплата обіймами.</p>
+    <p class="eyebrow">Кав'ярня побачень «Кітик і Кицюня»</p>
+    <h2>Меню побачень</h2>
+    <p class="sub">Обирай, які побачення хочеш наступними. Ціни в цьомчиках, оплата обіймами. Замовлення кітик виконає.</p>
     <div class="menu-wrap">
       <div class="menu-items" id="menuItems"></div>
       <div class="receipt" id="receipt">
@@ -605,7 +614,7 @@ footer{text-align:center;color:var(--chalk-dim);font-size:14px;padding-block:0 4
   <section class="wrap" id="gameSec">
     <p class="eyebrow">Міні-гра</p>
     <h2>Нагодуй кицюню</h2>
-    <p class="sub">Лови фрі, піцики, сушики, кіндери й лимонадик: 12 смаколиків, по одному за кожен наш місяць. Огірків котики бояться, кожен забирає один смаколик. Керуй пальцем, мишкою або стрілками.</p>
+    <p class="sub">Лови фрі, піцики, сушики, кіндери й лимонадик: 12 смаколиків, по одному за кожен наш місяць. Овочевий супчик котики не люблять: кожна тарілка забирає один смаколик. Керуй пальцем, мишкою або стрілками.</p>
     <div class="game-box" id="gameBox">
       <canvas id="cv" aria-label="Гра: кицюня ловить смаколики"></canvas>
       <div class="hud"><span class="score">смаколики: <span id="score">0</span>/12</span><span class="toast" id="toast"></span></div>
@@ -665,21 +674,21 @@ footer{text-align:center;color:var(--chalk-dim);font-size:14px;padding-block:0 4
 const CONFIG = {
   startDate: "2025-11-28T00:00:00",   // з цього дня ми разом (РРРР-ММ-ДД)
   metDate: "2025-11-08T00:00:00",     // концерт Хейтспіч, де ми знайшли одне одного
-  sign: "Твій кітик (він же Гусь)",
+  sign: "Твій кітик (він же Goose)",
 
   reasons: [
-    "Ти смієшся так, що я сміюся разом з тобою, навіть не знаючи чому.",
-    "З тобою навіть звичайна прогулянка Гідропарком — як подорож.",
-    "Ти розумієш мене з півслова, а іноді й без слів.",
-    "Ти красива, як нічний Париж.",
+    "Твій голос. Він крутіший, миліший і любиміший за будь-яку пісню.",
+    "Твоя усмішка. Від неї в мене одразу гарний день.",
+    "Твої очі. У них можна загубитися надовго, і я не проти.",
+    "Твій гумор. З тобою я сміюся більше, ніж з будь-ким.",
+    "Твоє бачення майбутнього. Мені дуже подобається, яким ти його бачиш.",
+    "Твоя доброта. Поруч із тобою світ стає м'якшим.",
+    "Твоя підтримка. Ти завжди поруч, коли мені важко.",
     "Ти віриш у мене, навіть коли я сам у собі сумніваюсь.",
-    "Обійми з тобою лікують краще за будь-які пігулки.",
-    "Ти моя Люсія, а я завжди буду твоїм Джейсоном.",
-    "Одне твоє повідомлення піднімає мені настрій за секунду.",
-    "З тобою можна і дуріти, і говорити про найважливіше.",
+    "Твої обійми. Найкраще місце на всій планетці.",
     "Поруч із тобою тепло, як котику на підвіконні під сонцем.",
-    "Ми класна пара, і на нас чекає щасливе майбутнє.",
-    "Бо це ти. І цього вже достатньо."
+    "Ти красива, як нічний Париж.",
+    "Ми класна пара, і на нас чекає щасливе майбутнє."
   ],
   afterReasons: "Причин набагато більше за дванадцять, просто кітик утомився рахувати. Мрр.",
 
@@ -696,7 +705,7 @@ const CONFIG = {
 
   letterTitle: "Моїй кицюні",
   letter: [
-    "Восьмого листопада ми гуляли на концерті Хейтспіч і знайшли одне одного, як ті два котики на планетці. А двадцять восьмого я запропонував тобі зустрічатися. Досі вважаю це найкращим рішенням у своєму житті.",
+    "Восьмого листопада ми знайшли одне одного, як ті два котики на планетці. А двадцять восьмого я запропонував тобі зустрічатися. Досі вважаю це найкращим рішенням у своєму житті.",
     "За цей рік у нас було стільки всього: театр і кіношки, наш поцілунок на КПІ, Ужгород, Паска Фест, Чернівці, Рим, Амальфі й Позітано, а тепер ще й Буковель. А ще прогулянки Золотими воротами, пішохідним мостом і Гідропарком, світанок у ботсаду, Зимова країна, зоопарк і концерти.",
     "Ти красива, як нічний Париж, і рідна, як улюблена м'яка іграшка. Ти моя Сабріна, моя Люсія, моя Мінні, моє ягнятко і моя кицюня.",
     "Ми з тобою класна пара, і я точно знаю: на нас чекає щасливе майбутнє. А Містер Капібара хай і далі охороняє тебе в бесі, поки мене немає поруч.",
@@ -712,14 +721,14 @@ const CONFIG = {
     capybara: "Я Містер Капібара з рюкзачком-черепашкою. Їжджу з кицюнею в бесі й охороняю її, поки кітика немає поруч."
   },
 
-  // меню: ціни в цьомчиках
+  // меню побачень: ціни в цьомчиках
   menu: [
-    { art: "fries", name: "Картопля фрі", price: 2 },
-    { art: "burger", name: "Чізбургер", price: 3 },
-    { art: "sushi", name: "Сушики", price: 4 },
-    { art: "pizza", name: "Піцики", price: 4 },
-    { art: "kinder", name: "Кіндер", price: 1 },
-    { art: "lemonade", name: "Лимонадик", price: 2 }
+    { art: "gates", name: "Прогулянка вечірнім Києвом", price: 3 },
+    { art: "sunrise", name: "Зустріч світанку", price: 5 },
+    { art: "popcorn", name: "Вечір кіно", price: 2 },
+    { art: "mountain", name: "Поїздка в гори", price: 8 },
+    { art: "kiss", name: "Поцілунок без приводу", price: 1 },
+    { art: "heart", name: "Довгі обійми", price: 1 }
   ],
 
   // передбачення кулі
@@ -728,7 +737,7 @@ const CONFIG = {
     "Тисяча спільних кіношок і мультиків.",
     "Ще більше світанків, прогулянок і концертів.",
     "Нові міста на нашій планетці.",
-    "Містер Капібара знайде собі друзів на полиці.",
+    "Ще багато поїздок у бесі під охороною Містера Капібари.",
     "Ти й далі будеш найкрасивішою, а я найщасливішим."
   ],
   finalProphecy: "Ми класна пара, і на нас чекає щасливе майбутнє. Кітик перевірив."
@@ -797,6 +806,13 @@ const ART = {
     <ellipse cx="40" cy="52" rx="32" ry="42" fill="#fbf6ef" stroke="${INK}" stroke-width="2.5"/>
     <path d="M12 38 Q40 22 68 38 L70 52 Q40 40 10 52Z" fill="#f39a4b" stroke="${INK}" stroke-width="2"/>
     <path d="M14 70 q26 12 52 0" fill="none" stroke="#e8352e" stroke-width="5" stroke-linecap="round"/>` },
+  soup: { vb: [100, 84], svg: `
+    <path d="M34 20 q-5 -8 0 -16 M50 20 q-5 -8 0 -16 M66 20 q-5 -8 0 -16" fill="none" stroke="#c7c0cc" stroke-width="3" stroke-linecap="round"/>
+    <path d="M70 34 L94 10" stroke="#c7c0cc" stroke-width="6" stroke-linecap="round"/><path d="M70 34 L94 10" stroke="${INK}" stroke-width="1.5" stroke-linecap="round"/>
+    <path d="M6 34 H94 Q92 78 50 78 Q8 78 6 34Z" fill="#fbf6ef" stroke="${INK}" stroke-width="2.5" stroke-linejoin="round"/>
+    <ellipse cx="50" cy="34" rx="44" ry="9" fill="#e9b04f" stroke="${INK}" stroke-width="2.2"/>
+    <g stroke="${INK}" stroke-width="1.4"><circle cx="30" cy="33" r="4.5" fill="#f39a4b"/><circle cx="58" cy="36" r="4.5" fill="#f39a4b"/><circle cx="44" cy="31" r="3" fill="#6aa83f"/><circle cx="70" cy="32" r="3" fill="#6aa83f"/><circle cx="20" cy="36" r="3" fill="#6aa83f"/></g>
+    <path d="M26 54 q24 10 48 0" fill="none" stroke="#5ab0d8" stroke-width="4" stroke-linecap="round"/>` },
   cucumber: { vb: [50, 100], svg: `
     <path d="M25 6 C40 6 44 30 42 54 C40 80 34 94 25 94 C16 94 10 80 8 54 C6 30 10 6 25 6Z" fill="#5cae5a" stroke="${INK}" stroke-width="2.5"/>
     <g fill="#3d7d3c"><circle cx="20" cy="26" r="2"/><circle cx="30" cy="40" r="2"/><circle cx="19" cy="56" r="2"/><circle cx="30" cy="70" r="2"/></g>
@@ -805,7 +821,10 @@ const ART = {
   goose: { vb: [100, 100], svg: `
     <path d="M30 54 Q22 18 40 14 Q52 12 50 30 Q48 44 56 50" fill="none" stroke="${INK}" stroke-width="15" stroke-linecap="round"/>
     <path d="M30 54 Q22 18 40 14 Q52 12 50 30 Q48 44 56 50" fill="none" stroke="#a48d78" stroke-width="10" stroke-linecap="round"/>
-    <path d="M38 12 q8 -8 14 0 l-4 4z" fill="#c43d3d" stroke="${INK}" stroke-width="1.8"/>
+    <path d="M30 15 Q30 -2 44 0 Q54 2 52 14Z" fill="#c43d3d" stroke="${INK}" stroke-width="2" stroke-linejoin="round"/>
+    <path d="M28 15 H54" stroke="#8c1d2b" stroke-width="5" stroke-linecap="round"/>
+    <path d="M36 4 v8 M43 3 v9 M49 5 v8" stroke="#8c1d2b" stroke-width="1.4"/>
+    <circle cx="44" cy="-1" r="4" fill="#c43d3d" stroke="${INK}" stroke-width="1.6"/>
     <path d="M28 20 l-16 4 l15 4z" fill="#f2a43a" stroke="${INK}" stroke-width="1.8" stroke-linejoin="round"/>
     <circle cx="36" cy="20" r="2" fill="${INK}"/>
     <ellipse cx="58" cy="66" rx="32" ry="20" fill="#a48d78" stroke="${INK}" stroke-width="2.5"/>
@@ -1147,7 +1166,7 @@ document.querySelectorAll('[data-art]').forEach(el => el.innerHTML = sticker(el.
   const centerOf = el => { const r = el.getBoundingClientRect(); return [r.left + r.width / 2, r.top + r.height / 2]; };
 
   /* ===== 1. привітання ===== */
-  const notReadyLines = ['Кітик почекає… але недовго', 'Кітик досі чекає. І Гусь теж', 'Гаразд, вважаю це за «так»'];
+  const notReadyLines = ['Кітик почекає… але недовго', 'Кітик досі чекає. І Goose теж', 'Гаразд, вважаю це за «так»'];
   let notReadyCount = 0;
   function toLock() {
     $('#gate').classList.add('fade-out');
@@ -1227,7 +1246,7 @@ document.querySelectorAll('[data-art]').forEach(el => el.innerHTML = sticker(el.
       $('#planetTurn').classList.remove('fast');
       meetHeart.classList.add('on');
       floatHearts(...centerOf(meetHeart), 8);
-      say('Знайшли! Це сталося 8 листопада на концерті Хейтспіч. Тепер гладь котиків: кітик розкаже, за що любить кицюню.');
+      say('Знайшли! Тепер гладь котиків: кітик розкаже, за що любить кицюню.');
       $('#meetBtn').hidden = true;
       $('#countLine').hidden = false;
     })(t0);
@@ -1272,7 +1291,7 @@ document.querySelectorAll('[data-art]').forEach(el => el.innerHTML = sticker(el.
   /* ===== мемо ===== */
   const PAIRS = [
     ['catGrey', 'Кітик', 'catGinger', 'Кицюня', 'Кітик знайшов свою кицюню'],
-    ['goose', 'Гусь', 'lamb', 'Ягнятко', 'Гусь знайшов своє ягнятко'],
+    ['goose', 'Goose', 'lamb', 'Ягнятко', 'Goose знайшов своє ягнятко'],
     ['mickey', 'Міккі', 'minnie', 'Мінні', 'Міккі й Мінні Маус — це теж ми'],
     ['jason', 'Джейсон', 'lucia', 'Люсія', 'Джейсон і Люсія: Vice City чекає'],
     ['travis', 'Тревіс', 'sabrina', 'Сабріна', 'Тревіс Скотт і Сабріна Карпентер на одній сцені'],
@@ -1349,7 +1368,7 @@ document.querySelectorAll('[data-art]').forEach(el => el.innerHTML = sticker(el.
     b.addEventListener('click', e => {
       order[i] = (order[i] || 0) + 1;
       if (paid) { paid = false; $('#paidStamp').classList.remove('on'); }
-      $('#rNote').textContent = ['Чудовий вибір!', 'Мрр, смачно', 'Ще щось?', 'Кітик схвалює'][Math.floor(Math.random() * 4)];
+      $('#rNote').textContent = ['Чудовий вибір!', 'Мрр, записав', 'Ще щось?', 'Кітик схвалює'][Math.floor(Math.random() * 4)];
       renderReceipt();
       floatHearts(e.clientX || centerOf(b)[0], e.clientY || centerOf(b)[1], 2);
     });
@@ -1373,10 +1392,10 @@ document.querySelectorAll('[data-art]').forEach(el => el.innerHTML = sticker(el.
   }
   $('#payBtn').addEventListener('click', e => {
     const total = renderReceipt();
-    if (!total) { $('#rNote').textContent = 'Спочатку обери щось смачне'; return; }
+    if (!total) { $('#rNote').textContent = 'Спочатку обери побачення'; return; }
     paid = true;
     $('#paidStamp').classList.add('on');
-    $('#rNote').textContent = `Оплачено обіймами: ${kiss(total)}. Смачного, кицюню!`;
+    $('#rNote').textContent = `Оплачено обіймами: ${kiss(total)}. Чекай на побачення, кицюню!`;
     floatHearts(e.clientX || centerOf($('#receipt'))[0], e.clientY || centerOf($('#receipt'))[1], 6);
   });
   $('#clearBtn').addEventListener('click', () => {
@@ -1447,7 +1466,7 @@ document.querySelectorAll('[data-art]').forEach(el => el.innerHTML = sticker(el.
   const GOAL = 12;
   const IMG = {};
   const FILTER = document.getElementById('sticker').outerHTML;
-  ['catGinger', 'fries', 'burger', 'pizza', 'kinder', 'sushi', 'lemonade', 'capybara', 'cucumber', 'heart'].forEach(k => {
+  ['catGinger', 'fries', 'burger', 'pizza', 'kinder', 'sushi', 'lemonade', 'capybara', 'soup', 'heart'].forEach(k => {
     const [w, h] = ART[k].vb, p = Math.max(w, h) * .08;
     const svg = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="${-p} ${-p} ${w + 2 * p} ${h + 2 * p}" width="${(w + 2 * p) * 2}" height="${(h + 2 * p) * 2}"><defs>${FILTER}</defs><g filter="url(#sticker)">${ART[k].svg}</g></svg>`;
     const img = new Image();
@@ -1478,7 +1497,7 @@ document.querySelectorAll('[data-art]').forEach(el => el.innerHTML = sticker(el.
     ctx.clearRect(0, 0, W, H);
     ctx.fillStyle = 'rgba(251,238,245,.7)';
     stars.forEach(s => { ctx.beginPath(); ctx.arc(s.x * W, s.y * H, s.r, 0, 7); ctx.fill(); });
-    items.forEach(it => drawImg(it.type, it.x, it.y, it.type === 'cucumber' || it.type === 'lemonade' ? 30 : it.type === 'sushi' ? 60 : 52, it.rot));
+    items.forEach(it => drawImg(it.type, it.x, it.y, it.type === 'lemonade' ? 30 : it.type === 'sushi' || it.type === 'soup' ? 58 : 52, it.rot));
     const bounce = now < happyUntil ? -8 : 0;
     drawImg('catGinger', catX, H - 52 + bounce, 104);
     if (now < happyUntil) drawImg('heart', catX + 46, H - 108, 26);
@@ -1495,15 +1514,15 @@ document.querySelectorAll('[data-art]').forEach(el => el.innerHTML = sticker(el.
       lastSpawn = t;
       const r = Math.random();
       const goodies = ['fries', 'pizza', 'kinder', 'sushi', 'lemonade', 'burger'];
-      const type = score > 1 && r < .24 ? 'cucumber' : goodies[Math.floor(Math.random() * goodies.length)];
+      const type = score > 1 && r < .24 ? 'soup' : goodies[Math.floor(Math.random() * goodies.length)];
       items.push({ type, x: 30 + Math.random() * (W - 60), y: -40, v: 2.1 + Math.random() * 1.6 + score * .09, rot: (Math.random() - .5) * .6, vr: (Math.random() - .5) * .04 });
     }
     const catchY = H - 92;
     items = items.filter(it => {
       it.y += it.v * dt; it.rot += it.vr * dt;
       if (Math.abs(it.y - catchY) < 24 && Math.abs(it.x - catX) < 48) {
-        if (it.type === 'cucumber') {
-          score = Math.max(0, score - 1); toast('Огірок! Фу!');
+        if (it.type === 'soup') {
+          score = Math.max(0, score - 1); toast('Супчик! Фу!');
           box.classList.remove('shake'); void box.offsetWidth; box.classList.add('shake');
         } else {
           score++; happyUntil = t + 380;
@@ -1558,7 +1577,7 @@ document.querySelectorAll('[data-art]').forEach(el => el.innerHTML = sticker(el.
 
   /* ===== фінал ===== */
   const no = $('#no'), yes = $('#yes'), answers = $('#answers');
-  const noTexts = ['Ні', 'Точно?', 'Подумай ще', 'Кітик засмутиться', 'Гусь теж засмутиться', 'Ну будь ласка', 'Не-а, не впіймаєш'];
+  const noTexts = ['Ні', 'Точно?', 'Подумай ще', 'Кітик засмутиться', 'Goose теж засмутиться', 'Ну будь ласка', 'Не-а, не впіймаєш'];
   let noTries = 0;
   function runAway(e) {
     if (e) e.preventDefault();
