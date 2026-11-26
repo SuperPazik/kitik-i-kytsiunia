@@ -147,6 +147,7 @@ p{margin:0}
 .stab:focus-visible{outline:3px dashed var(--sun);outline-offset:4px}
 .spanel{margin-top:26px;animation:fadeIn .45s ease}
 .spanel h3{margin-bottom:16px;font-size:40px}
+.season-more{font-family:var(--display);font-size:26px;color:var(--sun);margin-top:18px}
 .walks{margin-top:44px}
 .walks h3{font-size:40px}
 .walk-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:18px;margin-top:22px}
@@ -442,9 +443,9 @@ footer{text-align:center;color:var(--chalk-dim);font-size:14px;padding-block:0 4
           <circle cx="300" cy="300" r="222" stroke-width="5" stroke-dasharray="20 30"/>
         </g>
         <g class="stage-hit" id="planet" tabindex="0" role="button" aria-label="Покрутити планетку">
-          <g filter="url(#sticker)">
-            <clipPath id="planetClip"><circle cx="300" cy="300" r="150"/></clipPath>
-            <circle cx="300" cy="300" r="150" fill="#2448b8"/>
+          <clipPath id="planetClip"><circle cx="300" cy="300" r="150"/></clipPath>
+          <circle cx="300" cy="300" r="150" fill="#2448b8" filter="url(#sticker)"/>
+          <g>
             <g clip-path="url(#planetClip)">
               <g class="planet-turn" id="planetTurn">
                 <g fill="#cfe0f5">
@@ -492,6 +493,8 @@ footer{text-align:center;color:var(--chalk-dim);font-size:14px;padding-block:0 4
     <div class="facts">
       <div class="fact chalk-box"><span data-art="mic"></span><div><b id="fMet">0</b><span>днів відтоді, як у моєму житті сталася найважливіша зміна</span></div></div>
       <div class="fact chalk-box"><span data-art="catGinger"></span><div><b id="fPurr">0</b><span>муркотінь: котик муркоче ~25 разів на секунду</span></div></div>
+      <div class="fact chalk-box"><span data-art="heart"></span><div><b id="fHugs">0</b><span>обіймів, якщо рахувати скромно: по 10 на день</span></div></div>
+      <div class="fact chalk-box"><span data-art="sunrise"></span><div><b id="fMornings">0</b><span>ранків, коли я прокидався і першим ділом думав про тебе</span></div></div>
     </div>
   </section>
 
@@ -867,18 +870,15 @@ const CONFIG = {
     { art: "heart", name: "Вечір мультиків під пледом" },
     { art: "carBlack", name: "Покатушки на машинках" },
     { art: "kinder", name: "Побачення-сюрприз, яке планую я" },
-    { art: "heart", name: "День без телефонів, тільки ми" },
     { art: "ball", name: "Вечір мрій: плануємо наше майбутнє" },
-    { art: "discoball", name: "Клуб і танці до ранку" },
-    { art: "key", name: "Квест-кімната: вибратися разом" },
-    { art: "mic", name: "Караоке, де ми співаємо найгучніше" },
-    { art: "bowling", name: "Боулінг на бажання" },
+    { art: "discoball", name: "Клуб" },
+    { art: "bowling", name: "Боулінг" },
     { art: "carGrey", name: "Картинг: хто швидший" },
-    { art: "climb", name: "Скалодром" },
-    { art: "vase", name: "Майстер-клас з кераміки" },
-    { art: "masks", name: "Стендап-вечір" },
-    { art: "balloon", name: "Політ на повітряній кулі" },
-    { art: "horseshoe", name: "Кінна прогулянка" }
+    { art: "capybara", name: "Контактний зоопарк з капібарами" },
+    { art: "slide", name: "Аквапарк і найкрутіші гірки" },
+    { art: "vr", name: "VR-клуб: рятуємо світ у шоломах" },
+    { art: "trampoline", name: "Батутний центр, стрибаємо як діти" },
+    { art: "pan", name: "Готуємо разом щось нове за рецептом" }
   ],
 
   // передбачення кулі
@@ -1366,6 +1366,34 @@ Object.assign(ART, {
     <g fill="#fbf7f2" stroke="${INK}" stroke-width="1.4">${[12,24,36,48,60,72,84,96].map(x=>`<rect x="${x-3}" y="50" width="6" height="20"/>`).join('')}</g>
     <path d="M2 74 H108" stroke="${INK}" stroke-width="3" stroke-linecap="round"/>` },
 });
+Object.assign(ART, {
+  slide: { vb: [100, 84], svg: `
+    <path d="M70 10 H82 V80 H70Z" fill="#c7c0cc" stroke="${INK}" stroke-width="2"/>
+    <path d="M70 18 H82 M70 30 H82 M70 42 H82 M70 54 H82" stroke="${INK}" stroke-width="1.6"/>
+    <path d="M70 14 C40 14 52 46 30 52 C14 56 10 66 8 74" fill="none" stroke="${INK}" stroke-width="15" stroke-linecap="round"/>
+    <path d="M70 14 C40 14 52 46 30 52 C14 56 10 66 8 74" fill="none" stroke="#ff8a5c" stroke-width="10" stroke-linecap="round"/>
+    <path d="M2 80 q12 -6 24 0 t24 0 t24 0 t24 0" fill="#8cc2ec" stroke="${INK}" stroke-width="2"/>
+    <path d="M20 66 q4 -6 8 0 M36 70 q3 -4 6 0" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round"/>` },
+  vr: { vb: [100, 64], svg: `
+    <path d="M8 22 Q8 10 22 10 H78 Q92 10 92 22 V42 Q92 54 78 54 H62 L56 46 H44 L38 54 H22 Q8 54 8 42Z" fill="#3a3742" stroke="${INK}" stroke-width="2.4" stroke-linejoin="round"/>
+    <rect x="16" y="18" width="30" height="22" rx="8" fill="#8b6fd6"/><rect x="54" y="18" width="30" height="22" rx="8" fill="#8b6fd6"/>
+    <path d="M22 24 l8 -2 M60 24 l8 -2" stroke="#fff" stroke-width="2.4" stroke-linecap="round" opacity=".8"/>
+    <path d="M8 30 H2 M92 30 H98" stroke="${INK}" stroke-width="4" stroke-linecap="round"/>` },
+  trampoline: { vb: [100, 80], svg: `
+    <path d="M42 14 q8 -10 16 0" fill="none" stroke="#f39a4b" stroke-width="3" stroke-linecap="round"/>
+    <circle cx="50" cy="22" r="7" fill="#f39a4b" stroke="${INK}" stroke-width="1.8"/>
+    <path d="M38 6 l4 6 M62 6 l-4 6" stroke="${INK}" stroke-width="1.6" stroke-linecap="round"/>
+    <ellipse cx="50" cy="48" rx="44" ry="12" fill="#2448b8" stroke="${INK}" stroke-width="2.4"/>
+    <ellipse cx="50" cy="48" rx="34" ry="7" fill="#3a5fd0"/>
+    <path d="M14 56 L10 76 M86 56 L90 76 M36 60 L34 78 M64 60 L66 78" stroke="${INK}" stroke-width="3" stroke-linecap="round"/>` },
+  pan: { vb: [110, 70], svg: `
+    <path d="M70 34 H106" stroke="#3a3742" stroke-width="8" stroke-linecap="round"/>
+    <ellipse cx="40" cy="38" rx="36" ry="22" fill="#3a3742" stroke="${INK}" stroke-width="2.4"/>
+    <ellipse cx="40" cy="36" rx="28" ry="15" fill="#5a5664"/>
+    <ellipse cx="34" cy="36" rx="12" ry="8" fill="#fbf7f2"/><circle cx="34" cy="36" r="5" fill="#f7d24a"/>
+    <path d="M52 30 q6 -4 10 2" fill="none" stroke="#7fb03a" stroke-width="3" stroke-linecap="round"/>
+    <path d="M30 14 q-4 -6 0 -12 M44 14 q-4 -6 0 -12" fill="none" stroke="#c7c0cc" stroke-width="2.4" stroke-linecap="round"/>` },
+});
 function mouseSVG(bow) {
   return `
     <circle cx="22" cy="26" r="18" fill="#1d1b20" stroke="${INK}" stroke-width="2"/><circle cx="78" cy="26" r="18" fill="#1d1b20" stroke="${INK}" stroke-width="2"/>
@@ -1571,6 +1599,8 @@ document.querySelectorAll('[data-art]').forEach(el => el.innerHTML = sticker(el.
     $('#cM').textContent = m; $('#lM').textContent = plural(m, ['хвилина', 'хвилини', 'хвилин']);
     $('#cS').textContent = s; $('#lS').textContent = plural(s, ['секунда', 'секунди', 'секунд']);
     $('#fPurr').textContent = purrs.toLocaleString('uk-UA');
+    $('#fHugs').textContent = (d * 10).toLocaleString('uk-UA');
+    $('#fMornings').textContent = d.toLocaleString('uk-UA');
   }
   tick(); setInterval(tick, 1000);
 
@@ -1630,6 +1660,12 @@ document.querySelectorAll('[data-art]').forEach(el => el.innerHTML = sticker(el.
   buildMemory();
 
   /* ===== сезони ===== */
+  document.querySelectorAll('.spanel').forEach(p => {
+    const more = document.createElement('p');
+    more.className = 'season-more';
+    more.textContent = '…і ще багато чого іншого, що знаємо тільки ми ♥';
+    p.append(more);
+  });
   document.querySelectorAll('.spanel .event').forEach(ev => ev.addEventListener('click', () => {
     const ic = ev.querySelector('.ic');
     ic.classList.remove('go'); void ic.offsetWidth; ic.classList.add('go');
