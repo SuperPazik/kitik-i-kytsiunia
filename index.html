@@ -269,8 +269,10 @@ p{margin:0}
 .plank{height:20px;border-radius:6px;background:#b9895a;background-image:repeating-linear-gradient(90deg,transparent 0 60px,rgba(43,27,42,.18) 60px 62px);box-shadow:0 0 0 4px var(--paper),3px 8px 0 4px rgba(43,10,28,.35);margin-top:-4px}
 
 /* ---------- 10 dates ---------- */
-.dates-bar{position:sticky;top:calc(env(safe-area-inset-top,0px) + 8px);z-index:5;display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;margin-top:20px;padding:10px 10px 10px 18px;background:var(--space-deep);border:2px dashed var(--chalk-dim);border-radius:999px}
-.dates-bar span{font-weight:800;font-variant-numeric:tabular-nums}
+.dates-bar{position:sticky;top:calc(env(safe-area-inset-top,0px) + 8px);z-index:5;display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:nowrap;margin-top:20px;padding:8px 8px 8px 18px;background:var(--paper);color:var(--ink);border-radius:999px;box-shadow:3px 5px 0 rgba(43,10,28,.4)}
+.dates-bar .btn{box-shadow:none;border-width:2px;padding:11px 18px;font-size:15px;white-space:nowrap}
+.dates-bar .btn:disabled{background:#eadfe6;color:var(--ink-soft);border-color:#cbb9c5;opacity:1}
+.dates-bar span{font-weight:800;font-variant-numeric:tabular-nums;white-space:nowrap}
 .btn:disabled{opacity:.45;cursor:not-allowed;transform:none}
 .dates-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:14px;margin-top:18px}
 .dopt{position:relative;display:flex;align-items:center;gap:12px;text-align:left;padding:10px 14px 10px 10px;border:0;border-radius:18px;background:var(--paper);color:var(--ink);font:700 15px/1.25 var(--body);cursor:pointer;box-shadow:3px 4px 0 rgba(43,10,28,.35);transition:transform .12s,background .2s}
@@ -319,7 +321,7 @@ p{margin:0}
 
 /* ---------- letter ---------- */
 .letter{position:relative;max-width:680px;margin:0 auto;padding:clamp(26px,5vw,48px);color:var(--ink);background:#fdf3d6;border-radius:10px;box-shadow:0 0 0 6px var(--paper),4px 8px 0 6px rgba(43,10,28,.35);background-image:repeating-linear-gradient(180deg,transparent 0 33px,rgba(126,27,76,.14) 33px 34px);animation:fadeIn .7s ease}
-.letter .eyebrow{color:var(--space)}
+.letter .eyebrow{color:var(--space);padding-right:100px}
 .letter h2{margin-bottom:14px}
 .letter-text{display:flex;flex-direction:column;gap:14px;font-size:18px;line-height:34px;max-width:60ch}
 .sign{font-family:var(--display);font-size:32px;margin-top:18px;text-align:right}
@@ -596,9 +598,9 @@ footer{text-align:center;color:var(--chalk-dim);font-size:14px;padding-block:0 4
   <section class="wrap" id="quizSec">
     <p class="eyebrow">Вікторина</p>
     <h2>Хто ти для мене?</h2>
-    <p class="sub">П'ять питань. Правильна відповідь у кожному лише одна, але ти точно впораєшся.</p>
+    <p class="sub">Сім питань. Правильна відповідь у кожному лише одна, але ти точно впораєшся.</p>
     <div class="quiz paper" id="quiz">
-      <div class="quiz-top"><span class="quiz-step" id="quizStep">Питання 1 з 5</span><span class="dots" id="quizDots"></span></div>
+      <div class="quiz-top"><span class="quiz-step" id="quizStep">Питання 1 з 7</span><span class="dots" id="quizDots"></span></div>
       <p class="quiz-q" id="quizQ"></p>
       <div class="quiz-opts" id="quizOpts"></div>
       <p class="quiz-fb" id="quizFb" aria-live="polite"></p>
@@ -709,7 +711,7 @@ footer{text-align:center;color:var(--chalk-dim);font-size:14px;padding-block:0 4
   <section class="wrap" id="letterSec" hidden>
     <div class="letter">
       <span class="stamp" data-art="stamp"></span>
-      <p class="eyebrow">Лист, який ти заслужила</p>
+      <p class="eyebrow">Лист від кітика</p>
       <h2 id="letterTitle">Моїй кицюні</h2>
       <div class="letter-text" id="letterText"></div>
       <p class="sign" id="sign">Твій кітик</p>
@@ -796,16 +798,16 @@ const CONFIG = {
     "За цей рік у нас було стільки всього: театр і кіношки, наш поцілунок на КПІ, Ужгород, Паска Фест, Чернівці, Рим, Амальфі й Позітано, а тепер ще й Буковель. А ще прогулянки Золотими воротами, пішохідним мостом і Гідропарком, світанок у ботсаду, Зимова країна, зоопарк і концерти.",
     "Ти красива, як нічний Париж, і рідна, як улюблена м'яка іграшка. Ти моя Сабріна, моя Люсія, моя Мінні, моє ягнятко і моя кицюня.",
     "Ми з тобою класна пара, і я дуже чекаю всього, що в нас попереду. А Містер Капібара хай і далі охороняє тебе в бесі, поки мене немає поруч.",
-    "З нашою першою річницею!"
+    "Я кохаю тебе безмежно. З нашою першою річницею!"
   ],
 
   // місця для прогулянок
   walks: [
     { art: "tram", name: "Поділ", note: "трамваї й кав'ярні" },
-    { art: "pin", name: "Пейзажна алея", note: "смішні скульптури і вид на місто" },
+    { art: "mosaic", name: "Пейзажна алея", note: "смішні скульптури і вид на місто" },
     { art: "church", name: "Андріївський узвіз", note: "найгарніший спуск у Києві" },
     { art: "church", name: "Михайлівська площа", note: "золоті бані й голуби" },
-    { art: "pin", name: "Володимирська гірка", note: "вид на Дніпро" },
+    { art: "volodymyr", name: "Володимирська гірка", note: "вид на Дніпро" },
     { art: "bridge", name: "Пішохідний міст", note: "Київ під ногами" },
     { art: "hydropark", name: "Труханів острів", note: "пляж посеред міста" },
     { art: "gates", name: "Золоті ворота", note: "вечірній центр і довгі розмови" },
@@ -817,7 +819,7 @@ const CONFIG = {
     { art: "hydropark", name: "Гідропарк", note: "вода і дерева" },
     { art: "sunrise", name: "Ботсад", note: "тут ми зустріли світанок" },
     { art: "houses", name: "Нова Англія", note: "наче й не в Києві" },
-    { art: "pin", name: "ВДНГ", note: "простір, повітря і довгі прогулянки" }
+    { art: "vdng", name: "ВДНГ", note: "простір, повітря і довгі прогулянки" }
   ],
 
   // вікторина: перша відповідь у кожному питанні правильна (на екрані перемішуються)
@@ -825,10 +827,12 @@ const CONFIG = {
     { q: "Хто гуляє зі мною по нашій планетці?", a: ["Кицюня", "Сусідський кіт", "Голуб з Хрещатика", "Містер Капібара (він ревнує)"] },
     { q: "Хто світить мені навіть у найпохмуріший день?", a: ["Моє сонечко", "Ліхтарик на телефоні", "Лампочка в холодильнику", "Екран ноутбука"] },
     { q: "Хто найніжніший і найпухнастіший у світі?", a: ["Моя зайка", "Goose", "Плед", "Кактус Тревіса"] },
+    { q: "Хто розквітає навіть посеред зими?", a: ["Моя квіточка", "Кактус на підвіконні", "Кульбаба з Гідропарку", "Сусідська герань"] },
+    { q: "Який мій найулюбленіший смаколик?", a: ["Ти, мій рябчик зі смаком кохання", "Овочевий супчик", "Чізбургер без сиру", "Огірок"] },
     { q: "Хто ти для мене?", a: ["Моє щастя", "Подруга з концерту", "Партнерка по настолках", "Просто сусідка по планетці"] },
     { q: "А якщо зовсім-зовсім серйозно?", a: ["Сенс мого буття", "Підписниця в інстаграмі", "Сусідка по парті", "Головна фанатка Goose"] }
   ],
-  quizFinal: "5 з 5! Ти моя кицюня, моє сонечко, моя зайка, моє щастя і сенс мого буття.",
+  quizFinal: "7 з 7! Ти моя кицюня, моє сонечко, моя зайка, моя квіточка, мій рябчик зі смаком кохання, моє щастя і сенс мого буття. І я кохаю тебе безмежно.",
 
   // що кажуть іграшки на полиці
   plush: {
@@ -1338,6 +1342,30 @@ Object.assign(ART, {
     <path d="M14 10 V40 Q14 72 40 72 Q66 72 66 40 V10 H52 V40 Q52 58 40 58 Q28 58 28 40 V10Z" fill="#c7c0cc" stroke="${INK}" stroke-width="2.4" stroke-linejoin="round"/>
     <g fill="${INK}"><circle cx="21" cy="22" r="2"/><circle cx="21" cy="38" r="2"/><circle cx="59" cy="22" r="2"/><circle cx="59" cy="38" r="2"/><circle cx="30" cy="62" r="2"/><circle cx="50" cy="62" r="2"/></g>` },
 });
+Object.assign(ART, {
+  mosaic: { vb: [84, 100], svg: `
+    <path d="M18 28 L22 4 L36 18Z M66 28 L62 4 L48 18Z" fill="#fbf7f2" stroke="${INK}" stroke-width="2" stroke-linejoin="round"/>
+    <ellipse cx="42" cy="66" rx="26" ry="20" fill="#fbf7f2" stroke="${INK}" stroke-width="2.2"/>
+    <circle cx="42" cy="32" r="22" fill="#fbf7f2" stroke="${INK}" stroke-width="2.2"/>
+    <g stroke="${INK}" stroke-width=".8">${[[28,22,'#5ab0d8'],[48,18,'#f7d24a'],[36,40,'#ff6fa3'],[54,36,'#7fb03a'],[24,62,'#f39a4b'],[40,58,'#5ab0d8'],[56,64,'#ff6fa3'],[32,74,'#7fb03a'],[48,76,'#f7d24a'],[60,28,'#ff6fa3'],[22,36,'#f7d24a']].map(([x,y,c],k)=>`<rect x="${x}" y="${y}" width="7" height="7" fill="${c}" transform="rotate(${k*17} ${x+3} ${y+3})"/>`).join('')}</g>
+    <circle cx="35" cy="30" r="2.6" fill="${INK}"/><circle cx="49" cy="30" r="2.6" fill="${INK}"/>
+    <rect x="16" y="84" width="52" height="12" rx="2" fill="#c7c0cc" stroke="${INK}" stroke-width="2"/>` },
+  volodymyr: { vb: [80, 100], svg: `
+    <path d="M2 98 Q40 70 78 98Z" fill="#7fb03a" stroke="${INK}" stroke-width="2.2"/>
+    <rect x="30" y="44" width="20" height="44" fill="#c7c0cc" stroke="${INK}" stroke-width="2.2"/>
+    <rect x="26" y="40" width="28" height="6" fill="#d8cfe0" stroke="${INK}" stroke-width="1.8"/>
+    <circle cx="40" cy="14" r="6" fill="#4a5a6a" stroke="${INK}" stroke-width="1.6"/>
+    <path d="M32 40 L34 22 Q40 18 46 22 L48 40Z" fill="#4a5a6a" stroke="${INK}" stroke-width="1.6"/>
+    <path d="M50 38 V6 M45 14 H55" stroke="#4a5a6a" stroke-width="3" stroke-linecap="round"/>` },
+  vdng: { vb: [110, 80], svg: `
+    <path d="M55 2 l2 5 l5 1 l-4 3 l1 5 l-4 -3 l-4 3 l1 -5 l-4 -3 l5 -1z" fill="#f7d24a" stroke="${INK}" stroke-width="1.2"/>
+    <path d="M55 16 V24" stroke="${INK}" stroke-width="2"/>
+    <path d="M44 34 Q44 22 55 22 Q66 22 66 34Z" fill="#f2c84b" stroke="${INK}" stroke-width="2"/>
+    <rect x="40" y="34" width="30" height="14" fill="#efe0c4" stroke="${INK}" stroke-width="2"/>
+    <rect x="6" y="46" width="98" height="26" fill="#efe0c4" stroke="${INK}" stroke-width="2.2"/>
+    <g fill="#fbf7f2" stroke="${INK}" stroke-width="1.4">${[12,24,36,48,60,72,84,96].map(x=>`<rect x="${x-3}" y="50" width="6" height="20"/>`).join('')}</g>
+    <path d="M2 74 H108" stroke="${INK}" stroke-width="3" stroke-linecap="round"/>` },
+});
 function mouseSVG(bow) {
   return `
     <circle cx="22" cy="26" r="18" fill="#1d1b20" stroke="${INK}" stroke-width="2"/><circle cx="78" cy="26" r="18" fill="#1d1b20" stroke="${INK}" stroke-width="2"/>
@@ -1789,7 +1817,7 @@ document.querySelectorAll('[data-art]').forEach(el => el.innerHTML = sticker(el.
   const GOAL = 12;
   const IMG = {};
   const FILTER = document.getElementById('sticker').outerHTML;
-  ['catGinger', 'fries', 'burger', 'pizza', 'kinder', 'sushi', 'capybara', 'soup', 'heart', 'lemonade'].forEach(k => {
+  ['catGinger', 'fries', 'burger', 'pizza', 'kinder', 'sushi', 'capybara', 'soup', 'heart', 'lemonade', 'flower', 'kiss', 'star'].forEach(k => {
     const [w, h] = ART[k].vb, p = Math.max(w, h) * .08;
     const svg = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="${-p} ${-p} ${w + 2 * p} ${h + 2 * p}" width="${(w + 2 * p) * 2}" height="${(h + 2 * p) * 2}"><defs>${FILTER}</defs><g filter="url(#sticker)">${ART[k].svg}</g></svg>`;
     const img = new Image();
@@ -1924,7 +1952,7 @@ document.querySelectorAll('[data-art]').forEach(el => el.innerHTML = sticker(el.
     cf.hidden = false;
     const dpr = Math.min(2, devicePixelRatio || 1);
     cf.width = innerWidth * dpr; cf.height = innerHeight * dpr; cfx.setTransform(dpr, 0, 0, dpr, 0, 0);
-    const kinds = ['catGinger', 'heart', 'fries', 'burger', 'kinder', 'sushi', 'capybara', 'heart'];
+    const kinds = ['catGinger', 'heart', 'heart', 'heart', 'flower', 'kiss', 'star', 'capybara', 'kinder'];
     const parts = Array.from({ length: 70 }, () => ({
       k: kinds[Math.floor(Math.random() * kinds.length)],
       x: Math.random() * innerWidth, y: -60 - Math.random() * innerHeight,
