@@ -91,7 +91,7 @@ p{margin:0}
 .pw-msg.ok{color:#bff28a}
 .shake{animation:shake .35s}
 @keyframes shake{20%{transform:translateX(-8px)}40%{transform:translateX(8px)}60%{transform:translateX(-5px)}80%{transform:translateX(5px)}}
-.lockpad{width:80px}
+.lockpad{width:130px}
 .fade-out{animation:fadeOut .6s forwards}
 @keyframes fadeOut{to{opacity:0;transform:scale(.97)}}
 .fade-in{animation:fadeIn .8s ease}
@@ -149,21 +149,13 @@ p{margin:0}
 .spanel h3{margin-bottom:16px;font-size:40px}
 .walks{margin-top:44px}
 .walks h3{font-size:40px}
-.kmap-wrap{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.15fr);gap:28px;margin-top:22px;align-items:start}
-.kmap{padding:10px;background:#fdf3d6}
-.kmap svg{display:block;width:100%;height:auto;overflow:visible}
-.kpin{cursor:pointer;-webkit-tap-highlight-color:transparent}
-.kpin .kp{fill:#fbf7f2;transition:fill .2s}
-.kpin.seen .kp{fill:#ff6fa3}
-.kpin.on .kp{fill:#f7d24a;transform:scale(1.35);transform-box:fill-box;transform-origin:50% 100%}
-.kpin:focus-visible{outline:none}
-.kpin:focus-visible .kp{stroke:#7e1b4c;stroke-width:3}
-.kmap-card{display:flex;gap:16px;align-items:center;padding:18px;position:sticky;top:calc(env(safe-area-inset-top,0px) + 12px)}
-.kmap-card.pop{animation:pop .35s ease}
-.kc-art{width:84px;flex:none;display:block}
-.kmap-card b{font-family:var(--display);font-size:34px;line-height:1;display:block}
-.kmap-card p{color:var(--ink-soft);margin-top:4px}
-.kmap-progress{grid-column:1/-1;font-family:var(--display);font-size:28px;color:var(--sun)}
+.walk-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:18px;margin-top:22px}
+.wcard{display:flex;flex-direction:column;align-items:center;text-align:center;gap:4px;padding:12px 10px 14px;min-width:0;border:0;font:inherit;color:var(--ink);cursor:pointer}
+.wcard .sticker{height:58px;width:auto;max-width:76px}
+.wcard b{font-family:var(--display);font-size:24px;line-height:1}
+.wcard small{color:var(--ink-soft);font-size:13px;line-height:1.3}
+.wcard:focus-visible{outline:3px dashed var(--sun);outline-offset:5px}
+.wcard.wiggle{animation:wobble .5s}
 .events{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:22px}
 .event{display:flex;gap:14px;align-items:center;padding:14px 16px;min-width:0}
 .event .ic{width:66px;flex:none}
@@ -319,8 +311,7 @@ footer{text-align:center;color:var(--chalk-dim);font-size:14px;padding-block:0 4
   .facts{grid-template-columns:1fr}
   .postcards{grid-template-columns:1fr;max-width:300px}
   .treats{grid-template-columns:1fr}
-  .kmap-wrap{grid-template-columns:1fr}
-  .kmap-card{position:static}
+  .walk-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}
   .dates-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
   .dopt{flex-direction:column;text-align:center;gap:6px;padding:12px 8px 12px;font-size:14px}
   .do-check{position:absolute;top:6px;right:6px;width:22px;height:22px;font-size:12px}
@@ -375,13 +366,13 @@ footer{text-align:center;color:var(--chalk-dim);font-size:14px;padding-block:0 4
 <!-- ===== 2. Пароль ===== -->
 <div class="screen" id="lock" hidden>
   <div class="gate-card chalk-box" id="lockCard">
-    <span class="lockpad" data-art="lock"></span>
+    <span class="lockpad float" data-art="gecko"></span>
     <p class="eyebrow">Крок 2 з 2</p>
     <h2>Оскільки все має бути кібербезпечно…</h2>
-    <p class="lead">…введи пароль. Його знає тільки справжня кицюня.</p>
-    <p class="lock-q"><b>Секретне питання:</b> на концерт якого гурту ми сходили восени 2025-го, після чого я покликав тебе на зустріч?</p>
+    <p class="lead">…введи пароль. Його знає тільки справжня принцеса.</p>
+    <p class="lock-q"><b>Секретне питання:</b> як звати страшного дракона, який охороняє принцесу? Ну добре, не такого вже й страшного. І трохи схожого на крокодильчика.</p>
     <form id="pwForm" autocomplete="off">
-      <input id="pw" type="text" placeholder="Назва гурту" aria-label="Пароль" autocapitalize="off" spellcheck="false">
+      <input id="pw" type="text" placeholder="Ім'я дракона" aria-label="Пароль" autocapitalize="off" spellcheck="false">
       <button class="btn" type="submit">Перевірити</button>
     </form>
     <p class="pw-msg" id="pwMsg" aria-live="polite"></p>
@@ -543,15 +534,8 @@ footer{text-align:center;color:var(--chalk-dim);font-size:14px;padding-block:0 4
 
     <div class="walks">
       <h3>А гуляли ми всюди й завжди</h3>
-      <p class="sub">У будь-яку пору року, в будь-яку погоду. Ось наш Київ: карта трохи приблизна, як і мій почерк.</p>
-      <div class="kmap-wrap">
-        <div class="kmap-card paper" id="kmapCard" aria-live="polite">
-          <span class="kc-art" id="kcArt"></span>
-          <div><b id="kcName">Наш Київ</b><p id="kcNote">Натискай на сердечка на карті й згадуй, де ми гуляли.</p></div>
-        </div>
-        <div class="kmap paper"><svg viewBox="0 0 300 400" id="kmap" role="group" aria-label="Карта наших прогулянок Києвом"></svg></div>
-        <p class="kmap-progress" id="kmapProgress"></p>
-      </div>
+      <p class="sub">У будь-яку пору року, в будь-яку погоду. Ось наш Київ.</p>
+      <div class="walk-grid" id="walkGrid"></div>
     </div>
   </section>
 
@@ -573,9 +557,9 @@ footer{text-align:center;color:var(--chalk-dim);font-size:14px;padding-block:0 4
   <section class="wrap" id="quizSec">
     <p class="eyebrow">Вікторина</p>
     <h2>Хто ти для мене?</h2>
-    <p class="sub">Шість питань. Правильна відповідь у кожному лише одна, але ти точно впораєшся.</p>
+    <p class="sub">П'ять питань. Правильна відповідь у кожному лише одна, але ти точно впораєшся.</p>
     <div class="quiz paper" id="quiz">
-      <div class="quiz-top"><span class="quiz-step" id="quizStep">Питання 1 з 6</span><span class="dots" id="quizDots"></span></div>
+      <div class="quiz-top"><span class="quiz-step" id="quizStep">Питання 1 з 5</span><span class="dots" id="quizDots"></span></div>
       <p class="quiz-q" id="quizQ"></p>
       <div class="quiz-opts" id="quizOpts"></div>
       <p class="quiz-fb" id="quizFb" aria-live="polite"></p>
@@ -666,13 +650,13 @@ footer{text-align:center;color:var(--chalk-dim);font-size:14px;padding-block:0 4
   <!-- гра -->
   <section class="wrap" id="gameSec">
     <p class="eyebrow">Міні-гра</p>
-    <h2>Збери наш рік</h2>
-    <p class="sub">Лови сердечка й наші спогади: 12 штук, по одному за кожен місяць разом. Овочевий супчик котики не люблять, кожна тарілка забирає один спогад. Керуй пальцем, мишкою або стрілками.</p>
+    <h2>Нагодуй кицюню</h2>
+    <p class="sub">Лови фрі, чізбургери, піцики, сушики, кіндери й лимонадик: 12 смаколиків, по одному за кожен наш місяць. Овочевий супчик котики не люблять, кожна тарілка забирає один смаколик. Керуй пальцем, мишкою або стрілками.</p>
     <div class="game-box" id="gameBox">
       <canvas id="cv" aria-label="Гра: кицюня ловить смаколики"></canvas>
-      <div class="hud"><span class="score">місяців: <span id="score">0</span>/12</span><span class="toast" id="toast"></span></div>
+      <div class="hud"><span class="score">смаколики: <span id="score">0</span>/12</span><span class="toast" id="toast"></span></div>
       <div class="overlay" id="ov">
-        <p id="ovText">Збери 12 наших місяців</p>
+        <p id="ovText">Кицюня зголодніла</p>
         <small id="ovSmall">У кінці на тебе чекає лист</small>
         <button class="btn" id="startBtn">Грати</button>
       </div>
@@ -776,24 +760,24 @@ const CONFIG = {
 
   // місця для прогулянок
   walks: [
-    { art: "hydropark", name: "Наталка", note: "Оболонь і набережна", x: 172, y: 30 },
-    { art: "tram", name: "Поділ", note: "трамваї й кав'ярні", x: 150, y: 86 },
-    { art: "pin", name: "Пейзажна алея", note: "смішні скульптури і вид на місто", x: 98, y: 106 },
-    { art: "church", name: "Андріївський узвіз", note: "найгарніший спуск у Києві", x: 128, y: 124 },
-    { art: "church", name: "Михайлівська площа", note: "золоті бані й голуби", x: 160, y: 138 },
-    { art: "pin", name: "Володимирська гірка", note: "вид на Дніпро", x: 186, y: 156 },
-    { art: "bridge", name: "Пішохідний міст", note: "Київ під ногами", x: 212, y: 128 },
-    { art: "hydropark", name: "Труханів острів", note: "пляж посеред міста", x: 226, y: 80 },
-    { art: "gates", name: "Золоті ворота", note: "вечірній центр і довгі розмови", x: 106, y: 162 },
-    { art: "chestnut", name: "Хрещатик", note: "головна вулиця міста", x: 150, y: 176 },
-    { art: "bench", name: "Парк Шевченка", note: "лавочки й розмови", x: 90, y: 200 },
-    { art: "bench", name: "Маріїнський парк", note: "тихі алеї біля Ради", x: 180, y: 202 },
-    { art: "metro", name: "Арсенальна", note: "найглибше метро і найдовший ескалатор", x: 162, y: 234 },
-    { art: "kpi", name: "КПІ", note: "тут був наш поцілунок", x: 46, y: 236 },
-    { art: "hydropark", name: "Гідропарк", note: "вода і дерева", x: 242, y: 206 },
-    { art: "sunrise", name: "Ботсад", note: "тут ми зустріли світанок", x: 178, y: 288 },
-    { art: "houses", name: "Нова Англія", note: "наче й не в Києві", x: 112, y: 320 },
-    { art: "pin", name: "ВДНГ", note: "простір, повітря і довгі прогулянки", x: 96, y: 366 }
+    { art: "hydropark", name: "Наталка", note: "Оболонь і набережна" },
+    { art: "tram", name: "Поділ", note: "трамваї й кав'ярні" },
+    { art: "pin", name: "Пейзажна алея", note: "смішні скульптури і вид на місто" },
+    { art: "church", name: "Андріївський узвіз", note: "найгарніший спуск у Києві" },
+    { art: "church", name: "Михайлівська площа", note: "золоті бані й голуби" },
+    { art: "pin", name: "Володимирська гірка", note: "вид на Дніпро" },
+    { art: "bridge", name: "Пішохідний міст", note: "Київ під ногами" },
+    { art: "hydropark", name: "Труханів острів", note: "пляж посеред міста" },
+    { art: "gates", name: "Золоті ворота", note: "вечірній центр і довгі розмови" },
+    { art: "chestnut", name: "Хрещатик", note: "головна вулиця міста" },
+    { art: "bench", name: "Парк Шевченка", note: "лавочки й розмови" },
+    { art: "bench", name: "Маріїнський парк", note: "тихі алеї біля Ради" },
+    { art: "metro", name: "Арсенальна", note: "найглибше метро і найдовший ескалатор" },
+    { art: "kpi", name: "КПІ", note: "тут був наш поцілунок" },
+    { art: "hydropark", name: "Гідропарк", note: "вода і дерева" },
+    { art: "sunrise", name: "Ботсад", note: "тут ми зустріли світанок" },
+    { art: "houses", name: "Нова Англія", note: "наче й не в Києві" },
+    { art: "pin", name: "ВДНГ", note: "простір, повітря і довгі прогулянки" }
   ],
 
   // вікторина: перша відповідь у кожному питанні правильна (на екрані перемішуються)
@@ -801,11 +785,10 @@ const CONFIG = {
     { q: "Хто гуляє зі мною по нашій планетці?", a: ["Кицюня", "Сусідський кіт", "Голуб з Хрещатика", "Містер Капібара (він ревнує)"] },
     { q: "Хто світить мені навіть у найпохмуріший день?", a: ["Сонечко", "Ліхтарик на телефоні", "Лампочка в холодильнику", "Екран ноутбука"] },
     { q: "Хто найніжніший і найпухнастіший у світі?", a: ["Зайка", "Goose", "Плед", "Кактус Тревіса"] },
-    { q: "Хто виконує всі мої бажання, просто коли поруч?", a: ["Рибка", "Джин з лампи", "Доставка піци", "Святий Миколай"] },
     { q: "Що я відчуваю, коли ти поруч?", a: ["Моє щастя", "Легкий голод", "Бажання поспати", "Нічого особливого"] },
     { q: "А якщо зовсім серйозно: хто ти для мене?", a: ["Сенс мого буття", "Знайома з концерту", "Підписниця в інстаграмі", "Сусідка по парті"] }
   ],
-  quizFinal: "6 з 6! Ти моя кицюня, сонечко, зайка, рибка, моє щастя і сенс мого буття.",
+  quizFinal: "5 з 5! Ти моя кицюня, сонечко, зайка, моє щастя і сенс мого буття.",
 
   // що кажуть іграшки на полиці
   plush: {
@@ -829,7 +812,7 @@ const CONFIG = {
     { art: "bench", name: "Пікнік у парку" },
     { art: "giraffe", name: "Знову в зоопарк" },
     { art: "flower", name: "Ботсад, коли цвіте бузок" },
-    { art: "hydropark", name: "Катер по Дніпру" },
+    { art: "sun", name: "Вихідний просто так, щоб провести день разом" },
     { art: "tram", name: "Вечірній Поділ" },
     { art: "gates", name: "Нічний Київ з оглядового майданчика" },
     { art: "tree", name: "Зимова країна і гарячий шоколад" },
@@ -838,9 +821,9 @@ const CONFIG = {
     { art: "sushi", name: "Сушики й улюблений серіал" },
     { art: "cake", name: "Десерти в новій кав'ярні" },
     { art: "heart", name: "Вечір мультиків під пледом" },
-    { art: "carBlack", name: "Поїздка на фольцику без плану" },
+    { art: "carBlack", name: "Покатушки на машинках" },
     { art: "kinder", name: "Побачення-сюрприз, яке планую я" },
-    { art: "sun", name: "День без телефонів, тільки ми" },
+    { art: "heart", name: "День без телефонів, тільки ми" },
     { art: "ball", name: "Вечір мрій: плануємо наше майбутнє" }
   ],
 
@@ -932,17 +915,19 @@ const ART = {
     <circle cx="20" cy="44" r="1.7" fill="${INK}"/><circle cx="30" cy="44" r="1.7" fill="${INK}"/>
     <path d="M20 54 q5 -4 10 0" fill="none" stroke="${INK}" stroke-width="1.6" stroke-linecap="round"/>` },
   goose: { vb: [100, 100], svg: `
-    <path d="M30 54 Q22 18 40 14 Q52 12 50 30 Q48 44 56 50" fill="none" stroke="${INK}" stroke-width="15" stroke-linecap="round"/>
-    <path d="M30 54 Q22 18 40 14 Q52 12 50 30 Q48 44 56 50" fill="none" stroke="#a48d78" stroke-width="10" stroke-linecap="round"/>
-    <path d="M30 15 Q30 -2 44 0 Q54 2 52 14Z" fill="#c43d3d" stroke="${INK}" stroke-width="2" stroke-linejoin="round"/>
-    <path d="M28 15 H54" stroke="#8c1d2b" stroke-width="5" stroke-linecap="round"/>
-    <path d="M36 4 v8 M43 3 v9 M49 5 v8" stroke="#8c1d2b" stroke-width="1.4"/>
-    <circle cx="44" cy="-1" r="4" fill="#c43d3d" stroke="${INK}" stroke-width="1.6"/>
-    <path d="M28 20 l-16 4 l15 4z" fill="#f2a43a" stroke="${INK}" stroke-width="1.8" stroke-linejoin="round"/>
-    <circle cx="36" cy="20" r="2" fill="${INK}"/>
-    <ellipse cx="58" cy="66" rx="32" ry="20" fill="#a48d78" stroke="${INK}" stroke-width="2.5"/>
-    <path d="M62 60 q14 2 20 12" fill="none" stroke="#7d6a58" stroke-width="3" stroke-linecap="round"/>
-    <path d="M44 84 l-6 12 h14z M64 84 l-2 12 h14z" fill="#f2a43a" stroke="${INK}" stroke-width="1.8" stroke-linejoin="round"/>` },
+    <path d="M46 58 Q30 44 36 24" fill="none" stroke="${INK}" stroke-width="15" stroke-linecap="round"/>
+    <path d="M46 58 Q30 44 36 24" fill="none" stroke="#a48d78" stroke-width="10" stroke-linecap="round"/>
+    <path d="M27 21 l-16 4 l15 5z" fill="#f2a43a" stroke="${INK}" stroke-width="1.8" stroke-linejoin="round"/>
+    <circle cx="37" cy="21" r="11" fill="#a48d78" stroke="${INK}" stroke-width="2.2"/>
+    <circle cx="33" cy="19" r="2" fill="${INK}"/>
+    <path d="M26 13 Q26 -3 38 -1 Q49 1 48 13Z" fill="#c43d3d" stroke="${INK}" stroke-width="2" stroke-linejoin="round"/>
+    <path d="M24 13 H50" stroke="#8c1d2b" stroke-width="5" stroke-linecap="round"/>
+    <path d="M33 3 v8 M39 2 v9 M44 4 v8" stroke="#8c1d2b" stroke-width="1.4"/>
+    <circle cx="38" cy="-3" r="4" fill="#c43d3d" stroke="${INK}" stroke-width="1.6"/>
+    <ellipse cx="58" cy="68" rx="32" ry="20" fill="#a48d78" stroke="${INK}" stroke-width="2.5"/>
+    <path d="M62 62 q14 2 20 12" fill="none" stroke="#7d6a58" stroke-width="3" stroke-linecap="round"/>
+    <path d="M44 86 l-6 12 h14z M64 86 l-2 12 h14z" fill="#f2a43a" stroke="${INK}" stroke-width="1.8" stroke-linejoin="round"/>` },
+
   lamb: { vb: [100, 100], svg: `
     <g fill="#fbf7f2" stroke="${INK}" stroke-width="2.2">
       <rect x="34" y="70" width="9" height="22" rx="4"/><rect x="66" y="70" width="9" height="22" rx="4"/>
@@ -1245,6 +1230,22 @@ Object.assign(ART, {
     <rect x="34" y="34" width="22" height="14" rx="2" fill="#fbf7f2" stroke="${INK}" stroke-width="1.6" transform="rotate(-8 45 41)"/>
     <path d="M45 46 C40 43 40 39 42 38 C44 37 45 39 45 40 C45 39 46 37 48 38 C50 39 50 43 45 46Z" fill="#ff6fa3"/>` },
 });
+Object.assign(ART, {
+  gecko: { vb: [130, 110], svg: `
+    <path d="M40 34 Q18 8 6 30 Q20 26 30 44Z M86 34 Q108 8 120 30 Q106 26 96 44Z" fill="#c9a8f0" stroke="${INK}" stroke-width="2" stroke-linejoin="round"/>
+    <path d="M14 22 L22 36 M112 22 L104 36" stroke="#9b7bd0" stroke-width="2"/>
+    <path d="M63 86 Q64 104 84 104 Q100 104 98 92 Q96 84 88 88" fill="none" stroke="${INK}" stroke-width="11" stroke-linecap="round"/>
+    <path d="M63 86 Q64 104 84 104 Q100 104 98 92 Q96 84 88 88" fill="none" stroke="#8fd14f" stroke-width="7" stroke-linecap="round"/>
+    ${[[40, 50, -30], [86, 50, 30], [44, 80, -150], [82, 80, 150]].map(([x, y, a]) => `<g transform="rotate(${a} ${x} ${y})"><path d="M${x} ${y} v-16" stroke="${INK}" stroke-width="9" stroke-linecap="round"/><path d="M${x} ${y} v-16" stroke="#8fd14f" stroke-width="5.5" stroke-linecap="round"/><circle cx="${x - 4}" cy="${y - 19}" r="2.6" fill="#8fd14f" stroke="${INK}" stroke-width="1.2"/><circle cx="${x}" cy="${y - 21}" r="2.6" fill="#8fd14f" stroke="${INK}" stroke-width="1.2"/><circle cx="${x + 4}" cy="${y - 19}" r="2.6" fill="#8fd14f" stroke="${INK}" stroke-width="1.2"/></g>`).join('')}
+    <ellipse cx="63" cy="66" rx="20" ry="26" fill="#8fd14f" stroke="${INK}" stroke-width="2.4"/>
+    <g fill="#f7d24a"><circle cx="56" cy="58" r="3"/><circle cx="70" cy="66" r="3.4"/><circle cx="58" cy="76" r="2.6"/><circle cx="68" cy="84" r="2.4"/></g>
+    <ellipse cx="63" cy="34" rx="19" ry="16" fill="#8fd14f" stroke="${INK}" stroke-width="2.4"/>
+    <circle cx="54" cy="30" r="6" fill="#fbf7f2" stroke="${INK}" stroke-width="1.6"/><circle cx="72" cy="30" r="6" fill="#fbf7f2" stroke="${INK}" stroke-width="1.6"/>
+    <circle cx="55" cy="31" r="3.2" fill="${INK}"/><circle cx="73" cy="31" r="3.2" fill="${INK}"/>
+    <path d="M56 41 q7 5 14 0" fill="none" stroke="${INK}" stroke-width="1.8" stroke-linecap="round"/>
+    <ellipse cx="50" cy="40" rx="4" ry="2.4" fill="#ff6fa3" opacity=".55"/><ellipse cx="76" cy="40" rx="4" ry="2.4" fill="#ff6fa3" opacity=".55"/>
+    <path d="M52 20 L55 10 L60 17 L63 7 L66 17 L71 10 L74 20Z" fill="#f7d24a" stroke="${INK}" stroke-width="1.8" stroke-linejoin="round"/>` },
+});
 function mouseSVG(bow) {
   return `
     <circle cx="22" cy="26" r="18" fill="#1d1b20" stroke="${INK}" stroke-width="2"/><circle cx="78" cy="26" r="18" fill="#1d1b20" stroke="${INK}" stroke-width="2"/>
@@ -1260,7 +1261,7 @@ function carSVG(body, shine) {
   return `
     <path d="M8 56 V44 Q8 36 18 34 L30 18 Q34 12 44 12 H84 Q92 12 98 20 L108 34 Q114 36 114 44 V56Z" fill="${body}" stroke="${INK}" stroke-width="2.5" stroke-linejoin="round"/>
     <path d="M34 32 L42 18 H62 V32Z M68 32 V18 H86 Q90 18 94 24 L100 32Z" fill="#bfe0f5" stroke="${INK}" stroke-width="2"/>
-    <path d="M14 42 h10 M100 42 h8" stroke="#f7d24a" stroke-width="4" stroke-linecap="round"/>
+    <path d="M12 42 h6" stroke="#e8352e" stroke-width="5" stroke-linecap="round"/><path d="M102 42 h7" stroke="#f7d24a" stroke-width="5" stroke-linecap="round"/>
     <path d="M20 46 H100" stroke="${shine}" stroke-width="2"/>
     <circle cx="32" cy="58" r="12" fill="#2b2a30" stroke="${INK}" stroke-width="2"/><circle cx="32" cy="58" r="5" fill="#c7c0cc"/>
     <circle cx="90" cy="58" r="12" fill="#2b2a30" stroke="${INK}" stroke-width="2"/><circle cx="90" cy="58" r="5" fill="#c7c0cc"/>`;
@@ -1349,15 +1350,15 @@ document.querySelectorAll('[data-art]').forEach(el => el.innerHTML = sticker(el.
   });
 
   /* ===== 2. пароль ===== */
-  const OK = [1026368257, 1026373551, 849536245, 380714295];
+  const OK = [3159473161, 3159470439, 3158150024, 1386120126];
   const norm = s => s.toLowerCase().replace(/[^a-zа-яіїєґё]/g, '');
   const hash = s => { let x = 5381; for (const ch of s) x = ((x * 33) ^ ch.codePointAt(0)) >>> 0; return x; };
   const wrong = [
-    'Хм, ні. Кітик підозріло на тебе дивиться.',
-    'Знову ні. Кицюню, згадуй осінь!',
-    'Підказка: назва гурту починається на «Х».',
-    'Ще підказка: «Хейт…» Далі сама :)',
-    'Кітик вірить у тебе. Спробуй ще!'
+    'Ні, на таке ім\'я дракон не відгукується. Він підозріло на тебе дивиться.',
+    'Підказка: він маленький, зелений і схожий на крокодильчика.',
+    'Ще підказка: він живе в тебе вдома і полює на комашок.',
+    'Підказка: ім\'я починається на «Ге…»',
+    'Дракон вірить у тебе. Спробуй ще!'
   ];
   let tries = 0;
   $('#pwForm').addEventListener('submit', e => {
@@ -1367,7 +1368,7 @@ document.querySelectorAll('[data-art]').forEach(el => el.innerHTML = sticker(el.
     if (!v) { msg.textContent = 'Спочатку напиши щось :)'; return; }
     if (OK.includes(hash(v))) {
       msg.className = 'pw-msg ok';
-      msg.textContent = 'Доступ дозволено. Ласкаво просимо, кицюню!';
+      msg.textContent = 'Дракон Гешик пропускає тебе. Ласкаво просимо, принцесо!';
       floatHearts(...centerOf(msg), 8);
       setTimeout(() => {
         $('#lock').hidden = true;
@@ -1515,56 +1516,16 @@ document.querySelectorAll('[data-art]').forEach(el => el.innerHTML = sticker(el.
     document.querySelectorAll('.spanel').forEach(p => p.hidden = p.id !== t.dataset.panel);
   }));
 
-  /* ===== карта прогулянок ===== */
-  (() => {
-    const svg = $('#kmap'), seen = new Set();
-    const NS = 'http://www.w3.org/2000/svg';
-    svg.innerHTML = `
-      <defs><pattern id="kgrid" width="20" height="20" patternUnits="userSpaceOnUse"><path d="M20 0 H0 V20" fill="none" stroke="rgba(126,27,76,.08)" stroke-width="1"/></pattern></defs>
-      <rect width="300" height="400" fill="url(#kgrid)"/>
-      <path d="M200 -10 C214 60 206 120 226 190 C244 260 214 320 228 410 L262 410 C250 320 278 260 262 190 C246 120 252 60 236 -10Z" fill="#8cc2ec" stroke="#2b1b2a" stroke-width="2"/>
-      <path d="M212 40 q6 10 0 20 M230 150 q6 10 0 20 M240 300 q6 10 0 20" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" opacity=".8"/>
-      <ellipse cx="226" cy="84" rx="9" ry="26" fill="#9fd06a" stroke="#2b1b2a" stroke-width="1.8"/>
-      <ellipse cx="242" cy="208" rx="9" ry="30" fill="#9fd06a" stroke="#2b1b2a" stroke-width="1.8"/>
-      <path d="M190 146 L222 108" stroke="#8e8796" stroke-width="4" stroke-linecap="round"/>
-      <text x="252" y="140" font-family="Caveat, cursive" font-size="18" fill="#2448b8" transform="rotate(78 252 140)">Дніпро</text>
-      <text x="270" y="388" font-family="Caveat, cursive" font-size="15" fill="#6b5466" text-anchor="end">лівий берег</text>
-      <text x="14" y="388" font-family="Caveat, cursive" font-size="15" fill="#6b5466">правий берег</text>
-      <path d="M262 22 l0 -14 M262 8 l-4 6 M262 8 l4 6" stroke="#2b1b2a" stroke-width="1.6" fill="none"/><text x="262" y="34" text-anchor="middle" font-family="Nunito, sans-serif" font-size="9" font-weight="800" fill="#2b1b2a">Пн</text>`;
-    const progress = () => {
-      $('#kmapProgress').textContent = seen.size === CONFIG.walks.length
-        ? 'Увесь наш Київ згадано! А попереду ще стільки нових місць.'
-        : `Згадали ${seen.size} з ${CONFIG.walks.length} наших місць`;
-    };
-    const pins = CONFIG.walks.map((w, i) => {
-      const g = document.createElementNS(NS, 'g');
-      g.setAttribute('class', 'kpin');
-      g.setAttribute('transform', `translate(${w.x} ${w.y})`);
-      g.setAttribute('tabindex', '0');
-      g.setAttribute('role', 'button');
-      g.setAttribute('aria-label', w.name);
-      g.innerHTML = `<circle r="16" fill="transparent"/><path class="kp" d="M0 12 C-11 2 -11 -9 -5 -11 C-2 -12 0 -9 0 -7 C0 -9 2 -12 5 -11 C11 -9 11 2 0 12Z" stroke="#2b1b2a" stroke-width="1.8"/>`;
-      const open = () => {
-        pins.forEach(p => p.classList.remove('on'));
-        g.classList.add('on', 'seen');
-        svg.appendChild(g);
-        seen.add(i);
-        $('#kcArt').innerHTML = sticker(w.art);
-        $('#kcName').textContent = w.name;
-        $('#kcNote').textContent = w.note;
-        const card = $('#kmapCard');
-        card.classList.remove('pop'); void card.offsetWidth; card.classList.add('pop');
-        progress();
-        if (seen.size === CONFIG.walks.length) floatHearts(...centerOf(svg), 10);
-      };
-      g.addEventListener('click', open);
-      g.addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); open(); } });
-      svg.appendChild(g);
-      return g;
-    });
-    $('#kcArt').innerHTML = sticker('pin');
-    progress();
-  })();
+  /* ===== прогулянки ===== */
+  CONFIG.walks.forEach(w => {
+    const d = document.createElement('button');
+    d.className = 'wcard paper';
+    d.innerHTML = `${sticker(w.art)}<b></b><small></small>`;
+    d.querySelector('b').textContent = w.name;
+    d.querySelector('small').textContent = w.note;
+    d.addEventListener('click', () => { d.classList.remove('wiggle'); void d.offsetWidth; d.classList.add('wiggle'); floatHearts(...centerOf(d), 3); });
+    $('#walkGrid').append(d);
+  });
 
   /* ===== вікторина ===== */
   (() => {
@@ -1727,12 +1688,12 @@ document.querySelectorAll('[data-art]').forEach(el => el.innerHTML = sticker(el.
     })(t0);
   });
 
-  /* ===== гра «Збери наш рік» ===== */
+  /* ===== гра «Нагодуй кицюню» ===== */
   const cv = $('#cv'), ctx = cv.getContext('2d'), box = $('#gameBox');
   const GOAL = 12;
   const IMG = {};
   const FILTER = document.getElementById('sticker').outerHTML;
-  ['catGinger', 'fries', 'burger', 'pizza', 'kinder', 'sushi', 'capybara', 'soup', 'heart', 'mic', 'popcorn', 'cake', 'flower', 'suitcase', 'tree', 'sunrise', 'kiss'].forEach(k => {
+  ['catGinger', 'fries', 'burger', 'pizza', 'kinder', 'sushi', 'capybara', 'soup', 'heart', 'lemonade'].forEach(k => {
     const [w, h] = ART[k].vb, p = Math.max(w, h) * .08;
     const svg = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="${-p} ${-p} ${w + 2 * p} ${h + 2 * p}" width="${(w + 2 * p) * 2}" height="${(h + 2 * p) * 2}"><defs>${FILTER}</defs><g filter="url(#sticker)">${ART[k].svg}</g></svg>`;
     const img = new Image();
@@ -1763,7 +1724,7 @@ document.querySelectorAll('[data-art]').forEach(el => el.innerHTML = sticker(el.
     ctx.clearRect(0, 0, W, H);
     ctx.fillStyle = 'rgba(251,238,245,.7)';
     stars.forEach(s => { ctx.beginPath(); ctx.arc(s.x * W, s.y * H, s.r, 0, 7); ctx.fill(); });
-    items.forEach(it => drawImg(it.type, it.x, it.y, it.type === 'soup' ? 58 : it.type === 'heart' ? 42 : 50, it.rot));
+    items.forEach(it => drawImg(it.type, it.x, it.y, it.type === 'lemonade' ? 30 : it.type === 'soup' || it.type === 'sushi' ? 58 : 52, it.rot));
     const bounce = now < happyUntil ? -8 : 0;
     drawImg('catGinger', catX, H - 52 + bounce, 104);
     if (now < happyUntil) drawImg('heart', catX + 46, H - 108, 26);
@@ -1779,7 +1740,7 @@ document.querySelectorAll('[data-art]').forEach(el => el.innerHTML = sticker(el.
     if (t - lastSpawn > Math.max(430, 780 - score * 24)) {
       lastSpawn = t;
       const r = Math.random();
-      const goodies = ['heart', 'heart', 'mic', 'popcorn', 'cake', 'flower', 'suitcase', 'tree', 'sunrise', 'kiss'];
+      const goodies = ['fries', 'burger', 'pizza', 'sushi', 'kinder', 'lemonade'];
       const type = score > 1 && r < .24 ? 'soup' : goodies[Math.floor(Math.random() * goodies.length)];
       items.push({ type, x: 30 + Math.random() * (W - 60), y: -40, v: 2.1 + Math.random() * 1.6 + score * .09, rot: (Math.random() - .5) * .6, vr: (Math.random() - .5) * .04 });
     }
@@ -1792,7 +1753,7 @@ document.querySelectorAll('[data-art]').forEach(el => el.innerHTML = sticker(el.
           box.classList.remove('shake'); void box.offsetWidth; box.classList.add('shake');
         } else {
           score++; happyUntil = t + 380;
-          toast(`${score} ${plural(score, ['місяць', 'місяці', 'місяців'])}!`);
+          toast(['ням!', 'мур!', 'смакота!', 'ще!', 'мрр'][score % 5]);
         }
         $('#score').textContent = score;
         return false;
@@ -1816,7 +1777,7 @@ document.querySelectorAll('[data-art]').forEach(el => el.innerHTML = sticker(el.
   }
   function win() {
     running = false; items = []; happyUntil = Infinity; draw(0);
-    $('#ovText').textContent = 'Увесь наш рік зібрано!';
+    $('#ovText').textContent = 'Кицюня сита й щаслива!';
     $('#ovSmall').textContent = 'Лист відкрився нижче';
     $('#startBtn').textContent = 'Читати лист';
     $('#startBtn').onclick = openLetter;
