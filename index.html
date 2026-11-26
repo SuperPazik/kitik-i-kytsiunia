@@ -1064,12 +1064,8 @@ const ART = {
     <ellipse cx="48" cy="40" rx="28" ry="5" fill="#6b3a24" stroke="${INK}" stroke-width="2"/>
     <text x="48" y="66" text-anchor="middle" font-family="Caveat, cursive" font-weight="700" font-size="16" fill="#ff6fa3">espresso</text>
     <path d="M32 30 l-10 -8 v14z M32 30 l10 -8 v14z" fill="#ff6fa3" stroke="${INK}" stroke-width="1.8" stroke-linejoin="round"/><circle cx="32" cy="30" r="3" fill="#ff6fa3" stroke="${INK}" stroke-width="1.6"/>` },
-  carBlack: { vb: [120, 80], svg: carSVG('#1f1d24', '#3a3742') },
-  carGrey: { vb: [120, 80], svg: carSVG('#9ea0aa', '#c2c4cc') + `
-    <circle cx="74" cy="22" r="2.5" fill="#a47a52"/>
-    <path d="M70 32 Q70 23 78 23 H86 Q93 23 93 29 V32Z" fill="#c9a37b" stroke="${INK}" stroke-width="1.2"/>
-    <path d="M86 23 Q93 23 93 29 V32 H85 Q84 26 86 23Z" fill="#7a4a2e"/>
-    <path d="M76 27 q2 1.5 4 0" fill="none" stroke="${INK}" stroke-width="1.2" stroke-linecap="round"/>` },
+  carBlack: { vb: [140, 80], svg: tiguanSVG() },
+  carGrey: { vb: [140, 80], svg: x5SVG() },
   lady: { vb: [100, 100], svg: `
     <ellipse cx="22" cy="56" rx="14" ry="28" fill="#8a5a34" stroke="${INK}" stroke-width="2.2" transform="rotate(12 22 56)"/>
     <ellipse cx="78" cy="56" rx="14" ry="28" fill="#8a5a34" stroke="${INK}" stroke-width="2.2" transform="rotate(-12 78 56)"/>
@@ -1433,14 +1429,50 @@ function mouseSVG(bow) {
     <path d="M38 74 q12 12 24 0" fill="#c43d3d" stroke="${INK}" stroke-width="2" stroke-linecap="round"/>
     ${bow ? `<path d="M50 28 L30 14 L30 42Z M50 28 L70 14 L70 42Z" fill="#e8352e" stroke="${INK}" stroke-width="2" stroke-linejoin="round"/><circle cx="50" cy="28" r="5" fill="#e8352e" stroke="${INK}" stroke-width="2"/><g fill="#fff"><circle cx="36" cy="22" r="2.2"/><circle cx="36" cy="34" r="2.2"/><circle cx="64" cy="22" r="2.2"/><circle cx="64" cy="34" r="2.2"/></g><path d="M38 48 l-4 -3 M62 48 l4 -3" stroke="${INK}" stroke-width="1.8"/>` : ''}`;
 }
-function carSVG(body, shine) {
+function wheel(x) {
+  return `<circle cx="${x}" cy="60" r="14" fill="#2b2a30" stroke="${INK}" stroke-width="2"/><circle cx="${x}" cy="60" r="8.5" fill="#c7c0cc" stroke="${INK}" stroke-width="1.4"/>
+    <g stroke="#8e8796" stroke-width="1.6">${[0, 72, 144, 216, 288].map(a => `<path d="M${x} 60 V52.5" transform="rotate(${a} ${x} 60)"/>`).join('')}</g><circle cx="${x}" cy="60" r="2.2" fill="#5a5664"/>`;
+}
+function x5SVG() {
+  const body = '#9ea0aa';
   return `
-    <path d="M8 56 V44 Q8 36 18 34 L30 18 Q34 12 44 12 H84 Q92 12 98 20 L108 34 Q114 36 114 44 V56Z" fill="${body}" stroke="${INK}" stroke-width="2.5" stroke-linejoin="round"/>
-    <path d="M34 32 L42 18 H62 V32Z M68 32 V18 H86 Q90 18 94 24 L100 32Z" fill="#bfe0f5" stroke="${INK}" stroke-width="2"/>
-    <path d="M12 42 h6" stroke="#e8352e" stroke-width="5" stroke-linecap="round"/><path d="M102 42 h7" stroke="#f7d24a" stroke-width="5" stroke-linecap="round"/>
-    <path d="M20 46 H100" stroke="${shine}" stroke-width="2"/>
-    <circle cx="32" cy="58" r="12" fill="#2b2a30" stroke="${INK}" stroke-width="2"/><circle cx="32" cy="58" r="5" fill="#c7c0cc"/>
-    <circle cx="90" cy="58" r="12" fill="#2b2a30" stroke="${INK}" stroke-width="2"/><circle cx="90" cy="58" r="5" fill="#c7c0cc"/>`;
+    <path d="M7 62 V42 Q7 31 13 27 L22 18 Q26 14 34 14 H84 Q91 14 95 18 L108 31 L127 34 Q135 36 135 45 V62Z" fill="${body}" stroke="${INK}" stroke-width="2.4" stroke-linejoin="round"/>
+    <path d="M18 62 Q18 44 34 44 Q50 44 50 62 M96 62 Q96 44 112 44 Q128 44 128 62" fill="#6f7079" stroke="${INK}" stroke-width="1.6"/>
+    <path d="M27 31 Q22 31 25 26 L29 21 Q31 18.5 35 18.5 H57 V31Z" fill="#bfe0f5" stroke="${INK}" stroke-width="1.8" stroke-linejoin="round"/>
+    <path d="M61 18.5 H83 Q88 18.5 91 21.5 L101 31 H61Z" fill="#bfe0f5" stroke="${INK}" stroke-width="1.8" stroke-linejoin="round"/>
+    <path d="M12 41 Q70 37 130 41" fill="none" stroke="#c2c4cc" stroke-width="2"/>
+    <path d="M59 32 V55 M86 32 V55" stroke="#6f7079" stroke-width="1.4"/>
+    <path d="M90 26 l6 -2 l2 5 l-6 1z" fill="${body}" stroke="${INK}" stroke-width="1.4"/>
+    <path d="M118 35.5 L133 38 L132.5 43 L121 41.5Z" fill="#fbf7f2" stroke="${INK}" stroke-width="1.4"/>
+    <circle cx="125" cy="39.5" r="2.4" fill="none" stroke="#8cc2ec" stroke-width="1.4"/><circle cx="130" cy="40" r="2" fill="none" stroke="#8cc2ec" stroke-width="1.4"/>
+    <path d="M131 45 Q136 45 136 49 V52 Q131 52 131 49Z" fill="#2b2a30" stroke="${INK}" stroke-width="1.2"/>
+    <path d="M7 31 L14 29 L14 37 L7 38Z" fill="#e8352e" stroke="${INK}" stroke-width="1.2"/>
+    <path d="M10 56 H18 M50 56 H96 M128 56 H134" stroke="#5a5c64" stroke-width="3"/>
+    ${wheel(34)}${wheel(112)}
+    <circle cx="74" cy="22" r="2.4" fill="#a47a52"/>
+    <path d="M69 31 Q69 23 77 23 H85 Q92 23 92 29 V31Z" fill="#c9a37b" stroke="${INK}" stroke-width="1.2"/>
+    <path d="M85 23 Q92 23 92 29 V31 H84 Q83 26 85 23Z" fill="#7a4a2e"/>
+    <path d="M75 27 q2 1.5 4 0" fill="none" stroke="${INK}" stroke-width="1.2" stroke-linecap="round"/>`;
+}
+function tiguanSVG() {
+  const body = '#1f1d24';
+  return `
+    <path d="M22 11 H92 M26 11 V14 M58 11 V14 M88 11 V14" stroke="#c7c0cc" stroke-width="2.4" stroke-linecap="round"/>
+    <path d="M5 62 V39 Q5 30 9 26 L14 17 Q16 14 22 14 H90 Q96 14 100 18 L112 30 L131 33 Q137 35 137 43 V62Z" fill="${body}" stroke="${INK}" stroke-width="2.4" stroke-linejoin="round"/>
+    <path d="M16 62 Q16 44 32 44 Q48 44 48 62 M98 62 Q98 44 114 44 Q130 44 130 62" fill="#0e0d12" stroke="${INK}" stroke-width="1.6"/>
+    <path d="M14 30 L18 19.5 Q19 17.5 23 17.5 H34 V30Z" fill="#bfe0f5" stroke="${INK}" stroke-width="1.8" stroke-linejoin="round"/>
+    <path d="M38 17.5 H62 V30 H38Z" fill="#bfe0f5" stroke="${INK}" stroke-width="1.8"/>
+    <path d="M66 17.5 H90 Q94 17.5 97 21 L106 30 H66Z" fill="#bfe0f5" stroke="${INK}" stroke-width="1.8" stroke-linejoin="round"/>
+    <path d="M13 31.5 H106" stroke="#c7c0cc" stroke-width="1.8"/>
+    <path d="M64 33 V55 M36 33 V55" stroke="#3a3742" stroke-width="1.4"/>
+    <path d="M96 25 l6 -2 l2 5 l-6 1z" fill="${body}" stroke="#5a5664" stroke-width="1.4"/>
+    <path d="M118 34 L135 36.5 V40.5 L120 39Z" fill="#fbf7f2" stroke="${INK}" stroke-width="1.2"/>
+    <path d="M120 37.5 H134" stroke="#8cc2ec" stroke-width="1.2"/>
+    <path d="M131 43 H137 M131 46 H137 M131 49 H137" stroke="#c7c0cc" stroke-width="1.6"/>
+    <path d="M5 30 H15 V35 H5Z" fill="#e8352e" stroke="${INK}" stroke-width="1.2"/>
+    <path d="M48 55 H98" stroke="#c7c0cc" stroke-width="2"/>
+    <path d="M9 41 Q70 39 133 41" fill="none" stroke="#3a3742" stroke-width="1.6"/>
+    ${wheel(32)}${wheel(114)}`;
 }
 ART.catsTogether = { vb: [220, 120], svg: `<g transform="translate(0 6)">${ART.catGrey.svg}</g><g transform="translate(96 8)">${ART.catGinger.svg}</g><g transform="translate(94 0) scale(.8)">${ART.heart.svg}</g>` };
 
