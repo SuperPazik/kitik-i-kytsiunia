@@ -312,6 +312,8 @@ p{margin:0}
 /* ---------- game ---------- */
 .game-box{position:relative;margin-top:22px;border-radius:24px;overflow:hidden;background:radial-gradient(ellipse at 50% 120%,var(--space-soft),var(--space-deep) 70%);box-shadow:0 0 0 5px var(--paper),3px 6px 0 6px rgba(43,10,28,.35)}
 #cv{display:block;width:100%;height:420px;touch-action:none;cursor:none}
+#cv3{display:block;width:100%;height:400px;touch-action:manipulation;cursor:crosshair;-webkit-user-select:none;user-select:none}
+.terrarium{background:linear-gradient(180deg,#2e5a3a,#1f3d2a 70%)}
 #cv2{display:block;width:100%;height:320px;touch-action:manipulation;cursor:pointer;-webkit-user-select:none;user-select:none}
 .hud{position:absolute;top:12px;left:14px;right:14px;display:flex;justify-content:space-between;align-items:center;gap:10px;pointer-events:none}
 .score{background:var(--paper);color:var(--ink);border-radius:999px;padding:6px 14px;font-weight:800;font-variant-numeric:tabular-nums}
@@ -723,6 +725,22 @@ footer{text-align:center;color:var(--chalk-dim);font-size:14px;padding-block:0 4
         <p id="ov2Text">Містер Капібара заводить беху</p>
         <small id="ov2Small">Три спроби, десять сердечок</small>
         <button class="btn" id="start2">Поїхали!</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- гра з Гешиком -->
+  <section class="wrap" id="game3Sec">
+    <p class="eyebrow">І ще одна</p>
+    <h2>Гешик на полюванні</h2>
+    <p class="sub">Дракон Гешик зголоднів. Натискай на тарганів і зоофобасів, і він зловить їх язиком. Тарган дає 1 очко, зоофобас 2. Набери 20 очок за 30 секунд.</p>
+    <div class="game-box terrarium" id="gameBox3">
+      <canvas id="cv3" aria-label="Гра: геккон Гешик ловить тарганів і зоофобасів"></canvas>
+      <div class="hud"><span class="score"><span id="score3">0</span>/20</span><span class="toast" id="toast3"></span><span class="score" id="time3">30 с</span></div>
+      <div class="overlay" id="ov3">
+        <p id="ov3Text">Гешик чекає на обід</p>
+        <small id="ov3Small">30 секунд, 20 очок</small>
+        <button class="btn" id="start3">Годувати!</button>
       </div>
     </div>
   </section>
@@ -1585,6 +1603,7 @@ document.querySelectorAll('[data-art]').forEach(el => el.innerHTML = sticker(el.
         scrollTo(0, 0);
         sizeGame();
         sizeGame2();
+        sizeGame3();
       }, reduced ? 300 : 1300);
     } else {
       msg.className = 'pw-msg';
@@ -1914,7 +1933,7 @@ document.querySelectorAll('[data-art]').forEach(el => el.innerHTML = sticker(el.
   const GOAL = 12;
   const IMG = {};
   const FILTER = document.getElementById('sticker').outerHTML;
-  ['catGinger', 'fries', 'burger', 'pizza', 'kinder', 'sushi', 'capybara', 'soup', 'heart', 'lemonade', 'flower', 'kiss', 'star', 'carGrey', 'goose', 'cone'].forEach(k => {
+  ['catGinger', 'fries', 'burger', 'pizza', 'kinder', 'sushi', 'capybara', 'soup', 'heart', 'lemonade', 'flower', 'kiss', 'star', 'carGrey', 'goose', 'cone', 'gecko'].forEach(k => {
     const [w, h] = ART[k].vb, p = Math.max(w, h) * .08;
     const svg = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="${-p} ${-p} ${w + 2 * p} ${h + 2 * p}" width="${(w + 2 * p) * 2}" height="${(h + 2 * p) * 2}"><defs>${FILTER}</defs><g filter="url(#sticker)">${ART[k].svg}</g></svg>`;
     const img = new Image();
@@ -2128,6 +2147,141 @@ document.querySelectorAll('[data-art]').forEach(el => el.innerHTML = sticker(el.
   });
   $('#start2').addEventListener('click', start2);
   addEventListener('resize', sizeGame2);
+
+  /* ===== гра «Гешик на полюванні» ===== */
+  const cv3 = $('#cv3'), c3 = cv3.getContext('2d'), box3 = $('#gameBox3');
+  const G3_GOAL = 20, G3_TIME = 30;
+  let W3 = 0, H3 = 0, g3run = false, g3last = 0, g3bugs = [], g3score = 0, g3end = 0, g3tongue = null, g3toastT, g3eaten = 0;
+  const g3plants = Array.from({ length: 7 }, (_, i) => ({ x: (i + .5) / 7, h: 40 + Math.random() * 50, s: Math.random() }));
+  function sizeGame3() {
+    const r = cv3.getBoundingClientRect();
+    if (!r.width) return;
+    const dpr = Math.min(2, devicePixelRatio || 1);
+    W3 = r.width; H3 = r.height;
+    cv3.width = W3 * dpr; cv3.height = H3 * dpr;
+    c3.setTransform(dpr, 0, 0, dpr, 0, 0);
+    if (!g3run) draw3(0);
+  }
+  const mouth3 = () => ({ x: W3 / 2, y: H3 - 92 });
+  function spawnBug() {
+    const worm = Math.random() < .35;
+    const side = Math.floor(Math.random() * 3);
+    const x = side === 0 ? -20 : side === 1 ? W3 + 20 : 30 + Math.random() * (W3 - 60);
+    const y = side === 2 ? -20 : 40 + Math.random() * (H3 - 200);
+    const toward = Math.atan2(H3 * .4 - y, W3 / 2 - x) + (Math.random() - .5);
+    g3bugs.push({ worm, x, y, a: toward, v: worm ? .9 + Math.random() * .5 : 2.2 + Math.random() * 1.4, ph: Math.random() * 6, turn: 0 });
+  }
+  function drawRoach(b) {
+    c3.save(); c3.translate(b.x, b.y); c3.rotate(b.a);
+    c3.strokeStyle = '#2b1b2a'; c3.lineWidth = 1.6; c3.lineCap = 'round';
+    const w = Math.sin(b.ph * 3) * 3;
+    [-6, 0, 6].forEach((lx, i) => { c3.beginPath(); c3.moveTo(lx, 0); c3.lineTo(lx + (i % 2 ? w : -w), -11); c3.moveTo(lx, 0); c3.lineTo(lx + (i % 2 ? -w : w), 11); c3.stroke(); });
+    c3.beginPath(); c3.moveTo(12, -2); c3.quadraticCurveTo(22, -8, 26, -12); c3.moveTo(12, 2); c3.quadraticCurveTo(22, 8, 26, 12); c3.stroke();
+    c3.fillStyle = '#7a4a2e'; c3.beginPath(); c3.ellipse(0, 0, 12, 7, 0, 0, 7); c3.fill(); c3.lineWidth = 2; c3.stroke();
+    c3.fillStyle = '#5a3420'; c3.beginPath(); c3.ellipse(11, 0, 4.5, 5, 0, 0, 7); c3.fill(); c3.stroke();
+    c3.strokeStyle = 'rgba(255,255,255,.35)'; c3.beginPath(); c3.moveTo(-8, -3); c3.lineTo(4, -3); c3.stroke();
+    c3.restore();
+  }
+  function drawWorm(b) {
+    c3.save(); c3.translate(b.x, b.y); c3.rotate(b.a);
+    for (let i = 6; i >= 0; i--) {
+      const px = -i * 6, py = Math.sin(b.ph * 2 + i * .9) * 3;
+      c3.fillStyle = i === 0 ? '#8a5a34' : (i % 2 ? '#e8c27a' : '#d9a85a');
+      c3.strokeStyle = '#2b1b2a'; c3.lineWidth = 1.5;
+      c3.beginPath(); c3.arc(px, py, i === 0 ? 5 : 5.5, 0, 7); c3.fill(); c3.stroke();
+    }
+    c3.restore();
+  }
+  function draw3(t) {
+    c3.clearRect(0, 0, W3, H3);
+    g3plants.forEach(pl => {
+      c3.strokeStyle = '#4f8a3a'; c3.lineWidth = 5; c3.lineCap = 'round';
+      const x = pl.x * W3, base = H3 - 30, sway = Math.sin(t / 900 + pl.s * 6) * 4;
+      c3.beginPath(); c3.moveTo(x, base); c3.quadraticCurveTo(x + sway, base - pl.h / 2, x + sway * 2, base - pl.h); c3.stroke();
+      c3.beginPath(); c3.moveTo(x + 6, base); c3.quadraticCurveTo(x + 12 + sway, base - pl.h / 3, x + 16 + sway, base - pl.h * .6); c3.stroke();
+    });
+    c3.fillStyle = '#d9b77a'; c3.fillRect(0, H3 - 30, W3, 30);
+    c3.fillStyle = 'rgba(138,90,52,.35)';
+    for (let x = 8; x < W3; x += 23) { c3.beginPath(); c3.arc(x, H3 - 14 + (x % 3) * 4, 2, 0, 7); c3.fill(); }
+    g3bugs.forEach(b => b.worm ? drawWorm(b) : drawRoach(b));
+    const m = mouth3();
+    if (g3tongue) {
+      const k = g3tongue.k < .5 ? g3tongue.k * 2 : (1 - g3tongue.k) * 2;
+      const tx = m.x + (g3tongue.x - m.x) * k, ty = m.y + (g3tongue.y - m.y) * k;
+      c3.strokeStyle = '#ff6fa3'; c3.lineWidth = 6; c3.lineCap = 'round';
+      c3.beginPath(); c3.moveTo(m.x, m.y); c3.lineTo(tx, ty); c3.stroke();
+      c3.fillStyle = '#ff6fa3'; c3.beginPath(); c3.arc(tx, ty, 6, 0, 7); c3.fill();
+      if (g3tongue.bug && g3tongue.k >= .5) { g3tongue.bug.x = tx; g3tongue.bug.y = ty; g3tongue.bug.worm ? drawWorm(g3tongue.bug) : drawRoach(g3tongue.bug); }
+    }
+    const o = IMG.gecko;
+    if (o && o.img.naturalWidth) { const w = 120, h = w * o.ratio; c3.drawImage(o.img, W3 / 2 - w / 2, H3 - h - 6, w, h); }
+  }
+  function toast3(text) {
+    const tt = $('#toast3'); tt.textContent = text; tt.classList.add('show');
+    clearTimeout(g3toastT); g3toastT = setTimeout(() => tt.classList.remove('show'), 700);
+  }
+  function loop3(t) {
+    if (!g3run) return;
+    const dt = Math.min(48, t - g3last || 16) / 16.67; g3last = t;
+    const left = Math.max(0, Math.ceil((g3end - t) / 1000));
+    $('#time3').textContent = `${left} с`;
+    while (g3bugs.length < 6) spawnBug();
+    g3bugs.forEach(b => {
+      if (g3tongue && g3tongue.bug === b) return;
+      b.ph += .15 * dt;
+      if (Math.random() < .02 * dt) b.turn = (Math.random() - .5) * .12;
+      b.a += b.turn * dt;
+      b.x += Math.cos(b.a) * b.v * dt; b.y += Math.sin(b.a) * b.v * dt;
+      if (b.x < 15 && Math.cos(b.a) < 0) b.a = Math.PI - b.a;
+      if (b.x > W3 - 15 && Math.cos(b.a) > 0) b.a = Math.PI - b.a;
+      if (b.y < 15 && Math.sin(b.a) < 0) b.a = -b.a;
+      if (b.y > H3 - 150 && Math.sin(b.a) > 0) b.a = -b.a;
+    });
+    if (g3tongue) {
+      g3tongue.k += dt / 14;
+      if (g3tongue.k >= 1) {
+        if (g3tongue.bug) {
+          g3bugs = g3bugs.filter(b => b !== g3tongue.bug);
+          g3score += g3tongue.bug.worm ? 2 : 1; g3eaten++;
+          $('#score3').textContent = Math.min(g3score, G3_GOAL);
+          toast3(g3tongue.bug.worm ? 'зоофобас! +2' : ['хрум!', 'ням!', 'смакота!', 'ще!'][g3eaten % 4]);
+        }
+        g3tongue = null;
+      }
+    }
+    draw3(t);
+    if (g3score >= G3_GOAL) return end3(true);
+    if (t >= g3end) return end3(false);
+    requestAnimationFrame(loop3);
+  }
+  function tap3(e) {
+    if (!g3run || g3tongue) return;
+    e.preventDefault();
+    const r = cv3.getBoundingClientRect(), x = e.clientX - r.left, y = e.clientY - r.top;
+    let best = null, bd = 34;
+    g3bugs.forEach(b => { const d = Math.hypot(b.x - x, b.y - y); if (d < bd) { bd = d; best = b; } });
+    g3tongue = best ? { x: best.x, y: best.y, k: 0, bug: best } : { x, y, k: 0, bug: null };
+    if (!best) toast3('мимо!');
+  }
+  function start3() {
+    sizeGame3();
+    g3bugs = []; g3score = 0; g3eaten = 0; g3tongue = null;
+    $('#score3').textContent = 0;
+    $('#ov3').hidden = true; g3run = true;
+    g3last = performance.now(); g3end = g3last + G3_TIME * 1000;
+    requestAnimationFrame(loop3);
+  }
+  function end3(won) {
+    g3run = false; g3tongue = null; draw3(0);
+    $('#ov3Text').textContent = won ? 'Гешик ситий і задоволений!' : 'Гешик ще трохи голодний';
+    $('#ov3Small').textContent = won ? `Найгрізніший дракон тепер мурчить, як котик (з'їдено: ${g3eaten})` : `Набрано ${g3score} з ${G3_GOAL}. Ще разок?`;
+    $('#start3').textContent = 'Ще раз';
+    $('#ov3').hidden = false;
+    if (won) floatHearts(...centerOf(box3), 10);
+  }
+  cv3.addEventListener('pointerdown', tap3);
+  $('#start3').addEventListener('click', start3);
+  addEventListener('resize', sizeGame3);
 
   /* ===== лист ===== */
   $('#letterTitle').textContent = CONFIG.letterTitle;
