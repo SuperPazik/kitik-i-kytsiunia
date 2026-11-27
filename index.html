@@ -292,12 +292,12 @@ p{margin:0}
 .cs-head span{width:78px;flex:none}
 .cs-head b{font-family:var(--display);font-size:28px;line-height:1;display:block}
 .cs-head p{color:var(--ink-soft);font-size:14px}
-.cs-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px}
-.cs-coupon{display:flex;flex-direction:column;gap:3px;align-items:center;text-align:center;padding:7px 6px 8px;border:2px dashed var(--space);border-radius:12px;background:#fdf3d6;min-width:0}
-.cs-art{width:34px;flex:none;display:flex;justify-content:center}
-.cs-art svg{max-height:30px;width:auto;max-width:34px}
-.cs-coupon small{display:block;font-size:9px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:var(--space)}
-.cs-coupon b{font-family:var(--display);font-size:17px;line-height:1;display:block}
+.cs-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:6px}
+.cs-coupon{display:flex;flex-direction:column;gap:2px;align-items:center;text-align:center;padding:6px 4px 7px;border:2px dashed var(--space);border-radius:12px;background:#fdf3d6;min-width:0}
+.cs-art{width:30px;flex:none;display:flex;justify-content:center}
+.cs-art svg{max-height:26px;width:auto;max-width:30px}
+.cs-coupon small{display:block;font-size:8px;font-weight:800;letter-spacing:.04em;text-transform:uppercase;color:var(--space)}
+.cs-coupon b{font-family:var(--display);font-size:15px;line-height:1;display:block;-webkit-hyphens:auto;hyphens:auto}
 .cs-foot{text-align:center;color:var(--ink-soft);font-size:13px;margin-top:12px}
 
 /* ---------- fortune ---------- */
@@ -322,14 +322,6 @@ p{margin:0}
 .overlay{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:14px;text-align:center;padding:20px;background:rgba(92,17,55,.72);backdrop-filter:blur(2px)}
 .overlay p{font-family:var(--display);font-size:clamp(34px,5vw,46px);line-height:1;max-width:18ch}
 .overlay small{font-size:15px;color:var(--chalk-dim);max-width:36ch}
-
-/* ---------- letter ---------- */
-.letter{position:relative;max-width:680px;margin:0 auto;padding:clamp(26px,5vw,48px);color:var(--ink);background:#fdf3d6;border-radius:10px;box-shadow:0 0 0 6px var(--paper),4px 8px 0 6px rgba(43,10,28,.35);background-image:repeating-linear-gradient(180deg,transparent 0 33px,rgba(126,27,76,.14) 33px 34px);animation:fadeIn .7s ease}
-.letter .eyebrow{color:var(--space);padding-right:100px}
-.letter h2{margin-bottom:14px}
-.letter-text{display:flex;flex-direction:column;gap:14px;font-size:18px;line-height:34px;max-width:60ch}
-.sign{font-family:var(--display);font-size:32px;margin-top:18px;text-align:right}
-.letter .stamp{position:absolute;top:-40px;right:18px;width:96px;transform:rotate(9deg)}
 
 /* ---------- future ---------- */
 .future{text-align:center;padding-block:30px 60px}
@@ -683,12 +675,12 @@ footer{text-align:center;color:var(--chalk-dim);font-size:14px;padding-block:0 4
   <!-- 10 побачень -->
   <section class="wrap" id="datesSec">
     <p class="eyebrow">Наш наступний рік</p>
-    <h2>Збери 15 побачень</h2>
-    <p class="sub">Обери з цього списку рівно 15 побачень, які хочеш у наступному році. Є й такі, яких у нас ще не було. Отримаєш купони: зроби скріншот і пред'являй кітику, коли захочеш.</p>
-    <div class="dates-bar"><span id="datesCount">Обрано 0 з 15</span><button class="btn pink" id="datesDone" disabled>Отримати купони</button></div>
+    <h2>Збери 20 побачень</h2>
+    <p class="sub">Обери з цього списку рівно 20 побачень, які хочеш у наступному році. Є й такі, яких у нас ще не було. Отримаєш купони: зроби скріншот і пред'являй кітику, коли захочеш.</p>
+    <div class="dates-bar"><span id="datesCount">Обрано 0 з 20</span><button class="btn pink" id="datesDone" disabled>Отримати купони</button></div>
     <div class="dates-grid" id="datesGrid"></div>
     <p class="dates-note" id="datesNote" aria-live="polite"></p>
-    <div class="coupon-sheet" id="couponSheet" hidden>
+    <div class="coupon-sheet" id="couponSheet" lang="uk" hidden>
       <div class="cs-head"><span data-art="catsTogether"></span><div><b>Купони на побачення</b><p>Для кицюні від кітика. Дійсні весь наступний рік і навіть довше.</p></div></div>
       <div class="cs-grid" id="csGrid"></div>
       <p class="cs-foot">Зроби скріншот, щоб не загубити</p>
@@ -706,11 +698,10 @@ footer{text-align:center;color:var(--chalk-dim);font-size:14px;padding-block:0 4
       <div class="hud"><span class="score">смаколики: <span id="score">0</span>/12</span><span class="toast" id="toast"></span></div>
       <div class="overlay" id="ov">
         <p id="ovText">Кицюня зголодніла</p>
-        <small id="ovSmall">У кінці на тебе чекає лист</small>
+        <small id="ovSmall">12 смаколиків, і кицюня задоволена</small>
         <button class="btn" id="startBtn">Грати</button>
       </div>
     </div>
-    <button class="link" id="skip">Пропустити гру й одразу відкрити лист</button>
   </section>
 
   <!-- гра з капібарою -->
@@ -745,16 +736,6 @@ footer{text-align:center;color:var(--chalk-dim);font-size:14px;padding-block:0 4
     </div>
   </section>
 
-  <!-- лист -->
-  <section class="wrap" id="letterSec" hidden>
-    <div class="letter">
-      <span class="stamp" data-art="stamp"></span>
-      <p class="eyebrow">Лист від кітика</p>
-      <h2 id="letterTitle">Моїй кицюні</h2>
-      <div class="letter-text" id="letterText"></div>
-      <p class="sign" id="sign">Твій кітик</p>
-    </div>
-  </section>
 
   <!-- передбачення -->
   <section class="wrap">
@@ -830,14 +811,6 @@ const CONFIG = {
     "Купон: я відвезу тебе, куди захочеш"
   ],
 
-  letterTitle: "Моїй кицюні",
-  letter: [
-    "Восьмого листопада ми знайшли одне одного, як ті два котики на планетці. А двадцять восьмого я запропонував тобі зустрічатися. Досі вважаю це найкращим рішенням у своєму житті.",
-    "За цей рік у нас було стільки всього: театр і кіношки, наш поцілунок на КПІ, Ужгород, Паска Фест, Чернівці, Рим, Амальфі й Позітано, а тепер ще й Буковель. А ще прогулянки Золотими воротами, пішохідним мостом і Гідропарком, світанок у ботсаду, Зимова країна, зоопарк і концерти.",
-    "Ти красива, як нічний Париж, і рідна, як улюблена м'яка іграшка. Ти моя Сабріна, моя Люсія, моя Мінні, моє ягнятко і моя кицюня.",
-    "Ми з тобою класна пара, і я дуже чекаю всього, що в нас попереду. А Містер Капібара хай і далі охороняє тебе в бесі, поки мене немає поруч.",
-    "Я кохаю тебе безмежно. З нашою першою річницею!"
-  ],
 
   // місця для прогулянок
   walks: [
@@ -1853,9 +1826,9 @@ document.querySelectorAll('[data-art]').forEach(el => el.innerHTML = sticker(el.
     floatHearts(...centerOf(b), 3);
   }));
 
-  /* ===== 15 побачень ===== */
+  /* ===== 20 побачень ===== */
   (() => {
-    const MAX = 15, chosen = [];
+    const MAX = 20, chosen = [];
     const grid = $('#datesGrid');
     const update = () => {
       $('#datesCount').textContent = `Обрано ${chosen.length} з ${MAX}`;
@@ -1871,7 +1844,7 @@ document.querySelectorAll('[data-art]').forEach(el => el.innerHTML = sticker(el.
       b.addEventListener('click', () => {
         const at = chosen.indexOf(i);
         if (at >= 0) { chosen.splice(at, 1); b.setAttribute('aria-pressed', 'false'); $('#datesNote').textContent = ''; }
-        else if (chosen.length >= MAX) { $('#datesNote').textContent = 'Уже 15! Зніми якесь, щоб обрати інше.'; return; }
+        else if (chosen.length >= MAX) { $('#datesNote').textContent = 'Уже 20! Зніми якесь, щоб обрати інше.'; return; }
         else { chosen.push(i); b.setAttribute('aria-pressed', 'true'); $('#datesNote').textContent = chosen.length === MAX ? 'Ідеально! Тепер натискай «Отримати купони».' : ''; }
         update();
       });
@@ -2040,18 +2013,12 @@ document.querySelectorAll('[data-art]').forEach(el => el.innerHTML = sticker(el.
     lastT = performance.now(); lastSpawn = lastT;
     requestAnimationFrame(loop);
   }
-  function openLetter() {
-    $('#letterSec').hidden = false;
-    $('#letterSec').scrollIntoView({ behavior: reduced ? 'auto' : 'smooth', block: 'start' });
-  }
   function win() {
     running = false; items = []; happyUntil = Infinity; draw(0);
     $('#ovText').textContent = 'Кицюня сита й задоволена!';
-    $('#ovSmall').textContent = 'Лист відкрився нижче';
-    $('#startBtn').textContent = 'Читати лист';
-    $('#startBtn').onclick = openLetter;
+    $('#ovSmall').textContent = 'Усі 12 смаколиків з\'їдено';
+    $('#startBtn').textContent = 'Ще раз';
     $('#ov').hidden = false;
-    $('#letterSec').hidden = false;
     floatHearts(...centerOf(box), 10);
   }
   const setTarget = e => { const r = cv.getBoundingClientRect(); targetX = Math.min(Math.max(e.clientX - r.left, 50), W - 50); };
@@ -2063,7 +2030,6 @@ document.querySelectorAll('[data-art]').forEach(el => el.innerHTML = sticker(el.
     if (e.key === 'ArrowRight') { targetX = Math.min(W - 50, targetX + 55); e.preventDefault(); }
   });
   $('#startBtn').onclick = startGame;
-  $('#skip').addEventListener('click', openLetter);
   addEventListener('resize', sizeGame);
 
   /* ===== гра «Містер Капібара за кермом» ===== */
@@ -2324,11 +2290,6 @@ document.querySelectorAll('[data-art]').forEach(el => el.innerHTML = sticker(el.
   cv3.addEventListener('pointerdown', tap3);
   $('#start3').addEventListener('click', start3);
   addEventListener('resize', sizeGame3);
-
-  /* ===== лист ===== */
-  $('#letterTitle').textContent = CONFIG.letterTitle;
-  $('#sign').textContent = CONFIG.sign;
-  CONFIG.letter.forEach(t => { const p = document.createElement('p'); p.textContent = t; $('#letterText').append(p); });
 
   /* ===== фінал ===== */
   const no = $('#no'), yes = $('#yes'), answers = $('#answers');
